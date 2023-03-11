@@ -1,7 +1,9 @@
 const express = require("express")
 const {SignUp, Login} = require("../controllers/userAuth")
+const {getData, postDemoData} = require("../controllers/AuthDemo")
 const userRouter = express.Router()
 const {userModel, UserSchema} = require("../models/userAuth")
+const {AuthdemoSchema, authdemoModel} = require("../models/AuthDemo");
 
 userRouter.get("/", async (req,res) => {
     try{
@@ -12,6 +14,7 @@ userRouter.get("/", async (req,res) => {
         res.send("✖ Something went wrong!!")
     }
 })
+
 userRouter.post("/signup", SignUp)
 userRouter.post("/signin", Login)
 userRouter.delete("/delete/:id", async (req, res) => {
@@ -30,5 +33,6 @@ userRouter.delete("/delete/:id", async (req, res) => {
         console.log(error)
     }
 })
-
+userRouter.get("/getDemoDatas", getData);
+userRouter.post("/postDemoDatas", postDemoData);
 module.exports = userRouter
