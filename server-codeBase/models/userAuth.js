@@ -2,8 +2,8 @@ const mongoose = require("mongoose")
 const UserSchema = mongoose.Schema({
     firstname: {type:String, required:true},
     surename: {type:String, required:true},
-    profile_pic: {type:String, required:true, default:""},
-    cover_pic: {type:String, default:""},
+    profile_pic: {type:String, required:true, default:"https://w7.pngwing.com/pngs/406/861/png-transparent-default-facebook-user-profile-blue-silhouette-neck-symbol-sky-folder-users-blue-silhouette-application.png"},
+    cover_pic: {type:String, default:"https://alejandrorioja.com/wp-content/uploads/2019/03/800px-Facebook_New_Logo_2015.svg_.png"},
     mobile: {type:Number},
     email: {type:String, required:true},
     password: {type:String, required:true},
