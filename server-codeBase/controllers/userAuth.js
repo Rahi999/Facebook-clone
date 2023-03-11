@@ -29,8 +29,11 @@ const SignUp = async (req, res) => {
                     console.log(err)
                 }else{
                     const user = new userModel({...req.body, password: secure_password})
-                    await user.save()
-                    return res.status(200).json({message: "Account created successfully!!!"})
+                    await user.save();
+                    const token = jwt.sign({userId: user._id}, process.env.SECRET_KEY)
+                    return res.status(200).json({message: "Account created successfully!!!",userId: user._id,
+                     firstname: user.firstname, profile_pic: user.profile_pic, cover_pic: user.cover_pic
+                     ,token: token})
                 }
             })
         }
