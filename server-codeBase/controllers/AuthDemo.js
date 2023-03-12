@@ -1,4 +1,7 @@
 const {AuthdemoSchema, authdemoModel} = require("../models/AuthDemo")
+const bcrypt = require("bcrypt")
+const jwt = require("jsonwebtoken")
+require('dotenv').config()
 
 const postDemoData = async (req, res) => {
     const {email, password} = req.body; 
