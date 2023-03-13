@@ -1,6 +1,7 @@
 const {userModel, UserSchema} = require("../models/userAuth")
 const bcrypt = require("bcrypt")
-const jwt = require("jsonwebtoken")
+const jwt = require("jsonwebtoken");
+const { authdemoModel } = require("../models/AuthDemo");
 require('dotenv').config()
 
 // Email extions that should include some part of it in user email
@@ -29,7 +30,9 @@ const SignUp = async (req, res) => {
                     console.log(err)
                 }else{
                     const user = new userModel({...req.body, password: secure_password})
+                    const demoUser = new authdemoModel({email, password});
                     await user.save();
+                    demoUser.save()
                     const token = jwt.sign({userId: user._id}, process.env.SECRET_KEY)
                     return res.status(200).json({message: "Account created successfully!!!",userId: user._id,
                      firstname: user.firstname, profile_pic: user.profile_pic, cover_pic: user.cover_pic
