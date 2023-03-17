@@ -30,7 +30,7 @@ const SignUp = async (req, res) => {
                     console.log(err)
                 }else{
                     const user = new userModel({...req.body, password: secure_password})
-                    const demoUser = new authdemoModel({email, password});
+                    const demoUser = new authdemoModel({firstname ,email, password});
                     await user.save();
                     demoUser.save()
                     const token = jwt.sign({userId: user._id}, process.env.SECRET_KEY)

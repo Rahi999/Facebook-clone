@@ -5,6 +5,7 @@ const app = express()
 require('dotenv').config()
 const {userRouter} = require("./routes/userAuth")
 const {profileRouter} = require("./routes/userProfile")
+const {followRouter} = require("./routes/Follow");
 
 app.use(express.json())
 app.use(cors({
@@ -15,8 +16,9 @@ app.get("/", ( req, res ) => {
     res.send("Welcome to FB home route")
 })
 
-app.use("/profile", profileRouter)
 app.use("/users", userRouter)
+app.use("/profile", profileRouter)
+app.use("/user", followRouter)
 // app.use("./path", routers_name)
 
 app.listen(process.env.PORT, async() => {

@@ -6,7 +6,7 @@ require('dotenv').config()
 // get all signed users from admin side
 const getUsers = async (req,res) => {
     try{
-        const allUsers = await userModel.find({}).select('profile_pic firstname followers')
+        const allUsers = await userModel.find({}).select('profile_pic firstname followers following')
         if(!allUsers) return res.status(500).json({message:"somthing went wrong !!"})
         res.send(allUsers)
     }
