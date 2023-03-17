@@ -36,14 +36,13 @@ const UnFollow = async (req , res) => {
             // Taking sender_userID and reciever_userID from user
             const unfollow_sender = await userModel.findById(req.body.userId);
             const unfollow_reciever = await userModel.findById(req.params.userId);
-            // Checking if user is already not following this user
+            // Checking if user is following this user
             if(unfollow_reciever.followers.includes(unfollow_sender._id) && 
             unfollow_sender.following.includes(unfollow_reciever._id)){
                 // updating the followers list of reciever
                 await unfollow_reciever.updateOne({ $pull : {followers: unfollow_sender._id}});
                 // updating the following list of sender
                 await unfollow_sender.updateOne({$pull : {following: unfollow_reciever._id}});
-                // console.log(follow_sender.following)
                 return res.status(200).json({message: "Unfollowed succeed!!"})
             }
             else{
