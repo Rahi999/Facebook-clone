@@ -6,7 +6,7 @@ require('dotenv').config()
 const {userRouter} = require("./routes/userAuth")
 const {profileRouter} = require("./routes/userProfile")
 const {followRouter} = require("./routes/Follow");
-
+const {postRouter} = require("./routes/Post")
 app.use(express.json())
 app.use(cors({
     origin: "*"
@@ -19,6 +19,7 @@ app.get("/", ( req, res ) => {
 app.use("/users", userRouter)
 app.use("/profile", profileRouter)
 app.use("/user", followRouter)
+app.use("/post", postRouter)
 // app.use("./path", routers_name)
 
 app.listen(process.env.PORT, async() => {
