@@ -3,26 +3,9 @@ const {userModel} = require("../models/userAuth");
 
 const createPost = async (req, res) => {
     try{
-        const {content} = req.body;
-        console.log(content)
-        console.log(req.files)
-        let imagesUrl = [];
-        if(req.files.length){
-            req.files.map(file => {
-                imagesUrl.push(`${req.protocol}://${req.get("host")}/public/uploads/${file.filename}`);
-            })
-        }
-        if(!content) return res.status(403).json({message:"please add some content !!"});
-        const newPost = new Post({...req.body, images:imagesUrl , lang:arabic.test(content) ? "AR" :"EN" , user:req.user._id});
-        if(!newPost) return res.status(500).json({message:"smothing went wrong !!"});
-        //save post in db
-        await newPost.save();
-        // to get get user data 
-        let fullPost = await newPost.populate('user',"username profile_pic")
-        return res.status(200).json(fullPost);
-        // const post = await new PostModel(req.body).save();
-        // await post.populate("user", "firstname surename profile_pic cover_pic");
-        // return res.status(200).json({message: "OK", post: post})
+        const post = await new PostModel(req.body).save();
+        await post.populate("user", "firstname surename profile_pic cover_pic");
+        return res.status(200).json({message: "OK", post: post})
     }
     catch(error){
         return res.status(500).json({message: error.message})

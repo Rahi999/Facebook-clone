@@ -11,11 +11,12 @@ app.use(express.json())
 app.use(cors({
     origin: "*"
 }))
+app.use(express.json({limit:"100mb"}));
+app.use('/public/uploads' , express.static(__dirname + '/public/uploads'));
 
 app.get("/", ( req, res ) => {
     res.send("Welcome to FB home route")
 })
-
 app.use("/users", userRouter)
 app.use("/profile", profileRouter)
 app.use("/user", followRouter)
