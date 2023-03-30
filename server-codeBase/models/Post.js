@@ -4,15 +4,15 @@ const {ObjectId } = mongoose.Schema;
 const postSchema = mongoose.Schema({
     type: {type: String,  default:null},
     text: {type: String},
-    images : [
-        {type: String}
-    ],
+    images : {type: String},
+    date : {type : String, required: true},
     user: {type: ObjectId, ref: "user", required: true},
     background: {type: String},
+    likes : [{type: String}],
     comments: [
         {comment: {type: String},
          images: {type: String},
-         commentsBy : {type: ObjectId, ref: "user"},
+         user: {type: ObjectId, ref: "user", required: true},
          commentAt: {type: Date, requried: true}
     }]
 }, {timeStamp: true})

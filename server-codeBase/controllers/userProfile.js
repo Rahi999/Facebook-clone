@@ -7,7 +7,7 @@ require('dotenv').config()
 const getUsers = async (req,res) => {
     try{
         const allUsers = await userModel.find({}).select('profile_pic firstname followers following')
-        if(!allUsers) return res.status(500).json({message:"somthing went wrong !!"})
+        if(!allUsers) return res.status(500).json({message:"Error occured!!"})
         res.send(allUsers)
     }
     catch (error){
@@ -72,5 +72,16 @@ const deleteUser = async (req, res) => {
     }
 }
 
+const search = async (req, res) => {
+    try {
+      const query = req.params.query;
+      const results = await userModel.find({ $text: { $search: query } }).select(
+        "firstname surename profile_pic"
+      );
+      res.json(results);
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+  };
 
-module.exports = {getUsers, getSingleUser, editUser, deleteUser}
+module.exports = {search, getUsers, getSingleUser, editUser, deleteUser}

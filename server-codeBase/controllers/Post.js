@@ -26,10 +26,28 @@ const getAllPosts = async (req, res) => {
 }
 
 const addComment = async (req, res) => {
-    try{
+    try {
+      const { comment, image, postId } = req.body;
+      let newComments = await PostModel.findByIdAndUpdate(
+        postId,
+        {
+          $push: {
+            comments: {
+              comment: comment,
+              image: image,
+              user: req.body.user,
+              commentAt: new Date(),
+            },
+          },
+        },
+        {
+          new: true,
+        }
+      ).populate("comments.user", "profile_pic firstname surename");
+      res.json(newComments.comments);
+    } catch (error) {
+      return res.status(500).json({ message: error.message });
     }
-    catch(error){
-        return res.status(500).json({message: error.message})
-    }
-}
+  };
+  
 module.exports = {createPost, getAllPosts, addComment}
