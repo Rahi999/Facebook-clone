@@ -7,6 +7,7 @@ const {userRouter} = require("./routes/userAuth")
 const {profileRouter} = require("./routes/userProfile")
 const {followRouter} = require("./routes/Follow");
 const {postRouter} = require("./routes/Post")
+const {storyRouter} = require("./routes/story")
 app.use(express.json())
 app.use(cors({
     origin: "*"
@@ -21,6 +22,7 @@ app.use("/users", userRouter)
 app.use("/profile", profileRouter)
 app.use("/user", followRouter)
 app.use("/post", postRouter)
+app.use("/story", storyRouter)
 
 app.listen(process.env.PORT, async() => {
     try{
