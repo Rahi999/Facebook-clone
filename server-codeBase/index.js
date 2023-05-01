@@ -21,7 +21,6 @@ app.use("/users", userRouter)
 app.use("/profile", profileRouter)
 app.use("/user", followRouter)
 app.use("/post", postRouter)
-// app.use("./path", routers_name)
 
 app.listen(process.env.PORT, async() => {
     try{
