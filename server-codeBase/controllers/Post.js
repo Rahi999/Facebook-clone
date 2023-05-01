@@ -17,7 +17,7 @@ const getAllPosts = async (req, res) => {
         const getPosts = await PostModel.find({})
         .populate('user', "firstname surename profile_pic")
         .populate({path: "comments", populate: {path: 'user', model: 'user', select: "firstname surename profile_pic"}})
-        .sort({"createdAt": -1});
+        .sort({'_id':'descending'});
         return res.status(200).json(getPosts)
     }
     catch(error){
@@ -27,16 +27,16 @@ const getAllPosts = async (req, res) => {
 
 const addComment = async (req, res) => {
     try {
-      const { comment, image, postId } = req.body;
+      const { comment, image, postId, user, commentAt} = req.body;
       let newComments = await PostModel.findByIdAndUpdate(
         postId,
         {
           $push: {
             comments: {
               comment: comment,
-              image: image,
+              images: image,
               user: req.body.user,
-              commentAt: new Date(),
+              commentAt: req.body.commentAt,
             },
           },
         },
@@ -49,5 +49,41 @@ const addComment = async (req, res) => {
       return res.status(500).json({ message: error.message });
     }
   };
+
+  const likePost = async (req, res) => {
+    const {likerId} = req.body
+    const {postId} = req.params
+    try {
+          const post_liker = await userModel.findById(likerId);
+          const post = await PostModel.findById(postId);
+          if(!post.likes.includes(post_liker._id)){
+              await post.updateOne({ $push : {likes: post_liker._id}})
+              return res.status(200).json({message: "Liked success!!"})
+          }
+          else{
+              return res.status(400).json({message:"You've already liked this post!"})
+          }
+  } catch (error) {
+      return res.status(500).json(error.message);
+  }
+  }
+
+  const dislikePost = async (req, res) => {
+    const {dislikerId} = req.body
+    const {postId} = req.params
+    try {
+          const post_disliker = await userModel.findById(dislikerId);
+          const post = await PostModel.findById(postId);
+          if(!post.dislikes.includes(post_disliker._id)){
+              await post.updateOne({ $push : {dislikes: post_disliker._id}})
+              return res.status(200).json({message: "DisLiked success!!"})
+          }
+          else{
+              return res.status(400).json({message:"You've already disliked this post!"})
+          }
+  } catch (error) {
+      return res.status(500).json(error.message);
+  }
+  }
   
-module.exports = {createPost, getAllPosts, addComment}
+module.exports = {createPost, getAllPosts, addComment, likePost, dislikePost}

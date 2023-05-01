@@ -14,7 +14,7 @@ const postSchema = mongoose.Schema({
         {comment: {type: String},
          images: {type: String},
          user: {type: ObjectId, ref: "user", required: true},
-         commentAt: {type: Date, requried: true}
+         commentAt: {type: String, requried: true}
     }]
 }, {timeStamp: true})
 
