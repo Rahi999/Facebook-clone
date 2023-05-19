@@ -30,7 +30,6 @@ import {
   FiStar,
   FiSettings,
   FiMenu,
-  FiBell,
   FiChevronDown,
 } from 'react-icons/fi';
 import { IconType } from 'react-icons';
