@@ -14,6 +14,7 @@ export default function Theme(props: ButtonProps) {
         onClick={toggleColorMode}
         _focus={{ boxShadow: 'none' }}
         w="fit-content"
+        mr="20px"
         {...props}>
         {colorMode === 'light' ? <BsMoonStarsFill /> : <BsSun />}
       </Button>
