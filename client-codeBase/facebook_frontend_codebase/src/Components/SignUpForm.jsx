@@ -18,6 +18,7 @@ import {
   } from '@chakra-ui/react';
   import { useState } from 'react';
   import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
+  import "./signupform.css"
   
   const SignUpForm = () => {
     const [showPassword, setShowPassword] = useState(false);
@@ -72,22 +73,28 @@ import {
                   </InputGroup>
                   <br />
                   <Text>Date of birth?</Text>
-                  <Input type="date" />
+                  <Input type="date" placeholder='DD / MM / YYYY' />
 
                   <br />
                   <br />
                   <Text>Gender?</Text>
                   <RadioGroup defaultValue='2'>
-                    <Stack spacing={5} direction='row'>
-                        <Radio id="GenderRadio" colorScheme='blue' value='1'>
-                        Radio
+                    <Stack spacing={5} direction='row' id="RadioBox">
+                       <Box id="GenderRadio">
+                       <Radio  colorScheme='blue' value='1'>
+                        Female
                         </Radio>
-                        <Radio id="GenderRadio" colorScheme='blue' value='2'>
-                        Radio
+                       </Box>
+                      <Box id="GenderRadio">
+                      <Radio colorScheme='blue' value='2'>
+                        Male
                         </Radio>
-                        <Radio id="GenderRadio" colorScheme='blue' value='3'>
-                        Radio
+                      </Box>
+                     <Box id="GenderRadio">
+                     <Radio colorScheme='blue' value='3'>
+                        Custom
                         </Radio>
+                     </Box>
                     </Stack>
                     </RadioGroup>
                 </FormControl>
@@ -105,7 +112,7 @@ import {
                 </Stack>
                 <Stack pt={6}>
                   <Text align={'center'}>
-                    Already a user? <Link color={'blue.400'}>Login</Link>
+                    Already a user? <Link color={'blue.400'} >Login</Link>
                   </Text>
                 </Stack>
               </Stack>

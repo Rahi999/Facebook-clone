@@ -32,7 +32,7 @@ const SignUp = () => {
         }}>
             Create new account
         </Button>
-      <Modal style={{borderRadius: "20px"}}
+      <Modal
         initialFocusRef={initialRef}
         finalFocusRef={finalRef}
         isOpen={isOpen}
@@ -41,7 +41,7 @@ const SignUp = () => {
         <ModalOverlay />
         <ModalContent>
           <ModalCloseButton />
-           <SignUpForm />
+           <SignUpForm  />
         </ModalContent>
       </Modal>
     </>
