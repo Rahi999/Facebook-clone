@@ -59,6 +59,9 @@ import {
                 <FormControl id="email" isRequired>
                   <Input type="email" placeholder='Email address' />
                 </FormControl>
+                <FormControl id="phone" isRequired>
+                  <Input type="tel" placeholder='Phone number' />
+                </FormControl>
                 <FormControl id="password" isRequired>
                   <InputGroup>
                     <Input type={showPassword ? 'text' : 'password'} placeholder='New password' />
