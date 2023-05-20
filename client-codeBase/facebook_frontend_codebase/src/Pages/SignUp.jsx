@@ -14,6 +14,7 @@ import {
   useDisclosure
 } from "@chakra-ui/react"
 import SignUpForm from "../Components/SignUpForm"
+import "./signup.css"
 
 const SignUp = () => {
   const { isOpen, onOpen, onClose } = useDisclosure()
@@ -32,14 +33,14 @@ const SignUp = () => {
         }}>
             Create new account
         </Button>
-      <Modal
+      <Modal 
         initialFocusRef={initialRef}
         finalFocusRef={finalRef}
         isOpen={isOpen}
         onClose={onClose}
       >
-        <ModalOverlay />
-        <ModalContent>
+        <ModalOverlay  />
+        <ModalContent >
           <ModalCloseButton />
            <SignUpForm  />
         </ModalContent>
