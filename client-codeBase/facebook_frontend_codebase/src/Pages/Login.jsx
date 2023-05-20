@@ -15,6 +15,7 @@ import {
   Image
 } from '@chakra-ui/react';
 import "./login.css"
+import SignUp from './SignUp';
 
  const Login = () => {
   return (<>
@@ -67,14 +68,7 @@ import "./login.css"
                 Log in
               </Button>
               <hr />
-              <Button
-                bg={'#42b72a'}
-                color={'white'}
-                _hover={{
-                  bg: 'green.500',
-                }}>
-                Create new account
-              </Button>
+              <SignUp />
             </Stack>
           </Stack>
         </Box>
