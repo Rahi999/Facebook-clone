@@ -28,7 +28,7 @@ import {
           align={'center'}
           justify={'center'}
           bg={useColorModeValue('gray.50', 'gray.800')}>
-          <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
+          <Stack spacing={0} mx={'auto'} maxW={'lg'} py={12} px={6}>
             <Stack align={'center'}>
               <Heading fontSize={'4xl'} textAlign={'center'}>
                 Sign Up
@@ -37,13 +37,14 @@ import {
               It's quick and easy.
               </Text>
             </Stack>
+            <hr />
             <Box
               rounded={'lg'}
               bg={useColorModeValue('gray.50', 'gray.800')}
             //   boxShadow={'lg'}
               p={8}>
               <Stack spacing={4}>
-                <HStack>
+                <Box id="firstlastnamebox">
                   <Box>
                     <FormControl id="firstName" isRequired>
                       <Input type="text" placeholder='First name' />
@@ -54,7 +55,7 @@ import {
                       <Input type="text" placeholder='Last name' />
                     </FormControl>
                   </Box>
-                </HStack>
+                </Box>
                 <FormControl id="email" isRequired>
                   <Input type="email" placeholder='Email address' />
                 </FormControl>
