@@ -1,4 +1,5 @@
 import React, { ReactNode } from 'react';
+import {Link} from "react-router-dom"
 import Theme from './Theme';
 import {
   IconButton,
@@ -10,7 +11,6 @@ import {
   VStack,
   Icon,
   useColorModeValue,
-  Link,
   Drawer,
   DrawerContent,
   Text,
@@ -35,11 +35,8 @@ import {
 import { IconType } from 'react-icons';
 import { ReactText } from 'react';
 
-interface LinkItemProps {
-  name: string;
-  icon: IconType;
-}
-const LinkItems: Array<LinkItemProps> = [
+
+const LinkItems = [
   { name: 'Home', icon: FiHome },
   { name: 'Trending', icon: FiTrendingUp },
   { name: 'Explore', icon: FiCompass },
@@ -48,9 +45,7 @@ const LinkItems: Array<LinkItemProps> = [
 ];
 
 export default function SideBar({
-  children,
-}: {
-  children: ReactNode;
+  children
 }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
@@ -80,11 +75,9 @@ export default function SideBar({
   );
 }
 
-interface SidebarProps extends BoxProps {
-  onClose: () => void;
-}
 
-const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
+
+const SidebarContent = ({ onClose, ...rest }) => {
   return (
     <Box
       transition="3s ease"
@@ -110,11 +103,8 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
   );
 };
 
-interface NavItemProps extends FlexProps {
-  icon: IconType;
-  children: ReactText;
-}
-const NavItem = ({ icon, children, ...rest }: NavItemProps) => {
+
+const NavItem = ({ icon, children, ...rest }) => {
   return (
     <Link href="#" style={{ textDecoration: 'none' }} _focus={{ boxShadow: 'none' }}>
       <Flex
@@ -145,10 +135,8 @@ const NavItem = ({ icon, children, ...rest }: NavItemProps) => {
   );
 };
 
-interface MobileProps extends FlexProps {
-  onOpen: () => void;
-}
-const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
+
+const MobileNav = ({ onOpen, ...rest }) => {
   return (
     <Flex
       ml={{ base: 0, md: 60 }}
@@ -211,7 +199,9 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
               borderColor={useColorModeValue('gray.200', 'gray.700')}>
               <MenuItem>Profile</MenuItem>
               <MenuItem>Settings</MenuItem>
-              <MenuItem>Billing</MenuItem>
+              <MenuItem>
+              <Link to="/login">LogIn</Link>
+              </MenuItem>
               <MenuDivider />
               <MenuItem>Sign out</MenuItem>
             </MenuList>
