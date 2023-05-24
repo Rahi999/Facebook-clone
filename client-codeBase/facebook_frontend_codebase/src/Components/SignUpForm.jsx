@@ -14,7 +14,9 @@ import {
     useColorModeValue,
     Link,
     Radio,
-    RadioGroup
+    RadioGroup,
+    FormHelperText,
+    FormErrorMessage
   } from '@chakra-ui/react';
   import { useState } from 'react';
   import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
@@ -22,6 +24,11 @@ import {
   
   const SignUpForm = () => {
     const [showPassword, setShowPassword] = useState(false);
+    const [email, setEmail] = useState('')
+
+    const handleEmailChange = (e) => setEmail(e.target.value)
+  
+    const isError = email === ''
     return (
         <Flex
           minH={'100vh'}
@@ -46,18 +53,28 @@ import {
               <Stack spacing={4}>
                 <Box id="firstlastnamebox">
                   <Box>
-                    <FormControl id="firstName" isRequired>
-                      <Input type="text" placeholder='First name' />
+                    <FormControl id="firstName" isRequired >
+                      <Input type="text" placeholder='First name'/>
                     </FormControl>
                   </Box>
                   <Box>
-                    <FormControl id="lastName" >
-                      <Input type="text" placeholder='Last name' />
+                    <FormControl id="lastName"  >
+                      <Input 
+                      type="text"
+                      placeholder='Last name'
+                      
+                      />
+                       
                     </FormControl>
                   </Box>
                 </Box>
-                <FormControl id="email" isRequired>
-                  <Input type="email" placeholder='Email address' />
+                <FormControl id="email" isRequired isInvalid={isError}>
+                  <Input type="email" placeholder='Email address'
+                  value={email}
+                  onChange={handleEmailChange}
+                  />
+                  {!isError ? (<FormHelperText>{null}</FormHelperText>) : (
+                              <FormErrorMessage>Email is required.</FormErrorMessage>)}
                 </FormControl>
                 <FormControl id="phone" isRequired>
                   <Input type="tel" placeholder='Phone number' />
