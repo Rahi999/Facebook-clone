@@ -1,3 +1,5 @@
+import {useNavigate} from "react-router-dom"
+import axios from "axios"
 import {
     Flex,
     Box,
@@ -14,13 +16,17 @@ import {
     useColorModeValue,
     Link,
     Radio,
-    RadioGroup
+    RadioGroup,
+    useToast,
+    useDisclosure
   } from '@chakra-ui/react';
   import { useState } from 'react';
   import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
   import "./signupform.css"
-  
+
   const SignUpForm = () => {
+    const navigate = useNavigate()
+    const toast = useToast()
     const [showPassword, setShowPassword] = useState(false);
     const [firstName, setFirstName] = useState('')
     const [lastName, setLastName] = useState('')
@@ -31,7 +37,68 @@ import {
     const [gender, setGender] = useState('Male')
 
     const handleSubmit = () => {
-      alert(firstName+lastName+email+phone+password+dob+gender)
+      if(!firstName || !lastName){
+        toast({
+          title: 'Name is required.',
+          description: "Please enter first & last name.",
+          position: "top",
+          status: 'info',
+          duration: 5000,
+          isClosable: true,
+        })
+      }
+      else if(!email){
+        toast({
+          title: 'Email is required.',
+          description: "Please enter an email.",
+          position: "top",
+          status: 'info',
+          duration: 5000,
+          isClosable: true,
+        })
+      }
+      else if(!phone){
+        toast({
+          title: 'Phone is required.',
+          description: "Please enter your phone number.",
+          position: "top",
+          status: 'info',
+          duration: 5000,
+          isClosable: true,
+        })
+      }
+      else if(!password){
+        toast({
+          title: 'Password is required.',
+          description: "Please set a password.",
+          position: "top",
+          status: 'info',
+          duration: 5000,
+          isClosable: true,
+        })
+      }
+      else if(!dob){
+        toast({
+          title: 'DOB is required.',
+          description: "Please select you date of birth.",
+          position: "top",
+          status: 'info',
+          duration: 5000,
+          isClosable: true,
+        })
+      }
+      else{
+
+        toast({
+          title: 'Account created.',
+          description: "We've created your account for you.",
+          position: "top",
+          status: 'success',
+          duration: 9000,
+          isClosable: true,
+        })
+        navigate("/")
+      }
     }
 
     return (
