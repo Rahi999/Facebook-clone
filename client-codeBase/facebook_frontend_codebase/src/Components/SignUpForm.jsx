@@ -14,9 +14,7 @@ import {
     useColorModeValue,
     Link,
     Radio,
-    RadioGroup,
-    FormHelperText,
-    FormErrorMessage
+    RadioGroup
   } from '@chakra-ui/react';
   import { useState } from 'react';
   import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
@@ -24,11 +22,18 @@ import {
   
   const SignUpForm = () => {
     const [showPassword, setShowPassword] = useState(false);
+    const [firstName, setFirstName] = useState('')
+    const [lastName, setLastName] = useState('')
     const [email, setEmail] = useState('')
+    const [phone, setPhone] = useState('')
+    const [password, setPassword] = useState('')
+    const [dob, setDOB] = useState('')
+    const [gender, setGender] = useState('Male')
 
-    const handleEmailChange = (e) => setEmail(e.target.value)
-  
-    const isError = email === ''
+    const handleSubmit = () => {
+      alert(firstName+lastName+email+phone+password+dob+gender)
+    }
+
     return (
         <Flex
           minH={'100vh'}
@@ -53,35 +58,46 @@ import {
               <Stack spacing={4}>
                 <Box id="firstlastnamebox">
                   <Box>
-                    <FormControl id="firstName" isRequired >
-                      <Input type="text" placeholder='First name'/>
-                    </FormControl>
-                  </Box>
-                  <Box>
-                    <FormControl id="lastName"  >
-                      <Input 
-                      type="text"
-                      placeholder='Last name'
-                      
-                      />
+                    <FormControl id="firstName" isRequired>
+                      <Input type="text"
+                       placeholder='First name'
+                       value={firstName}
+                       onChange={(e) => setFirstName(e.target.value)}
+                        />
                        
                     </FormControl>
                   </Box>
+                  <Box>
+                    <FormControl id="lastName" >
+                      <Input type="text"
+                       placeholder='Last name'
+                       value={lastName}
+                       onChange={(e) => setLastName(e.target.value)}
+                       />
+                    </FormControl>
+                  </Box>
                 </Box>
-                <FormControl id="email" isRequired isInvalid={isError}>
-                  <Input type="email" placeholder='Email address'
-                  value={email}
-                  onChange={handleEmailChange}
-                  />
-                  {!isError ? (<FormHelperText>{null}</FormHelperText>) : (
-                              <FormErrorMessage>Email is required.</FormErrorMessage>)}
+                <FormControl id="email" isRequired>
+                  <Input type="email"
+                   placeholder='Email address'
+                   value={email}
+                   onChange={(e) => setEmail(e.target.value)}
+                   />
                 </FormControl>
                 <FormControl id="phone" isRequired>
-                  <Input type="tel" placeholder='Phone number' />
+                  <Input type="tel" 
+                  placeholder='Phone number'
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                  />
                 </FormControl>
                 <FormControl id="password" isRequired>
                   <InputGroup>
-                    <Input type={showPassword ? 'text' : 'password'} placeholder='New password' />
+                    <Input type={showPassword ? 'text' : 'password'}
+                     placeholder='New password' 
+                     value={password}
+                       onChange={(e) => setPassword(e.target.value)}
+                     />
                     <InputRightElement h={'full'}>
                       <Button
                         variant={'ghost'}
@@ -94,25 +110,28 @@ import {
                   </InputGroup>
                   <br />
                   <Text>Date of birth?</Text>
-                  <Input type="date" placeholder='DD / MM / YYYY' />
+                  <Input type="date" placeholder='DD / MM / YYYY'
+                  value={dob}
+                  onChange={(e) => setDOB(e.target.value)}
+                  />
 
                   <br />
                   <br />
                   <Text>Gender?</Text>
-                  <RadioGroup defaultValue='2'>
+                  <RadioGroup defaultValue='Male' onChange={setGender} value={gender}>
                     <Stack spacing={5} direction='row' id="RadioBox">
                        <Box id="GenderRadio">
-                       <Radio  colorScheme='blue' value='1'>
+                       <Radio  colorScheme='blue' value='Female'>
                         Female
                         </Radio>
                        </Box>
                       <Box id="GenderRadio">
-                      <Radio colorScheme='blue' value='2'>
+                      <Radio colorScheme='blue' value='Male'>
                         Male
                         </Radio>
                       </Box>
                      <Box id="GenderRadio">
-                     <Radio colorScheme='blue' value='3'>
+                     <Radio colorScheme='blue' value='Custom'>
                         Custom
                         </Radio>
                      </Box>
@@ -127,7 +146,9 @@ import {
                     color={'white'}
                     _hover={{
                       bg: 'blue.500',
-                    }}>
+                    }}
+                    onClick={handleSubmit}
+                    >
                     Sign up
                   </Button>
                 </Stack>
