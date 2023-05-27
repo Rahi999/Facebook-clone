@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import React, { ReactNode } from 'react';
 import {Link} from "react-router-dom"
 import Theme from './Theme';
@@ -48,6 +49,8 @@ export default function SideBar({
   children
 }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
+
+  
   return (
     <Box minH="100vh" bg={useColorModeValue('gray.100', 'gray.900')}>
       <SidebarContent
@@ -78,6 +81,9 @@ export default function SideBar({
 
 
 const SidebarContent = ({ onClose, ...rest }) => {
+  const logout = () => {
+    localStorage.removeItem('fb_token')
+  }
   return (
     <Box
       transition="3s ease"
@@ -137,6 +143,11 @@ const NavItem = ({ icon, children, ...rest }) => {
 
 
 const MobileNav = ({ onOpen, ...rest }) => {
+  const navigate = useNavigate()
+  const logout = () => {
+    localStorage.removeItem('fb_token')
+    navigate('/login')
+  }
   return (
     <Flex
       ml={{ base: 0, md: 60 }}
@@ -203,7 +214,7 @@ const MobileNav = ({ onOpen, ...rest }) => {
               <Link to="/login">LogIn</Link>
               </MenuItem>
               <MenuDivider />
-              <MenuItem>Sign out</MenuItem>
+              <MenuItem onClick={()=> logout()}>Sign out</MenuItem>
             </MenuList>
           </Menu>
         </Flex>
