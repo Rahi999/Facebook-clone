@@ -35,6 +35,7 @@ import {
     const [password, setPassword] = useState('')
     const [dob, setDOB] = useState('')
     const [gender, setGender] = useState('Male')
+    const  {DEV_BASE_URL} = process.env
 
     const handleSubmit = () => {
       if(!firstName || !lastName){
@@ -88,16 +89,42 @@ import {
         })
       }
       else{
-
-        toast({
-          title: 'Account created.',
-          description: "We've created your account for you.",
-          position: "top",
-          status: 'success',
-          duration: 9000,
-          isClosable: true,
+        const payload = {
+          firstname: firstName,
+          surename: lastName,
+          mobile: phone,
+          email: email,
+          password: password,
+          day: dob[8]+dob[9],
+          month: dob[5]+dob[6],
+          year: dob[0]+dob[1]+dob[2]+dob[3],
+          gender: gender
+        }
+        axios.post(`http://localhost:8080/users/signup`, payload)
+        .then((res) => {
+            toast({
+              title: "Account created.",
+              description: `${res.data.message}`,
+              position: "top",
+              status: 'success',
+              duration: 5000,
+              isClosable: true,
+            })
+            localStorage.setItem('fb_token', res.data.token)
+            navigate('/')
         })
-        navigate("/")
+        .catch((err) => {
+          toast({
+            title: 'Something went wrong.',
+            description: `${err.response.data.message}`,
+            position: "top",
+            status: 'error',
+            duration: 5000,
+            isClosable: true,
+          })
+        })
+        
+        
       }
     }
 

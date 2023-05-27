@@ -33,4 +33,7 @@
     #LoginLogo{
         margin-top: -5%;
     }
+    #LoginText{
+        font-size: 23px;
+    }
 }
