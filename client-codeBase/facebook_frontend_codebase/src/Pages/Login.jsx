@@ -6,7 +6,6 @@ import {
   Input,
   Checkbox,
   Stack,
-  Link,
   Button,
   Heading,
   Text,
@@ -15,15 +14,21 @@ import {
   Image
 } from '@chakra-ui/react';
 import "./login.css"
+import { Link, useNavigate } from 'react-router-dom';
 import SignUp from './SignUp';
 
  const Login = () => {
+  const navigate = useNavigate()
+  const handleLogin = () => {
+    localStorage.setItem('fb_token', 'abcd')
+    navigate('/')
+  }
   return (<>
     <SimpleGrid id="loginGrid"
      bg={useColorModeValue('gray.50', 'gray.800')}
      >
       <Box id="loginFirst">
-         <Link >
+         <Link to="/" >
          <Image id="LoginLogo" src="https://static.xx.fbcdn.net/rsrc.php/y8/r/dF5SId3UHWd.svg" alt="Login Logo"/>
          </Link>
           <Text id="LoginText">
@@ -57,14 +62,14 @@ import SignUp from './SignUp';
                 align={'start'}
                 justify={'space-between'}>
                 <Checkbox>Remember me</Checkbox>
-                <Link color={'blue.400'}>Forgot password?</Link>
+                <Link to="#" color={'blue.400'}>Forgot password?</Link>
               </Stack>
               <Button
                 bg={'#1877f2'}
                 color={'white'}
                 _hover={{
                   bg: 'blue.500',
-                }}>
+                }} onClick={() => handleLogin()}>
                 Log in
               </Button>
               <hr />

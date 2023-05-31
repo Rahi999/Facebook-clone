@@ -12,10 +12,10 @@ const Dashboard = () => {
     if(!token){
       toast({
         title: "Looks like you're not logged in!",
-        description: "Please login o continue.",
+        description: "Please login to continue.",
         position: "top",
         status: 'info',
-        duration: 9000,
+        duration: 3000,
         isClosable: true,
       })
       navigate("/login")
