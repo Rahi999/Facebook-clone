@@ -139,7 +139,7 @@ const Login = () => {
                   <Checkbox>Remember me</Checkbox>
                   <Link to="#" color={'blue.400'}>Forgot password?</Link>
                 </Stack>
-                <Button
+                {!loading ? (<Button
                   bg={'#1877f2'}
                   color={'white'}
                   _hover={{
@@ -147,7 +147,20 @@ const Login = () => {
                   }} onClick={() => handleLogin()}
                 >
                   Log in
-                </Button>
+                </Button>) : (<Button
+                  isLoading
+                  loadingText='Logging'
+                  colorScheme='blue'
+                  spinnerPlacement='end'
+                  bg={'#1877f2'}
+                  color={'white'}
+                  _hover={{
+                    bg: 'blue.500',
+                  }} onClick={() => handleLogin()}
+                >
+                  Log in
+                </Button>)}
+
                 <hr />
                 <SignUp />
               </Stack>

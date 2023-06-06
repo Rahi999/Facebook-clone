@@ -25,8 +25,8 @@ import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 import "./signupform.css"
 
 const SignUpForm = () => {
-  const navigate = useNavigate()
-  const toast = useToast()
+
+  const [loading, setLoading] = useState(false)
   const [showPassword, setShowPassword] = useState(false);
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
@@ -35,6 +35,8 @@ const SignUpForm = () => {
   const [password, setPassword] = useState('')
   const [dob, setDOB] = useState('')
   const [gender, setGender] = useState('Male')
+  const navigate = useNavigate()
+  const toast = useToast()
   const { DEV_BASE_URL } = process.env
 
   const handleSubmit = () => {
@@ -89,6 +91,7 @@ const SignUpForm = () => {
       })
     }
     else {
+      setLoading(true)
       const payload = {
         firstname: firstName,
         surename: lastName,
@@ -111,6 +114,7 @@ const SignUpForm = () => {
             isClosable: true,
           })
           localStorage.setItem('fb_token', res.data.token)
+          setLoading(false)
           navigate('/')
         })
         .catch((err) => {
@@ -122,6 +126,7 @@ const SignUpForm = () => {
             duration: 5000,
             isClosable: true,
           })
+          setLoading(false)
         })
 
 
@@ -233,7 +238,7 @@ const SignUpForm = () => {
               </RadioGroup>
             </FormControl>
             <Stack spacing={10} pt={2}>
-              <Button
+              {!loading ? (<Button
                 loadingText="Submitting"
                 size="lg"
                 bg={'blue.400'}
@@ -244,7 +249,22 @@ const SignUpForm = () => {
                 onClick={handleSubmit}
               >
                 Sign up
-              </Button>
+              </Button>) : (<Button
+              
+              isLoading
+              loadingText='Registering...'
+              colorScheme='blue'
+              spinnerPlacement='end'
+                size="lg"
+                bg={'blue.400'}
+                color={'white'}
+                _hover={{
+                  bg: 'blue.500',
+                }}
+                onClick={handleSubmit}
+              >
+                Sign up
+              </Button>)}
             </Stack>
             <Stack pt={6}>
               <Text align={'center'}>
