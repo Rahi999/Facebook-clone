@@ -8,19 +8,11 @@ const Dashboard = () => {
   const token = localStorage.getItem('fb_token')
   const toast = useToast()
 
-  useEffect(()=> {
-    if(!token){
-      toast({
-        title: "Looks like you're not logged in!",
-        description: "Please login to continue.",
-        position: "top",
-        status: 'info',
-        duration: 3000,
-        isClosable: true,
-      })
+  useEffect(() => {
+    if (!token) {
       navigate("/login")
     }
-  },[])
+  }, [])
 
   const logout = () => {
     localStorage.removeItem('fb_token')

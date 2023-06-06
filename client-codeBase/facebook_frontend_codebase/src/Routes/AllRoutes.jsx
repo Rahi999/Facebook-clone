@@ -1,17 +1,19 @@
 import React from 'react'
-import {Route, Routes} from "react-router-dom"
-import Login from '../Pages/Login.jsx'
+import { Suspense, lazy } from 'react';
+import { Route, Routes } from "react-router-dom"
 import SignUp from '../Pages/SignUp.jsx'
 import Dashboard from '../Pages/Dashboard.jsx'
+const Login = React.lazy(() => import('../Pages/Login.jsx'));
+
 
 const AllRoutes = () => {
   return (
     <div>
-        <Routes>
-            <Route path="/" element={<Dashboard />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/signUp" element={<SignUp />} />
-        </Routes>
+      <Routes>
+        <Route path="/" element={<Suspense fallback={null}><Dashboard /></Suspense>} />
+        <Route path="/login" element={<Suspense fallback={null}><Login /></Suspense>} />
+        <Route path="/signUp" element={<Suspense fallback={null}><SignUp /></Suspense>} />
+      </Routes>
     </div>
   )
 }
