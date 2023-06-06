@@ -1,3 +1,4 @@
+import axios from 'axios';
 import {
   Flex,
   Box,
@@ -14,21 +15,73 @@ import {
   Image,
   InputRightElement,
   InputGroup,
+  useToast,
 } from '@chakra-ui/react';
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 import "./login.css"
 import { Link, useNavigate } from 'react-router-dom';
 import SignUp from './SignUp';
 import { useState } from 'react';
+import saveData from '../utils/saveData';
 
 const Login = () => {
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [loading, setLoading] = useState(false)
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate()
+  const toast = useToast()
+
+
   const handleLogin = () => {
-    alert(email + password)
+    if (email && password) {
+      setLoading(true);
+      const paylod = {
+        email: email,
+        password: password
+      }
+      console.log(process.env.DEV_BASE_URL);
+      axios.post('http://localhost:8080/users/signin', paylod)
+        .then((res) => {
+          toast({
+            title: 'Login Succeed!!',
+            // description: `${res.data.message}`,
+            position: "top",
+            status: 'success',
+            duration: 3000,
+            isClosable: true,
+          })
+          saveData("fb_token", res.data.token)
+          saveData("userId", res.data.userId)
+          setLoading(false)
+          navigate("/")
+        })
+        .catch((err) => {
+          toast({
+            title: 'Login Error',
+            description: `${err.response.data.message}`,
+            position: "top",
+            status: 'error',
+            duration: 5000,
+            isClosable: true,
+          })
+          setLoading(false)
+        }
+
+
+        )
+    }
+    else {
+      toast({
+        title: 'Email or password missing',
+        description: "Please enter your email & Password",
+        position: "top",
+        status: 'info',
+        duration: 5000,
+        isClosable: true,
+      })
+    }
   }
   return (<>
     <SimpleGrid id="loginGrid"
@@ -91,7 +144,8 @@ const Login = () => {
                   color={'white'}
                   _hover={{
                     bg: 'blue.500',
-                  }} onClick={() => handleLogin()}>
+                  }} onClick={() => handleLogin()}
+                >
                   Log in
                 </Button>
                 <hr />

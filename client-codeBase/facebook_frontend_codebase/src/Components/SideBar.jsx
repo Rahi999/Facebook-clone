@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import React, { ReactNode } from 'react';
-import {Link} from "react-router-dom"
+import { Link } from "react-router-dom"
 import Theme from './Theme';
 import {
   IconButton,
@@ -35,6 +35,7 @@ import {
 } from 'react-icons/fi';
 import { IconType } from 'react-icons';
 import { ReactText } from 'react';
+import removeData from '../utils/removeData';
 
 
 const LinkItems = [
@@ -50,7 +51,7 @@ export default function SideBar({
 }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  
+
   return (
     <Box minH="100vh" bg={useColorModeValue('gray.100', 'gray.900')}>
       <SidebarContent
@@ -81,8 +82,11 @@ export default function SideBar({
 
 
 const SidebarContent = ({ onClose, ...rest }) => {
+  const navigate = useNavigate()
   const logout = () => {
-    localStorage.removeItem('fb_token')
+    removeData("fb_token")
+    removeData("userId")
+    navigate("/login")
   }
   return (
     <Box
@@ -145,8 +149,9 @@ const NavItem = ({ icon, children, ...rest }) => {
 const MobileNav = ({ onOpen, ...rest }) => {
   const navigate = useNavigate()
   const logout = () => {
-    localStorage.removeItem('fb_token')
-    navigate('/login')
+    removeData("fb_token")
+    removeData("userId")
+    navigate("/login")
   }
   return (
     <Flex
@@ -211,10 +216,10 @@ const MobileNav = ({ onOpen, ...rest }) => {
               <MenuItem>Profile</MenuItem>
               <MenuItem>Settings</MenuItem>
               <MenuItem>
-              <Link to="/login">LogIn</Link>
+                <Link to="/login">LogIn</Link>
               </MenuItem>
               <MenuDivider />
-              <MenuItem onClick={()=> logout()}>Sign out</MenuItem>
+              <MenuItem onClick={() => logout()}>Sign out</MenuItem>
             </MenuList>
           </Menu>
         </Flex>
