@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import React, { ReactNode, useEffect, useState } from 'react';
 import { Link } from "react-router-dom"
 import Theme from './Theme';
+import Loading from "./Loading"
 import {
   IconButton,
   Avatar,
@@ -26,7 +27,7 @@ import {
   MenuList,
   Input,
   InputGroup,
-  InputLeftElement
+  InputLeftElement,
 } from '@chakra-ui/react';
 import { SearchIcon } from '@chakra-ui/icons';
 import {
@@ -42,6 +43,7 @@ import { IconType } from 'react-icons';
 import { ReactText } from 'react';
 import { removeCookies } from '../utils/removeData';
 import { getCookies } from "../utils/getData"
+import FbTabs from "./Tabs"
 
 
 const LinkItems = [
@@ -64,7 +66,7 @@ export default function SideBar({
         onClose={() => onClose}
         display={{ base: 'none', md: 'block' }}
       />
-      <Drawer
+      <Drawer 
         autoFocus={false}
         isOpen={isOpen}
         placement="left"
@@ -72,15 +74,16 @@ export default function SideBar({
         returnFocusOnClose={false}
         onOverlayClick={onClose}
         size="full">
-        <DrawerContent>
+        <DrawerContent >
           <SidebarContent onClose={onClose} />
         </DrawerContent>
       </Drawer>
       {/* mobilenav */}
       <MobileNav onOpen={onOpen} />
-      <Box ml={{ base: 0, md: 60 }} p="4">
-        {children}
+      <Box ml={{ base: 0, md: 350 }} p="5" height="100vh" mt="-20">
+        <FbTabs />
       </Box>
+      
     </Box>
   );
 }
@@ -95,10 +98,10 @@ const SidebarContent = ({ onClose, ...rest }) => {
     navigate("/login")
   }
   return (
-    <Box
+    <Box 
       transition="3s ease"
       bg={useColorModeValue('white', 'gray.900')}
-      borderRight="1px"
+      borderRight="0px"
       borderRightColor={useColorModeValue('gray.200', 'gray.700')}
       w={{ base: 'full', md: 320 }}
       pos="fixed"
@@ -134,7 +137,7 @@ const SidebarContent = ({ onClose, ...rest }) => {
 const NavItem = ({ icon, children, ...rest }) => {
   return (
     <Link href="#" style={{ textDecoration: 'none' }} _focus={{ boxShadow: 'none' }}>
-      <Flex
+      <Flex 
         align="center"
         p="4"
         mx="4"
@@ -200,11 +203,12 @@ const MobileNav = ({ onOpen, ...rest }) => {
       px={{ base: 4, md: 4 }}
       height="20"
       alignItems="center"
-      bg={useColorModeValue('white', 'gray.900')}
-      borderBottomWidth="1px"
+      bg={useColorModeValue('', 'gray.900')}
+      borderBottomWidth="0px"
       borderBottomColor={useColorModeValue('gray.200', 'gray.700')}
       justifyContent={{ base: 'space-between', md: 'flex-end' }}
       {...rest}>
+        
       <IconButton
         display={{ base: 'flex', md: 'none' }}
         onClick={onOpen}
@@ -212,6 +216,7 @@ const MobileNav = ({ onOpen, ...rest }) => {
         aria-label="open menu"
         icon={<FiMenu />}
       />
+      
 
       {/* <Text
         display={{ base: 'flex', md: 'none' }}
@@ -223,8 +228,8 @@ const MobileNav = ({ onOpen, ...rest }) => {
       {/* <Avatar src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Facebook_Logo_%282019%29.png/1024px-Facebook_Logo_%282019%29.png" size="md" /> */}
 
       <HStack spacing={{ base: '0', md: '6' }}>
-        <Theme />
-        <Flex alignItems={'center'}>
+        <Flex alignItems={'center'} >
+          
           <Menu>
             <MenuButton
               py={2}
@@ -255,6 +260,7 @@ const MobileNav = ({ onOpen, ...rest }) => {
               borderColor={useColorModeValue('gray.200', 'gray.700')}>
               <MenuItem onClick={() => navigate(`/user-profile/${userId}`)}><Link to={`/user-profile/${userId}`}>Profile</Link></MenuItem>
               <MenuItem>Settings</MenuItem>
+              <MenuItem>  <Theme /></MenuItem>
               <MenuItem onClick={() => navigate("/login")}>
                 <Link to="/login">LogIn</Link>
               </MenuItem>
