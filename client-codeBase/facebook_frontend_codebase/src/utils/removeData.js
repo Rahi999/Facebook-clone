@@ -1,4 +1,5 @@
-const removeData = (key) => {
-    localStorage.removeItem(key)
+import Cookies from "js-cookie"
+
+ export const removeCookies = (key) => {
+    Cookies.remove(key)
 }
-module.exports = removeData

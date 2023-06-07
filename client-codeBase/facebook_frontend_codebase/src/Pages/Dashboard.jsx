@@ -2,12 +2,12 @@ import React, { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import SideBar from '../Components/SideBar'
 import { Toast, useToast } from '@chakra-ui/react'
-import getData from '../utils/getData'
-import removeData from '../utils/removeData'
+import {getCookies} from '../utils/getData'
+import { removeCookies} from '../utils/removeData'
 
 const Dashboard = () => {
   const navigate = useNavigate()
-  const token = getData("fb_token")
+  const token = getCookies("fb_token")
   const toast = useToast()
 
   useEffect(() => {
@@ -17,7 +17,7 @@ const Dashboard = () => {
   }, [])
 
   const logout = () => {
-    removeData("fb_token")
+    removeCookies("fb_token")
     navigate("/login")
   }
   return (

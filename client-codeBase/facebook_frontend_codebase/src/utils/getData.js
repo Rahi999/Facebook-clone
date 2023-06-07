@@ -1,5 +1,7 @@
-const getData = (key) => {
-    return localStorage.getItem(key)
+import Cookies from "js-cookie"
+
+
+export const getCookies = (key) => {
+    return Cookies.get(key)
 }
 
-module.exports = getData

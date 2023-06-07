@@ -22,7 +22,7 @@ import "./login.css"
 import { Link, useNavigate } from 'react-router-dom';
 import SignUp from './SignUp';
 import { useState } from 'react';
-import saveData from '../utils/saveData';
+import { saveCookies } from "../utils/saveCookies";
 
 const Login = () => {
 
@@ -52,8 +52,8 @@ const Login = () => {
             duration: 3000,
             isClosable: true,
           })
-          saveData("fb_token", res.data.token)
-          saveData("userId", res.data.userId)
+          saveCookies("fb_token", res.data.token)
+          saveCookies("userId", res.data.userId)
           setLoading(false)
           navigate("/")
         })

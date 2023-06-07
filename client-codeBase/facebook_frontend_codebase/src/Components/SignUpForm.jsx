@@ -23,6 +23,7 @@ import {
 import { useState } from 'react';
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 import "./signupform.css"
+import {saveCookies} from "../utils/saveCookies"
 
 const SignUpForm = () => {
 
@@ -113,7 +114,7 @@ const SignUpForm = () => {
             duration: 5000,
             isClosable: true,
           })
-          localStorage.setItem('fb_token', res.data.token)
+          saveCookies('fb_token', res.data.token)
           setLoading(false)
           navigate('/')
         })

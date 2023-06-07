@@ -36,7 +36,7 @@ import {
 } from 'react-icons/fi';
 import { IconType } from 'react-icons';
 import { ReactText } from 'react';
-import removeData from '../utils/removeData';
+import {removeCookies} from '../utils/removeData';
 
 
 const LinkItems = [
@@ -85,8 +85,8 @@ export default function SideBar({
 const SidebarContent = ({ onClose, ...rest }) => {
   const navigate = useNavigate()
   const logout = () => {
-    removeData("fb_token")
-    removeData("userId")
+    removeCookies("fb_token")
+    removeCookies("userId")
     navigate("/login")
   }
   return (
@@ -152,8 +152,8 @@ const MobileNav = ({ onOpen, ...rest }) => {
   const [userData, setUserData] = useState([])
   const navigate = useNavigate()
   const logout = () => {
-    removeData("fb_token")
-    removeData("userId")
+    removeCookies("fb_token")
+    removeCookies("userId")
     navigate("/login")
   }
   return (
