@@ -4,6 +4,7 @@ import axios from "axios";
 import {
     Heading,
     Avatar,
+    AvatarBadge,
     Box,
     Center,
     Image,
@@ -12,7 +13,9 @@ import {
     Stack,
     Button,
     useColorModeValue,
+    IconButton
 } from '@chakra-ui/react';
+import { SmallCloseIcon, EditIcon } from '@chakra-ui/icons';
 import { getCookies } from "../utils/getData";
 import Loading from "./Loading";
 
@@ -45,7 +48,7 @@ const Profile = () => {
         }
     }, [])
     return userData ? (<Center py={6}><Box
-        maxW={'270px'}
+        maxW={'300px'}
         w={'full'}
         // bg={useColorModeValue('white', 'gray.800')}
         boxShadow={'2xl'}
@@ -62,8 +65,20 @@ const Profile = () => {
                 size={'xl'}
                 src=''
                 name={userData.firstname + userData.surename}
-                alt={'Author'}
-            />
+                alt={'User_image'}
+                
+            >
+                <AvatarBadge
+                  as={IconButton}
+                  size="xs"
+                  rounded="full"
+                  border="0px"
+                  top="50px"
+                  colorScheme="blue"
+                  aria-label="edit Image"
+                  icon={<EditIcon />}
+                />
+            </Avatar>
         </Flex>
 
         <Box p={6}>

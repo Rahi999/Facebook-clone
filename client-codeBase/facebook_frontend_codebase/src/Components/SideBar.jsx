@@ -24,7 +24,11 @@ import {
   MenuDivider,
   MenuItem,
   MenuList,
+  Input,
+  InputGroup,
+ InputLeftElement
 } from '@chakra-ui/react';
+import { SearchIcon } from '@chakra-ui/icons';
 import {
   FiHome,
   FiTrendingUp,
@@ -96,14 +100,28 @@ const SidebarContent = ({ onClose, ...rest }) => {
       bg={useColorModeValue('white', 'gray.900')}
       borderRight="1px"
       borderRightColor={useColorModeValue('gray.200', 'gray.700')}
-      w={{ base: 'full', md: 60 }}
+      w={{ base: 'full', md: 320 }}
       pos="fixed"
       h="full"
       {...rest}>
       <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
-        <Text fontSize="2xl" fontFamily="monospace" fontWeight="bold">
+        {/* <Text fontSize="2xl" fontFamily="monospace" fontWeight="bold">
           Logo
-        </Text>
+        </Text> */}
+        <Avatar src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Facebook_Logo_%282019%29.png/1024px-Facebook_Logo_%282019%29.png" size="md" />
+        <InputGroup ml="4%">
+      <InputLeftElement
+        pointerEvents="none"
+        children={<SearchIcon color="gray.500" />}
+      />
+      <Input
+        type="text"
+        placeholder="Search Facebook"
+        borderRadius="full"
+        py="2"
+        pl="10"
+      />
+    </InputGroup>
         <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
       </Flex>
       {LinkItems.map((link) => (
@@ -127,7 +145,7 @@ const NavItem = ({ icon, children, ...rest }) => {
         role="group"
         cursor="pointer"
         _hover={{
-          bg: 'cyan.400',
+          bg: 'gray.400',
           color: 'white',
         }}
         {...rest}>
@@ -198,13 +216,14 @@ const MobileNav = ({ onOpen, ...rest }) => {
         icon={<FiMenu />}
       />
 
-      <Text
+      {/* <Text
         display={{ base: 'flex', md: 'none' }}
         fontSize="2xl"
         fontFamily="monospace"
         fontWeight="bold">
         Logo
-      </Text>
+      </Text> */}
+      {/* <Avatar src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Facebook_Logo_%282019%29.png/1024px-Facebook_Logo_%282019%29.png" size="md" /> */}
 
       <HStack spacing={{ base: '0', md: '6' }}>
         <Theme />
