@@ -17,10 +17,11 @@ import { getCookies } from "../utils/getData";
 
 const Profile = () => {
 
-    const [userData, setUserData] = useState([])
+    const [userData, setUserData] = useState(null)
     const [loading, setLoading] = useState(false)
     const params = useParams()
-    const userId = getCookies('userId')
+    const userId = params.userId
+    const id = getCookies('userId')
     // console.log(userId, id)
     const token = getCookies('fb_token')
     const navigate = useNavigate()
@@ -42,10 +43,9 @@ const Profile = () => {
             navigate("/login")
         }
     }, [])
-    return loading ? (<div>..loading</div>) : 
-    (
+    return(
         <Center py={6}>
-            <Box
+            {userData ? (<Box
                 maxW={'270px'}
                 w={'full'}
                 // bg={useColorModeValue('white', 'gray.800')}
@@ -110,7 +110,7 @@ const Profile = () => {
                         Follow
                     </Button>
                 </Box>
-            </Box>
+            </Box>) : (<p>...loading</p>)}
         </Center>
     )
 }
