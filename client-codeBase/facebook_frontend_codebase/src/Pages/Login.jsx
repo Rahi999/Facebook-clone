@@ -136,7 +136,7 @@ const Login = () => {
                   align={'start'}
                   justify={'space-between'}>
                   <Checkbox>Remember me</Checkbox>
-                  <Link to="#" color={'blue.400'}>Forgot password?</Link>
+                  {/* <Link to="#" color={'blue.400'}>Forgot password?</Link> */}
                 </Stack>
                 {!loading ? (<Button
                   bg={'#1877f2'}

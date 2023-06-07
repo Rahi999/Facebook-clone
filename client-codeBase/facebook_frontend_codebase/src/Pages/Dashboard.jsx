@@ -2,8 +2,9 @@ import React, { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import SideBar from '../Components/SideBar'
 import { Toast, useToast } from '@chakra-ui/react'
-import {getCookies} from '../utils/getData'
-import { removeCookies} from '../utils/removeData'
+import { getCookies } from '../utils/getData'
+import { removeCookies } from '../utils/removeData'
+import Loading from '../Components/Loading'
 
 const Dashboard = () => {
   const navigate = useNavigate()
