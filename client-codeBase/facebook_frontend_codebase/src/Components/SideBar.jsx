@@ -26,7 +26,7 @@ import {
   MenuList,
   Input,
   InputGroup,
- InputLeftElement
+  InputLeftElement
 } from '@chakra-ui/react';
 import { SearchIcon } from '@chakra-ui/icons';
 import {
@@ -105,23 +105,20 @@ const SidebarContent = ({ onClose, ...rest }) => {
       h="full"
       {...rest}>
       <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
-        {/* <Text fontSize="2xl" fontFamily="monospace" fontWeight="bold">
-          Logo
-        </Text> */}
         <Avatar src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Facebook_Logo_%282019%29.png/1024px-Facebook_Logo_%282019%29.png" size="md" />
         <InputGroup ml="4%">
-      <InputLeftElement
-        pointerEvents="none"
-        children={<SearchIcon color="gray.500" />}
-      />
-      <Input
-        type="text"
-        placeholder="Search Facebook"
-        borderRadius="full"
-        py="2"
-        pl="10"
-      />
-    </InputGroup>
+          <InputLeftElement
+            pointerEvents="none"
+            children={<SearchIcon color="gray.500" />}
+          />
+          <Input
+            type="text"
+            placeholder="Search Facebook"
+            borderRadius="full"
+            py="2"
+            pl="10"
+          />
+        </InputGroup>
         <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
       </Flex>
       {LinkItems.map((link) => (
