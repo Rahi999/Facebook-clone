@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom';
-import React, { ReactNode, useState } from 'react';
+import React, { ReactNode, useEffect, useState } from 'react';
 import { Link } from "react-router-dom"
 import Theme from './Theme';
 import {
@@ -36,7 +36,8 @@ import {
 } from 'react-icons/fi';
 import { IconType } from 'react-icons';
 import { ReactText } from 'react';
-import {removeCookies} from '../utils/removeData';
+import { removeCookies } from '../utils/removeData';
+import { getCookies } from "../utils/getData"
 
 
 const LinkItems = [
@@ -150,6 +151,28 @@ const NavItem = ({ icon, children, ...rest }) => {
 const MobileNav = ({ onOpen, ...rest }) => {
 
   const [userData, setUserData] = useState([])
+  const [loading, setLoading] = useState(false)
+  const userId = getCookies('userId')
+  const token = getCookies('fb_token')
+
+  useEffect(() => {
+    if (userId && token) {
+      setLoading(true)
+      axios.get(`${process.env.REACT_APP_DEV_BASE_URL}/profile/getSingleUser/${userId}`, { headers: { "Authorization": `${token}` } })
+        .then((res) => {
+          setUserData(res.data)
+          setLoading(false)
+          console.log(userData)
+        })
+        .catch((err) => {
+          setLoading(false)
+          navigate("/login")
+        })
+    }
+    else {
+      navigate("/login")
+    }
+  }, [])
   const navigate = useNavigate()
   const logout = () => {
     removeCookies("fb_token")
@@ -197,16 +220,14 @@ const MobileNav = ({ onOpen, ...rest }) => {
                   src={
                     ''
                   }
+                  name={userData.firstname + userData.surename}
                 />
                 <VStack
                   display={{ base: 'none', md: 'flex' }}
                   alignItems="flex-start"
                   spacing="1px"
                   ml="2">
-                  <Text fontSize="sm">Justina Clark</Text>
-                  <Text fontSize="xs" color="gray.600">
-                    Admin
-                  </Text>
+                  <Text fontSize="sm">{userData.firstname} {userData.surename}</Text>
                 </VStack>
                 <Box display={{ base: 'none', md: 'flex' }}>
                   <FiChevronDown />
@@ -216,7 +237,7 @@ const MobileNav = ({ onOpen, ...rest }) => {
             <MenuList
               bg={useColorModeValue('white', 'gray.900')}
               borderColor={useColorModeValue('gray.200', 'gray.700')}>
-              <MenuItem>Profile</MenuItem>
+              <MenuItem><Link to="/personal-profile" >Profile</Link></MenuItem>
               <MenuItem>Settings</MenuItem>
               <MenuItem>
                 <Link to="/login">LogIn</Link>
