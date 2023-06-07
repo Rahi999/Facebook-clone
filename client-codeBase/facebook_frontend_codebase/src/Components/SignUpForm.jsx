@@ -104,7 +104,7 @@ const SignUpForm = () => {
         year: dob[0] + dob[1] + dob[2] + dob[3],
         gender: gender
       }
-      axios.post(`http://localhost:8080/users/signup`, payload)
+      axios.post(`${process.env.REACT_APP_DEV_BASE_URL}/users/signup`, payload)
         .then((res) => {
           toast({
             title: "Account created.",

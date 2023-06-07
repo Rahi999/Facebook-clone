@@ -41,8 +41,7 @@ const Login = () => {
         email: email,
         password: password
       }
-      console.log(process.env.DEV_BASE_URL);
-      axios.post('http://localhost:8080/users/signin', paylod)
+      axios.post(`${process.env.REACT_APP_DEV_BASE_URL}/users/signin`, paylod)
         .then((res) => {
           toast({
             title: 'Login Succeed!!',
