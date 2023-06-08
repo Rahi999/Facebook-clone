@@ -29,11 +29,11 @@ const Posts = () => {
     }, [])
     return postData ?
         (
-            <Box
-                width={{ base: "140%", sm: "100%", md: "100%", lg: "100%", xl: "100%" }}
+            <Box 
+                width={{ base: "100%", sm: "100%", md: "100%", lg: "100%", xl: "100%" }}
                 ml={{ base: "-20", sm: "0", md: "0", lg: "0", xl: "0" }} >
                 {postData && postData.map((el, i) => <Box key={i}>
-                    {/* <PostCard
+                    <PostCard
                         user_profile={el.user.profile_pic}
                         user_name={el.user.firstname + el.user.surename}
                         time={el.date}
@@ -41,7 +41,7 @@ const Posts = () => {
                         post_image={el.images}
                         PostId={el._id}
                         userId={el.user._id}
-                    /> */}
+                    />
                 </Box>)}
             </Box>
         ) : (<Loading />)
