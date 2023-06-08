@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Box, Text, Button, Image } from "@chakra-ui/react"
 import { Link, useNavigate } from "react-router-dom";
 import "./Post.css";
+import LikeButton from "./LikeButton";
 // import "./ImageInput.css";
 const PostCard = ({
     user_profile,
@@ -38,11 +39,13 @@ const PostCard = ({
                 <Text className="post-text">{post_text}</Text>
                 <Image className="post-image" src={post_image} alt="" />
             </Box>
-            <Box className="post-actions">
-                <Button className="post-like">Like : PostId</Button>
-                <Button className="post-comment">Comment</Button>
-                <Button className="post-share">Share</Button>
-            </Box>
+            {/* <Box className="post-actions"> */}
+                <LikeButton postId={PostId} />
+                <Box mt="-10" width="70%" display="flex" textAlign="right" ml="30%" gap="3">
+                <Button width={{base: "70%", sm: "70%", md: "70%", lg: "70%", xl: "30%"}} fontSize={{base: "12px", sm: "14px", md: "", lg: "", xl: ""}} className="post-comment">Comment</Button>
+                <Button width={{base: "70%", sm: "70%", md: "70%", lg: "70%", xl: "30%"}} fontSize={{base: "12px", sm: "14px", md: "", lg: "", xl: ""}} className="post-share">Share</Button>
+                </Box>
+            {/* </Box> */}
         </Box>
     );
 };

@@ -84,7 +84,7 @@ export default function SideBar({
       </Drawer>
       {/* mobilenav */}
       <MobileNav onOpen={onOpen} />
-      <Box ml={{ base: 0, md: 350 }} p="8" height="100%" mt="-20">
+      <Box ml={{ base: 0, md: 350 }} p="8" height="100%" mt="-20" width="">
         <FbTabs />
       </Box>
 
