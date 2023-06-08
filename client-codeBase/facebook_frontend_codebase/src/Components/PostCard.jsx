@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Box, Text, Button, Image } from "@chakra-ui/react"
+import { Link, useNavigate } from "react-router-dom";
 import "./Post.css";
 // import "./ImageInput.css";
 const PostCard = ({
@@ -8,17 +9,19 @@ const PostCard = ({
     time,
     post_text,
     post_image,
-    PostId
+    PostId,
+    userId
 }) => {
-    const [selectedImage, setSelectedImage] = useState(null);
 
+    const navigate = useNavigate()
+    const [selectedImage, setSelectedImage] = useState(null);
     const handleImageChange = (event) => {
         const file = event.target.files[0];
         setSelectedImage(URL.createObjectURL(file));
     };
     return (
         <Box className="post">
-            <Box className="post-header">
+            <Box className="post-header" onClick={() => navigate(`/user-profile/${userId}`)} cursor="pointer"> 
                 <Box className="image-input">
                     <Image
                         className="post-avatar"
@@ -36,7 +39,7 @@ const PostCard = ({
                 <Image className="post-image" src={post_image} alt="" />
             </Box>
             <Box className="post-actions">
-                <Button className="post-like">Like : {PostId}</Button>
+                <Button className="post-like">Like : PostId</Button>
                 <Button className="post-comment">Comment</Button>
                 <Button className="post-share">Share</Button>
             </Box>
