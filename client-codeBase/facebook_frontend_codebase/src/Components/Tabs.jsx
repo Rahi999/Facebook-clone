@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Tabs, Tab, TabPanels, TabPanel, TabList, Box } from "@chakra-ui/react";
 import { AiFillHome, AiOutlineUsergroupAdd, AiFillYoutube, AiFillShop, AiFillPlayCircle } from 'react-icons/ai';
+import Posts from "./Posts";
 
 const FbTabs = () => {
     const [currentTab, setCurrentTab] = useState(0);
@@ -10,8 +11,8 @@ const FbTabs = () => {
     };
     return (
         <>
-            <Tabs ml={{ base: 10, md: 0 }} display={{ base: 'none', md: 'none', lg: "block", xl: "block" }} width={{ base: "", md: "70%" }}>
-                <TabList gap="5">
+            <Tabs ml={{ base: 10, md: 0 }} width={{ base: "", md: "70%" }}>
+                <TabList gap="1%" display={{ base: 'none', sm: "flex", md: 'flex', lg: "flex", xl: "flex" }}>
                     <Tab title="Home"><AiFillHome size={27} /></Tab>
                     <Tab title="Friends & Group"><AiOutlineUsergroupAdd /></Tab>
                     <Tab title="Story"><AiFillYoutube size={27} /></Tab>
@@ -19,9 +20,9 @@ const FbTabs = () => {
                     <Tab title=""> <AiFillPlayCircle size={27} /></Tab>
                 </TabList>
 
-                <TabPanels>
+                <TabPanels border="2px solid yellow" mt={{ base: "20%", sm: "5%", md: "5%", lg: "0", xl: "0" }}>
                     <TabPanel>
-                        <p>one!</p>
+                        <Posts />
                     </TabPanel>
                     <TabPanel>
                         <p>two!</p>

@@ -113,9 +113,27 @@ const SidebarContent = ({ onClose, ...rest }) => {
       {...rest}>
       <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
         <Avatar onClick={() => navigate("/")}
-         cursor="pointer"
-         src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Facebook_Logo_%282019%29.png/1024px-Facebook_Logo_%282019%29.png"
-         size="md" />
+          cursor="pointer"
+          src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Facebook_Logo_%282019%29.png/1024px-Facebook_Logo_%282019%29.png"
+          size="md" />
+        <InputGroup
+          width="300px"
+          display={{ base: 'none', sm: "flex", md: 'flex', lg: "flex", xl: "none" }}
+          ml="3%"
+        >
+          <InputLeftElement
+            pointerEvents="none"
+            children={<SearchIcon color="gray.500" />}
+          />
+          <Input
+            type="text"
+            border="1px"
+            placeholder="Search Facebook"
+            borderRadius="full"
+            py="2"
+            pl="10"
+          />
+        </InputGroup>
         <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
       </Flex>
       {LinkItems.map((link) => (
@@ -174,7 +192,7 @@ const MobileNav = ({ onOpen, ...rest }) => {
         .then((res) => {
           setUserData(res.data)
           setLoading(false)
-          console.log(userData)
+          // console.log(userData)
         })
         .catch((err) => {
           setLoading(false)
@@ -226,9 +244,10 @@ const MobileNav = ({ onOpen, ...rest }) => {
 
           <Menu>
             <InputGroup
-              mr={{ base: "2%", sm: "2%", md: "50%" }}
+              display={{ base: 'flex', sm: "none", md: 'none', lg: "none", xl: "flex" }}
+              mr={{ base: "2%", sm: "2%", md: "50%", lg: "0", xl: "300px" }}
               mt={{ base: "", sm: "", md: "5", lg: "5", xl: "5" }}
-              width={{ base: "", md: "600px" }}>
+              width={{ base: "", md: "600px", lg: "300px", xl: "" }}>
               <InputLeftElement
                 pointerEvents="none"
                 children={<SearchIcon color="gray.500" />}
