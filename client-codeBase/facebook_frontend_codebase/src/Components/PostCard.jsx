@@ -21,7 +21,7 @@ const PostCard = ({
     };
     return (
         <Box className="post">
-            <Box className="post-header" onClick={() => navigate(`/user-profile/${userId}`)} cursor="pointer"> 
+            <Box className="post-header" onClick={() => navigate(`/user-profile/${userId}`)} cursor="pointer">
                 <Box className="image-input">
                     <Image
                         className="post-avatar"
