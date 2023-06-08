@@ -31,7 +31,7 @@ const Posts = () => {
         (
             <Box 
                 width={{ base: "100%", sm: "100%", md: "100%", lg: "100%", xl: "100%" }}
-                ml={{ base: "-20", sm: "0", md: "0", lg: "0", xl: "0" }} >
+                ml={{ base: "", sm: "0", md: "0", lg: "0", xl: "0" }} >
                 {postData && postData.map((el, i) => <Box key={i}>
                     <PostCard
                         user_profile={el.user.profile_pic}

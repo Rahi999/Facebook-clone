@@ -11,27 +11,28 @@ const LikeButton = ({ postId }) => {
     const [liked, setLiked] = useState(false);
     const handleClick = () => {
         play();
-        alert(postId)
+        // alert(postId)
+        setLiked(true)
     };
     return (<>
         <Box>
             <Box>
                 <Box className="react">
                     <Box className="react-me">
-                        <Button width="28%" fontSize={{base: "12px", sm: "14px", md: "", lg: "", xl: ""}} className="button">{liked ? "Liked" : "Like"}</Button>
-                        <Box className="inner">
-                            {liked ? null : (
-                                <Box className="react-box">
-                                    <UnorderedList onClick={handleClick}>
+                        <Button width="28%" fontSize={{ base: "12px", sm: "14px", md: "", lg: "", xl: "" }} className="button">{liked ? "Liked" : "Like"}</Button>
+                        <Box className="inner" onClick={handleClick}>
+                            
+                                <Box className="react-box" >
+                                   {liked ? null: ( <UnorderedList  >
                                         <ListItem className="like" data-hover="like"></ListItem>
                                         <ListItem className="love" data-hover="love"></ListItem>
                                         <ListItem className="haha" data-hover="haha"></ListItem>
                                         <ListItem className="wow" data-hover="wow"></ListItem>
                                         <ListItem className="sad" data-hover="sad"></ListItem>
                                         <ListItem className="angry" data-hover="like"></ListItem>
-                                    </UnorderedList>
+                                    </UnorderedList>)}
                                 </Box>
-                            )}
+                            
                         </Box>
                     </Box>
                 </Box>

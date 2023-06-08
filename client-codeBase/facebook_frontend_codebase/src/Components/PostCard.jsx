@@ -21,8 +21,7 @@ const PostCard = ({
         setSelectedImage(URL.createObjectURL(file));
     };
     return (
-        <Box className="post" width={{base: "140%", sm: "100%", md: "100%", lg: "100%", xl: "100%"}}
-        overflowX="hidden"
+        <Box className="post" 
         >
             <Box className="post-header" onClick={() => navigate(`/user-profile/${userId}`)} cursor="pointer">
                 <Box className="image-input">
