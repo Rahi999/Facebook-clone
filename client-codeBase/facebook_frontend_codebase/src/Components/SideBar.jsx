@@ -29,6 +29,8 @@ import {
   InputGroup,
   InputLeftElement,
 } from '@chakra-ui/react';
+import { AiFillHome, AiOutlineUsergroupAdd, AiFillYoutube, AiFillShop, AiFillPlayCircle } from 'react-icons/ai';
+import { FaUserCircle } from 'react-icons/fa';
 import { SearchIcon } from '@chakra-ui/icons';
 import {
   FiHome,
@@ -47,11 +49,12 @@ import FbTabs from "./Tabs"
 
 
 const LinkItems = [
-  { name: 'Home', icon: FiHome },
-  { name: 'Trending', icon: FiTrendingUp },
-  { name: 'Explore', icon: FiCompass },
-  { name: 'Favourites', icon: FiStar },
-  { name: 'Settings', icon: FiSettings },
+  { name: 'Home', icon: FiHome, title: "Home" },
+  { name: 'Trending', icon: FiTrendingUp, title: "Trending stories" },
+  { name: "Story", icon: AiFillYoutube, title: "Stories" },
+  { name: 'Friends', icon: AiOutlineUsergroupAdd, title: "Friends & Group" },
+  { name: 'Profile', icon: FaUserCircle, title: "Profile" },
+  { name: 'Settings', icon: FiSettings, title: "Profile setting" },
 ];
 
 export default function SideBar({
@@ -66,7 +69,7 @@ export default function SideBar({
         onClose={() => onClose}
         display={{ base: 'none', md: 'block' }}
       />
-      <Drawer 
+      <Drawer
         autoFocus={false}
         isOpen={isOpen}
         placement="left"
@@ -80,10 +83,10 @@ export default function SideBar({
       </Drawer>
       {/* mobilenav */}
       <MobileNav onOpen={onOpen} />
-      <Box ml={{ base: 0, md: 350 }} p="5" height="100vh" mt="-20">
+      <Box ml={{ base: 0, md: 350 }} p="8" height="100vh" mt="-20">
         <FbTabs />
       </Box>
-      
+
     </Box>
   );
 }
@@ -98,7 +101,7 @@ const SidebarContent = ({ onClose, ...rest }) => {
     navigate("/login")
   }
   return (
-    <Box 
+    <Box
       transition="3s ease"
       bg={useColorModeValue('white', 'gray.900')}
       borderRight="0px"
@@ -109,23 +112,10 @@ const SidebarContent = ({ onClose, ...rest }) => {
       {...rest}>
       <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
         <Avatar src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Facebook_Logo_%282019%29.png/1024px-Facebook_Logo_%282019%29.png" size="md" />
-        <InputGroup ml="4%">
-          <InputLeftElement
-            pointerEvents="none"
-            children={<SearchIcon color="gray.500" />}
-          />
-          <Input
-            type="text"
-            placeholder="Search Facebook"
-            borderRadius="full"
-            py="2"
-            pl="10"
-          />
-        </InputGroup>
         <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
       </Flex>
       {LinkItems.map((link) => (
-        <NavItem key={link.name} icon={link.icon}>
+        <NavItem key={link.name} icon={link.icon} title={link.title}>
           {link.name}
         </NavItem>
       ))}
@@ -137,7 +127,7 @@ const SidebarContent = ({ onClose, ...rest }) => {
 const NavItem = ({ icon, children, ...rest }) => {
   return (
     <Link href="#" style={{ textDecoration: 'none' }} _focus={{ boxShadow: 'none' }}>
-      <Flex 
+      <Flex
         align="center"
         p="4"
         mx="4"
@@ -204,11 +194,11 @@ const MobileNav = ({ onOpen, ...rest }) => {
       height="20"
       alignItems="center"
       bg={useColorModeValue('', 'gray.900')}
-      borderBottomWidth="0px"
+      borderBottomWidth={{ base: '2px', md: '0px' }}
       borderBottomColor={useColorModeValue('gray.200', 'gray.700')}
       justifyContent={{ base: 'space-between', md: 'flex-end' }}
       {...rest}>
-        
+
       <IconButton
         display={{ base: 'flex', md: 'none' }}
         onClick={onOpen}
@@ -216,7 +206,7 @@ const MobileNav = ({ onOpen, ...rest }) => {
         aria-label="open menu"
         icon={<FiMenu />}
       />
-      
+
 
       {/* <Text
         display={{ base: 'flex', md: 'none' }}
@@ -228,9 +218,26 @@ const MobileNav = ({ onOpen, ...rest }) => {
       {/* <Avatar src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Facebook_Logo_%282019%29.png/1024px-Facebook_Logo_%282019%29.png" size="md" /> */}
 
       <HStack spacing={{ base: '0', md: '6' }}>
-        <Flex alignItems={'center'} >
-          
+        <Flex alignItems={'center'} justifyContent="space-evenly">
+
           <Menu>
+            <InputGroup
+              mr={{ base: "2%", sm: "2%", md: "50%" }}
+              mt={{ base: "", sm: "", md: "5", lg: "5", xl: "5" }}
+              width={{ base: "", md: "600px" }}>
+              <InputLeftElement
+                pointerEvents="none"
+                children={<SearchIcon color="gray.500" />}
+              />
+              <Input
+                type="text"
+                border="1px"
+                placeholder="Search Facebook"
+                borderRadius="full"
+                py="2"
+                pl="10"
+              />
+            </InputGroup>
             <MenuButton
               py={2}
               transition="all 0.3s"
@@ -248,7 +255,7 @@ const MobileNav = ({ onOpen, ...rest }) => {
                   alignItems="flex-start"
                   spacing="1px"
                   ml="2">
-                  <Text fontSize="sm">{userData.firstname} {userData.surename}</Text>
+                  <Text fontSize="sm">{userData.firstname}</Text>
                 </VStack>
                 <Box display={{ base: 'none', md: 'flex' }}>
                   <FiChevronDown />

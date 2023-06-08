@@ -10,13 +10,13 @@ const FbTabs = () => {
     };
     return (
         <>
-            <Tabs ml={{ base: 10, md: 0 }}>
-                <TabList gap="">
-                    <Tab><AiFillHome /></Tab>
-                    <Tab><AiOutlineUsergroupAdd /></Tab>
-                    <Tab><AiFillYoutube /></Tab>
-                    <Tab><AiFillShop /></Tab>
-                    <Tab> <AiFillPlayCircle /></Tab>
+            <Tabs ml={{ base: 10, md: 0 }} display={{ base: 'none', md: 'none', lg: "block", xl: "block" }} width={{ base: "", md: "70%" }}>
+                <TabList gap="5">
+                    <Tab title="Home"><AiFillHome size={27} /></Tab>
+                    <Tab title="Friends & Group"><AiOutlineUsergroupAdd /></Tab>
+                    <Tab title="Story"><AiFillYoutube size={27} /></Tab>
+                    <Tab title="Story"><AiFillShop size={27} /></Tab>
+                    <Tab title=""> <AiFillPlayCircle size={27} /></Tab>
                 </TabList>
 
                 <TabPanels>
