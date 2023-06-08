@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Box, Text, Button, Image } from "@chakra-ui/react"
-import "./Post.css"; // CSS file for styling
+import "./Post.css";
 // import "./ImageInput.css";
 const PostCard = ({
     user_profile,
