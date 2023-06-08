@@ -30,6 +30,7 @@ import {
   InputLeftElement,
 } from '@chakra-ui/react';
 import { AiFillHome, AiOutlineUsergroupAdd, AiFillYoutube, AiFillShop, AiFillPlayCircle } from 'react-icons/ai';
+import { BsSun, BsMoonStarsFill } from 'react-icons/bs';
 import { FaUserCircle } from 'react-icons/fa';
 import { SearchIcon } from '@chakra-ui/icons';
 import {
@@ -111,7 +112,10 @@ const SidebarContent = ({ onClose, ...rest }) => {
       h="full"
       {...rest}>
       <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
-        <Avatar src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Facebook_Logo_%282019%29.png/1024px-Facebook_Logo_%282019%29.png" size="md" />
+        <Avatar onClick={() => navigate("/")}
+         cursor="pointer"
+         src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Facebook_Logo_%282019%29.png/1024px-Facebook_Logo_%282019%29.png"
+         size="md" />
         <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
       </Flex>
       {LinkItems.map((link) => (
