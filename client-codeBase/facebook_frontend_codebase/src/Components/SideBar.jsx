@@ -115,9 +115,9 @@ const SidebarContent = ({ onClose, ...rest }) => {
     console.log(token);
     console.log(searchInput)
     const encodedSearchInput = encodeURIComponent(searchInput);
-axios.post(`${process.env.REACT_APP_DEV_BASE_URL}/profile/search/${encodedSearchInput}`, { headers: { "Authorization": `${token}` } })
+    axios.post(`${process.env.REACT_APP_DEV_BASE_URL}/profile/search/${encodedSearchInput}`, { headers: { "Authorization": `${token}` } })
       .then((res) => setFilteredResults(res.data))
-      .catch((err) => console.log(err))
+      .catch((err) => null)
   }
   console.log(filteredResults)
 
@@ -158,13 +158,14 @@ axios.post(`${process.env.REACT_APP_DEV_BASE_URL}/profile/search/${encodedSearch
           cursor="pointer"
           src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Facebook_Logo_%282019%29.png/1024px-Facebook_Logo_%282019%29.png"
           size="md" />
-        <Box style={{ display: "flex" }} >
+        <Box style={{ display: "flex" }}
+          ml={{ base: "0", sm: "0", md: "30%", lg: "-10%", lg: "-10%" }}
+        >
 
-          <div title="Search For Products" class="container">
+          <Box title="Search For Products" class="container">
             <InputGroup
               width="300px"
-              display={{ base: 'none', sm: "flex", md: 'flex', lg: "flex", xl: "none" }}
-              ml="3%"
+              display={{ base: 'none', sm: "flex", md: 'none', lg: "none", xl: "none" }}
             >
               <InputLeftElement
                 pointerEvents="none"
@@ -180,8 +181,8 @@ axios.post(`${process.env.REACT_APP_DEV_BASE_URL}/profile/search/${encodedSearch
                 onChange={handleInputChange}
               />
             </InputGroup>
-            <div onClick={() => handleSearch()} class="search"></div>
-          </div>
+            <Box onClick={() => handleSearch()} class="search"></Box>
+          </Box>
           {filteredResults.length > 0 && (
             <Box
               className="abc"
@@ -190,15 +191,15 @@ axios.post(`${process.env.REACT_APP_DEV_BASE_URL}/profile/search/${encodedSearch
               {filteredResults.map((el) => {
                 return (
                   <Link id="categoryAncer" to={`/user-profile/${el._id}`} >
-                    <div className="searchmap" onClick={() => setSearchInput("")}>
-                      <div style={{ width: "30px", height: "30px" }}>
+                    <Box className="searchmap" onClick={() => setSearchInput("")}>
+                      <Box style={{ width: "30px", height: "30px" }}>
                         <Avatar src={el.profile_pic} style={{ width: "100%" }}></Avatar>
-                      </div>
+                      </Box>
                       {/* <a href={`/${item.category}/${item.title}/${item.id}`}>
                 <p>{item.title}</p>
               </a> */}
                       <p>{el.firstname + el.surename}</p>
-                    </div>
+                    </Box>
                   </Link>
 
                 );
@@ -288,17 +289,19 @@ const MobileNav = ({ onOpen, ...rest }) => {
 
   useEffect(() => {
     // Perform any actions with the updated searchInput value
-    console.log(searchInput);
-    getSearchedData();
+    setTimeout(() => {
+      console.log(searchInput);
+      getSearchedData();
+    }, 3000)
   }, [searchInput]);
 
   const getSearchedData = () => {
     console.log(token);
     console.log(searchInput)
     const encodedSearchInput = encodeURIComponent(searchInput);
-axios.post(`${process.env.REACT_APP_DEV_BASE_URL}/profile/search/${encodedSearchInput}`, { headers: { "Authorization": `${token}` } })
+    axios.post(`${process.env.REACT_APP_DEV_BASE_URL}/profile/search/${encodedSearchInput}`, { headers: { "Authorization": `${token}` } })
       .then((res) => setFilteredResults(res.data))
-      .catch((err) => console.log(err))
+      .catch((err) => null)
   }
   const navigate = useNavigate()
   const logout = () => {
@@ -345,56 +348,56 @@ axios.post(`${process.env.REACT_APP_DEV_BASE_URL}/profile/search/${encodedSearch
         <Flex alignItems={'center'} justifyContent="space-evenly">
 
           <Menu>
-            <Box style={{ display: "flex" }} >
+            <Box style={{ display: "flex" }} mr={{ base: "2%", sm: "2%", md: "50%", lg: "0", xl: "" }} p="2">
 
-          <div title="Search For Products" class="container">
-          <InputGroup
-              display={{ base: 'flex', sm: "none", md: 'none', lg: "none", xl: "flex" }}
-              mr={{ base: "2%", sm: "2%", md: "50%", lg: "0", xl: "300px" }}
-              mt={{ base: "", sm: "", md: "5", lg: "5", xl: "5" }}
-              width={{ base: "", md: "600px", lg: "300px", xl: "" }}>
-              <InputLeftElement
-                pointerEvents="none"
-                children={<SearchIcon color="gray.500" />}
-              />
-              <Input
-                type="text"
-                border="1px"
-                placeholder="Search Facebook"
-                borderRadius="full"
-                py="2"
-                pl="10"
-                onChange={handleInputChange}
-              />
-            </InputGroup>
-            <div onClick={() => handleSearch()} class="search"></div>
-          </div>
-          {filteredResults.length > 0 && (
-            <Box
-              className="abc"
-              display={searchInput.length === 0 ? "none" : "inline"}
-            >
-              {filteredResults.map((el) => {
-                return (
-                  <Link id="categoryAncer" to={`/user-profile/${el._id}`} >
-                    <div className="searchmap" onClick={() => setSearchInput("")}>
-                      <div style={{ width: "30px", height: "30px" }}>
-                        <Avatar src={el.profile_pic} style={{ width: "100%" }}></Avatar>
-                      </div>
-                      {/* <a href={`/${item.category}/${item.title}/${item.id}`}>
+              <Box title="Search Facebook" class="container" style={{ position: "relative" }}>
+                <InputGroup
+                  display={{ base: 'flex', sm: "none", md: 'none', lg: "none", xl: "flex" }}
+                  mr={{ base: "2%", sm: "2%", md: "50%", lg: "0", xl: "10%" }}
+                  mt={{ base: "", sm: "", md: "5", lg: "5", xl: "5" }}
+                  width={{ base: "", md: "400px", lg: "300px", xl: "300px" }}>
+                  <InputLeftElement
+                    pointerEvents="none"
+                    children={<SearchIcon color="gray.500" />}
+                  />
+                  <Input
+                    type="text"
+                    border="1px"
+                    placeholder="Search Facebook"
+                    borderRadius="full"
+                    py="2"
+                    pl="10"
+                    onChange={handleInputChange}
+                  />
+                </InputGroup>
+                <Box onClick={() => handleSearch()} class="search"></Box>
+              </Box>
+              {filteredResults.length > 0 && (
+                <Box
+                  className="abc"
+                  display={searchInput.length === 0 ? "none" : "inline"}
+                >
+                  {filteredResults.map((el) => {
+                    return (
+                      <Link id="categoryAncer" to={`/user-profile/${el._id}`} >
+                        <Box className="searchmap" onClick={() => setSearchInput("")}>
+                          <Box style={{ width: "30px", height: "30px" }}>
+                            <Avatar src={el.profile_pic} style={{ width: "100%" }}></Avatar>
+                          </Box>
+                          {/* <a href={`/${item.category}/${item.title}/${item.id}`}>
                 <p>{item.title}</p>
               </a> */}
-                      <p>{el.firstname + el.surename}</p>
-                    </div>
-                  </Link>
+                          <p>{el.firstname + el.surename}</p>
+                        </Box>
+                      </Link>
 
-                );
-              })}
+                    );
+                  })}
+                </Box>
+              )}
+
+
             </Box>
-          )}
-
-
-        </Box>
             <MenuButton
               py={2}
               transition="all 0.3s"

@@ -24,7 +24,9 @@ const Dashboard = () => {
   }
   return (
     <div >
-      <SideBar children={<FbTabs />} />
+      <SideBar
+       children={<FbTabs />}
+        />
     </div>
   )
 }
