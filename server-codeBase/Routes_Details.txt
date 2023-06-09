@@ -27,7 +27,7 @@ createPosts -->>      /post/create(POST)
 addComment  -->>      /post/comment(PUT reuqest)(PUT)
 
 ### Find users
-Search users -->>     /users/search/:query(POST)
+Search users -->>     /profile/search/name(POST)
 
 ### Stories 
 Create_Story  -->>   /story/create

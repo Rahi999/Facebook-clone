@@ -5,6 +5,7 @@ import { Center, Container, Toast, useToast } from '@chakra-ui/react'
 import { getCookies } from '../utils/getData'
 import { removeCookies } from '../utils/removeData'
 import Loading from '../Components/Loading'
+import FbTabs from '../Components/Tabs'
 
 const Dashboard = () => {
   const navigate = useNavigate()
@@ -23,7 +24,7 @@ const Dashboard = () => {
   }
   return (
     <div >
-      <SideBar logout={logout} />
+      <SideBar children={<FbTabs />} />
     </div>
   )
 }

@@ -58,11 +58,11 @@ const LinkItems = [
   { name: 'Settings', icon: FiSettings, title: "Profile setting" },
 ];
 
+
 export default function SideBar({
   children
 }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
-
 
   return (
     <Box minH="100vh" bg={useColorModeValue('gray.100', 'gray.900')}>
@@ -85,7 +85,7 @@ export default function SideBar({
       {/* mobilenav */}
       <MobileNav onOpen={onOpen} />
       <Box ml={{ base: 0, md: 350 }} p="8" height="100%" mt="-20" width="" padding="-20">
-        <FbTabs />
+        {children}
       </Box>
 
     </Box>
@@ -95,6 +95,48 @@ export default function SideBar({
 
 
 const SidebarContent = ({ onClose, ...rest }) => {
+
+  const [searchedUsers, setSearchedUsers] = useState(null)
+  const [searchInput, setSearchInput] = useState("");
+  const [filteredResults, setFilteredResults] = useState([]);
+  const token = getCookies('fb_token')
+
+  const handleInputChange = (e) => {
+    setSearchInput(e.target.value)
+  }
+
+  useEffect(() => {
+    // Perform any actions with the updated searchInput value
+    console.log(searchInput);
+    getSearchedData();
+  }, [searchInput]);
+
+  const getSearchedData = () => {
+    console.log(token);
+    console.log(searchInput)
+    const encodedSearchInput = encodeURIComponent(searchInput);
+axios.post(`${process.env.REACT_APP_DEV_BASE_URL}/profile/search/${encodedSearchInput}`, { headers: { "Authorization": `${token}` } })
+      .then((res) => setFilteredResults(res.data))
+      .catch((err) => console.log(err))
+  }
+  console.log(filteredResults)
+
+  const handleSearch = () => {
+    // localStorage.setItem("searched",text)
+    // navigate("/searchedProducts")
+  }
+
+  const searchItems = (searchValue) => {
+    // setSearchInput(searchValue);
+    // const filterdata = ApiData.filter((item) => {
+    //   return Object.values(item)
+    //     .join("")
+    //     .toLowerCase()
+    //     .includes(searchInput.toLowerCase());
+    // });
+    // setFilteredResults(filterdata);
+  };
+
   const navigate = useNavigate()
   const logout = () => {
     removeCookies("fb_token")
@@ -116,24 +158,56 @@ const SidebarContent = ({ onClose, ...rest }) => {
           cursor="pointer"
           src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Facebook_Logo_%282019%29.png/1024px-Facebook_Logo_%282019%29.png"
           size="md" />
-        <InputGroup
-          width="300px"
-          display={{ base: 'none', sm: "flex", md: 'flex', lg: "flex", xl: "none" }}
-          ml="3%"
-        >
-          <InputLeftElement
-            pointerEvents="none"
-            children={<SearchIcon color="gray.500" />}
-          />
-          <Input
-            type="text"
-            border="1px"
-            placeholder="Search Facebook"
-            borderRadius="full"
-            py="2"
-            pl="10"
-          />
-        </InputGroup>
+        <Box style={{ display: "flex" }} >
+
+          <div title="Search For Products" class="container">
+            <InputGroup
+              width="300px"
+              display={{ base: 'none', sm: "flex", md: 'flex', lg: "flex", xl: "none" }}
+              ml="3%"
+            >
+              <InputLeftElement
+                pointerEvents="none"
+                children={<SearchIcon color="gray.500" />}
+              />
+              <Input
+                type="text"
+                border="1px"
+                placeholder="Search Facebook"
+                borderRadius="full"
+                py="2"
+                pl="10"
+                onChange={handleInputChange}
+              />
+            </InputGroup>
+            <div onClick={() => handleSearch()} class="search"></div>
+          </div>
+          {filteredResults.length > 0 && (
+            <Box
+              className="abc"
+              display={searchInput.length === 0 ? "none" : "inline"}
+            >
+              {filteredResults.map((el) => {
+                return (
+                  <Link id="categoryAncer" to={`/user-profile/${el._id}`} >
+                    <div className="searchmap" onClick={() => setSearchInput("")}>
+                      <div style={{ width: "30px", height: "30px" }}>
+                        <Avatar src={el.profile_pic} style={{ width: "100%" }}></Avatar>
+                      </div>
+                      {/* <a href={`/${item.category}/${item.title}/${item.id}`}>
+                <p>{item.title}</p>
+              </a> */}
+                      <p>{el.firstname + el.surename}</p>
+                    </div>
+                  </Link>
+
+                );
+              })}
+            </Box>
+          )}
+
+
+        </Box>
         <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
       </Flex>
       {LinkItems.map((link) => (
@@ -203,11 +277,39 @@ const MobileNav = ({ onOpen, ...rest }) => {
       navigate("/login")
     }
   }, [])
+
+  const [searchedUsers, setSearchedUsers] = useState(null)
+  const [searchInput, setSearchInput] = useState("");
+  const [filteredResults, setFilteredResults] = useState([]);
+
+  const handleInputChange = (e) => {
+    setSearchInput(e.target.value)
+  }
+
+  useEffect(() => {
+    // Perform any actions with the updated searchInput value
+    console.log(searchInput);
+    getSearchedData();
+  }, [searchInput]);
+
+  const getSearchedData = () => {
+    console.log(token);
+    console.log(searchInput)
+    const encodedSearchInput = encodeURIComponent(searchInput);
+axios.post(`${process.env.REACT_APP_DEV_BASE_URL}/profile/search/${encodedSearchInput}`, { headers: { "Authorization": `${token}` } })
+      .then((res) => setFilteredResults(res.data))
+      .catch((err) => console.log(err))
+  }
   const navigate = useNavigate()
   const logout = () => {
     removeCookies("fb_token")
     removeCookies("userId")
     navigate("/login")
+  }
+
+  const handleSearch = () => {
+    // localStorage.setItem("searched",text)
+    //
   }
   return (
     <Flex
@@ -243,7 +345,10 @@ const MobileNav = ({ onOpen, ...rest }) => {
         <Flex alignItems={'center'} justifyContent="space-evenly">
 
           <Menu>
-            <InputGroup
+            <Box style={{ display: "flex" }} >
+
+          <div title="Search For Products" class="container">
+          <InputGroup
               display={{ base: 'flex', sm: "none", md: 'none', lg: "none", xl: "flex" }}
               mr={{ base: "2%", sm: "2%", md: "50%", lg: "0", xl: "300px" }}
               mt={{ base: "", sm: "", md: "5", lg: "5", xl: "5" }}
@@ -259,8 +364,37 @@ const MobileNav = ({ onOpen, ...rest }) => {
                 borderRadius="full"
                 py="2"
                 pl="10"
+                onChange={handleInputChange}
               />
             </InputGroup>
+            <div onClick={() => handleSearch()} class="search"></div>
+          </div>
+          {filteredResults.length > 0 && (
+            <Box
+              className="abc"
+              display={searchInput.length === 0 ? "none" : "inline"}
+            >
+              {filteredResults.map((el) => {
+                return (
+                  <Link id="categoryAncer" to={`/user-profile/${el._id}`} >
+                    <div className="searchmap" onClick={() => setSearchInput("")}>
+                      <div style={{ width: "30px", height: "30px" }}>
+                        <Avatar src={el.profile_pic} style={{ width: "100%" }}></Avatar>
+                      </div>
+                      {/* <a href={`/${item.category}/${item.title}/${item.id}`}>
+                <p>{item.title}</p>
+              </a> */}
+                      <p>{el.firstname + el.surename}</p>
+                    </div>
+                  </Link>
+
+                );
+              })}
+            </Box>
+          )}
+
+
+        </Box>
             <MenuButton
               py={2}
               transition="all 0.3s"
