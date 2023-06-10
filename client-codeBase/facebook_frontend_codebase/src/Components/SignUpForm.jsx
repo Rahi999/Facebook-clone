@@ -115,13 +115,13 @@ const SignUpForm = () => {
             isClosable: true,
           })
           saveCookies('fb_token', res.data.token)
+          saveCookies('userId', res.data.userId)
           setLoading(false)
           navigate('/')
         })
         .catch((err) => {
           toast({
-            title: 'Something went wrong.',
-            description: `${err.response.data.message}`,
+            title: `${err.response.data.message}`,
             position: "top",
             status: 'error',
             duration: 5000,
@@ -221,7 +221,7 @@ const SignUpForm = () => {
               <RadioGroup defaultValue='Male' onChange={setGender} value={gender}>
                 <Stack spacing={5} direction='row' id="RadioBox">
                   <Box id="GenderRadio">
-                    <Radio colorScheme='blue' value='Female'>
+                    <Radio colorScheme='blue' value='Female' >
                       Female
                     </Radio>
                   </Box>

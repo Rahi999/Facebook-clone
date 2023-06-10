@@ -49,7 +49,7 @@ const Login = () => {
             position: "top",
             status: 'success',
             duration: 3000,
-            isClosable: true,
+            // isClosable: true,
           })
           saveCookies("fb_token", res.data.token)
           saveCookies("userId", res.data.userId)
