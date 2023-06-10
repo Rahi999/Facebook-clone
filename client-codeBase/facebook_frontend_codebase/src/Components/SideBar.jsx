@@ -47,6 +47,12 @@ import { ReactText } from 'react';
 import { removeCookies } from '../utils/removeData';
 import { getCookies } from "../utils/getData"
 import FbTabs from "./Tabs"
+const theme = localStorage.getItem('chakra-ui-color-mode')
+
+const boxStyle = {
+  border: theme === "light" ? "3px solid transparent" : "3px solid transparent",
+
+};
 
 
 const LinkItems = [
@@ -77,14 +83,15 @@ export default function SideBar({
         onClose={onClose}
         returnFocusOnClose={false}
         onOverlayClick={onClose}
-        size="full">
+        size="full"
+        >
         <DrawerContent >
           <SidebarContent onClose={onClose} />
         </DrawerContent>
       </Drawer>
       {/* mobilenav */}
       <MobileNav onOpen={onOpen} />
-      <Box ml={{ base: 0, md: 350 }} p="8" height="100%" mt="-20" width="" padding="-20">
+      <Box style={boxStyle} ml={{ base: 0, md: 350 }} p="8" height="100%" mt="-20" width="" padding="-20">
         {children}
       </Box>
 
@@ -149,7 +156,7 @@ const SidebarContent = ({ onClose, ...rest }) => {
       bg={useColorModeValue('white', 'gray.900')}
       borderRight="0px"
       borderRightColor={useColorModeValue('gray.200', 'gray.700')}
-      w={{ base: 'full', md: 320 }}
+      w={{ base: '95%', sm: "95%", md: 320, lg: 300, xl: 300 }}
       pos="fixed"
       h="full"
       {...rest}>
@@ -349,7 +356,7 @@ const MobileNav = ({ onOpen, ...rest }) => {
         <Flex alignItems={'center'} justifyContent="space-evenly">
 
           <Menu>
-            <Box style={{ display: "flex" }} mr={{ base: "2%", sm: "2%", md: "50%", lg: "0", xl: "" }} p="2">
+            <Box  style={{ display: "flex" }} mr={{ base: "2%", sm: "2%", md: "50%", lg: "0", xl: "" }} p="2">
 
               <Box title="Search Facebook" class="container" style={{ position: "relative" }}>
                 <InputGroup

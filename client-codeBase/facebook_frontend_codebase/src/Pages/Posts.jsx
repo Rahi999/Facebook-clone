@@ -12,6 +12,7 @@ const Posts = () => {
     const navigate = useNavigate()
     const userId = getCookies('userId')
     const token = getCookies('fb_token')
+    const theme = localStorage.getItem('chakra-ui-color-mode')
     useEffect(() => {
         if (userId && token) {
             axios.get(`${process.env.REACT_APP_DEV_BASE_URL}/post/get`, { headers: { "Authorization": `${token}` } })
@@ -27,11 +28,18 @@ const Posts = () => {
             navigate("/login")
         }
     }, [])
+
+    const boxStyle = {
+        border: theme === "light" ? "1px solid white" : "1px solid black"
+      };
     return postData ?
         (
             <Box
-                width={{ base: "100%", sm: "100%", md: "100%", lg: "100%", xl: "100%" }}
-                ml={{ base: "", sm: "0", md: "0", lg: "0", xl: "0" }} >
+                // width={{ base: "100%", sm: "100%", md: "100%", lg: "100%", xl: "100%" }}
+                // ml={{ base: "", sm: "0", md: "0", lg: "0", xl: "0" }} 
+                // style={boxStyle}
+                borderRadius="8px"
+                >
                 {postData && postData.map((el, i) => <Box key={i}>
                     <PostCard
                         user_profile={el.user.profile_pic}
