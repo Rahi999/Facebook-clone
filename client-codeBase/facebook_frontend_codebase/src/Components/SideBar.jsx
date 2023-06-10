@@ -51,7 +51,10 @@ const theme = localStorage.getItem('chakra-ui-color-mode')
 
 const boxStyle = {
   border: theme === "light" ? "3px solid transparent" : "3px solid transparent",
+};
 
+const bgStyle = {
+  backgroundColor: theme === "light" ? "white" : "black",
 };
 
 
@@ -191,7 +194,8 @@ const SidebarContent = ({ onClose, ...rest }) => {
             <Box onClick={() => handleSearch()} class="search"></Box>
           </Box>
           {filteredResults.length > 0 && (
-            <Box
+            <Box 
+            style={bgStyle}
               className="abc"
               display={searchInput.length === 0 ? "none" : "inline"}
               width={{ base: "250px", sm: "300px", md: "300px", lg: "400px", xl: '400px' }}
@@ -382,6 +386,7 @@ const MobileNav = ({ onOpen, ...rest }) => {
               </Box>
               {filteredResults.length > 0 && (
                 <Box
+                style={bgStyle}
                   className="abc"
                   display={searchInput.length === 0 ? "none" : "inline"}
                   width={{ base: "250px", sm: "300px", md: "300px", lg: "400px", xl: '400px' }}
