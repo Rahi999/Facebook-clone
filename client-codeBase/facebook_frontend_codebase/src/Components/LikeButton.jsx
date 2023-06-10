@@ -12,7 +12,9 @@ const LikeButton = ({ postId }) => {
     const handleClick = () => {
         play();
         // alert(postId)
-        setLiked(true)
+        setTimeout(() => {
+            setLiked(true)
+        }, 100)
     };
     return (<>
         <Box>

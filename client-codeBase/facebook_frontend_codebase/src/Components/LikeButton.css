@@ -105,12 +105,13 @@
   }
   
   .react-box li:active {
-    display: none;
+    /* display: none; */
     transition: transform 2s ease;
     transform: scale(2) translateY(0);
+    /* animation: hideElement 2s; */
   }
   .react-box li:target {
-    display: none;
+    /* display: none; */
     transition: transform 2s ease;
     transform: scale(0.8) translateY(0);
   }
