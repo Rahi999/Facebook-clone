@@ -187,18 +187,19 @@ const SidebarContent = ({ onClose, ...rest }) => {
             <Box
               className="abc"
               display={searchInput.length === 0 ? "none" : "inline"}
+              width={{ base: "250px", sm: "300px", md: "300px", lg: "400px", xl: '400px' }}
             >
               {filteredResults.map((el) => {
                 return (
                   <Link id="categoryAncer" to={`/user-profile/${el._id}`} >
                     <Box className="searchmap" onClick={() => setSearchInput("")}>
                       <Box style={{ width: "30px", height: "30px" }}>
-                        <Avatar src={el.profile_pic} style={{ width: "100%" }}></Avatar>
+                        <Avatar size={'xs'} borderRadius={'lg'} src={el.profile_pic} ></Avatar>
                       </Box>
                       {/* <a href={`/${item.category}/${item.title}/${item.id}`}>
                 <p>{item.title}</p>
               </a> */}
-                      <p>{el.firstname + el.surename}</p>
+                      <Text fontSize={{ base: "12px", sm: "12px", md: "14px", lg: "14px", sl: "16px" }} >{el.firstname + " " + el.surename}</Text>
                     </Box>
                   </Link>
 
@@ -376,18 +377,19 @@ const MobileNav = ({ onOpen, ...rest }) => {
                 <Box
                   className="abc"
                   display={searchInput.length === 0 ? "none" : "inline"}
+                  width={{ base: "250px", sm: "300px", md: "300px", lg: "400px", xl: '400px' }}
                 >
                   {filteredResults.map((el) => {
                     return (
                       <Link id="categoryAncer" to={`/user-profile/${el._id}`} >
                         <Box className="searchmap" onClick={() => setSearchInput("")}>
                           <Box style={{ width: "30px", height: "30px" }}>
-                            <Avatar src={el.profile_pic} style={{ width: "100%" }}></Avatar>
+                            <Avatar size={'sm'} borderRadius={'lg'} src={el.profile_pic}></Avatar>
                           </Box>
                           {/* <a href={`/${item.category}/${item.title}/${item.id}`}>
                 <p>{item.title}</p>
               </a> */}
-                          <p>{el.firstname + el.surename}</p>
+                          <Text fontSize={{ base: "12px", sm: "12px", md: "14px", lg: "14px", sl: "16px" }}>{el.firstname + " " + el.surename}</Text>
                         </Box>
                       </Link>
 
