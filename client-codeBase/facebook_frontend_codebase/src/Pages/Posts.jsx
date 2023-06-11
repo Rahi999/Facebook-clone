@@ -5,6 +5,7 @@ import { getCookies } from "../utils/getData";
 import { useNavigate } from "react-router-dom"
 import PostCard from "../Components/PostCard";
 import Loading from "../Components/Loading"
+import CreatePost from "../Components/CreatePost";
 
 const Posts = () => {
 
@@ -40,6 +41,7 @@ const Posts = () => {
                 // style={boxStyle}
                 borderRadius="8px"
                 >
+                    <CreatePost />
                 {postData && postData.map((el, i) => <Box key={i}>
                     <PostCard
                         user_profile={el.user.profile_pic}

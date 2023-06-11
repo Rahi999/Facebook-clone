@@ -3,6 +3,7 @@ import { Box, Text, Button, Image } from "@chakra-ui/react"
 import { Link, useNavigate } from "react-router-dom";
 import "./Post.css";
 import LikeButton from "./LikeButton";
+import CreatePost from "./CreatePost";
 // import "./ImageInput.css";
 const PostCard = ({
     user_profile,
