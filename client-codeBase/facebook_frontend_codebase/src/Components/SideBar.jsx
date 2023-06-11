@@ -87,7 +87,7 @@ export default function SideBar({
         returnFocusOnClose={false}
         onOverlayClick={onClose}
         size="full"
-        >
+      >
         <DrawerContent >
           <SidebarContent onClose={onClose} />
         </DrawerContent>
@@ -194,8 +194,8 @@ const SidebarContent = ({ onClose, ...rest }) => {
             <Box onClick={() => handleSearch()} class="search"></Box>
           </Box>
           {filteredResults.length > 0 && (
-            <Box 
-            style={bgStyle}
+            <Box
+              style={bgStyle}
               className="abc"
               display={searchInput.length === 0 ? "none" : "inline"}
               width={{ base: "250px", sm: "300px", md: "300px", lg: "400px", xl: '400px' }}
@@ -360,7 +360,7 @@ const MobileNav = ({ onOpen, ...rest }) => {
         <Flex alignItems={'center'} justifyContent="space-evenly">
 
           <Menu>
-            <Box  style={{ display: "flex" }} mr={{ base: "2%", sm: "2%", md: "50%", lg: "0", xl: "" }} p="2">
+            <Box style={{ display: "flex" }} mr={{ base: "2%", sm: "2%", md: "50%", lg: "0", xl: "" }} p="2">
 
               <Box title="Search Facebook" class="container" style={{ position: "relative" }}>
                 <InputGroup
@@ -386,7 +386,7 @@ const MobileNav = ({ onOpen, ...rest }) => {
               </Box>
               {filteredResults.length > 0 && (
                 <Box
-                style={bgStyle}
+                  style={bgStyle}
                   className="abc"
                   display={searchInput.length === 0 ? "none" : "inline"}
                   width={{ base: "250px", sm: "300px", md: "300px", lg: "400px", xl: '400px' }}

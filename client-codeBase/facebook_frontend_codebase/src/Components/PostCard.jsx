@@ -22,7 +22,7 @@ const PostCard = ({
         setSelectedImage(URL.createObjectURL(file));
     };
     return (
-        <Box className="post" 
+        <Box className="post"
         >
             <Box className="post-header" onClick={() => navigate(`/user-profile/${userId}`)} cursor="pointer">
                 <Box className="image-input">
@@ -42,11 +42,11 @@ const PostCard = ({
                 <Image className="post-image" src={post_image} alt="" />
             </Box>
             {/* <Box className="post-actions"> */}
-                <LikeButton postId={PostId} />
-                <Box mt="-10" width="70%" display="flex" textAlign="right" ml="30%" gap="3">
-                <Button width={{base: "70%", sm: "70%", md: "70%", lg: "70%", xl: "30%"}} fontSize={{base: "12px", sm: "14px", md: "", lg: "", xl: ""}} className="post-comment">Comment</Button>
-                <Button width={{base: "70%", sm: "70%", md: "70%", lg: "70%", xl: "30%"}} fontSize={{base: "12px", sm: "14px", md: "", lg: "", xl: ""}} className="post-share">Share</Button>
-                </Box>
+            <LikeButton postId={PostId} />
+            <Box mt="-10" width="70%" display="flex" textAlign="right" ml="30%" gap="3">
+                <Button width={{ base: "70%", sm: "70%", md: "70%", lg: "70%", xl: "30%" }} fontSize={{ base: "12px", sm: "14px", md: "", lg: "", xl: "" }} className="post-comment">Comment</Button>
+                <Button width={{ base: "70%", sm: "70%", md: "70%", lg: "70%", xl: "30%" }} fontSize={{ base: "12px", sm: "14px", md: "", lg: "", xl: "" }} className="post-share">Share</Button>
+            </Box>
             {/* </Box> */}
         </Box>
     );

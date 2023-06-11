@@ -1,5 +1,5 @@
 import axios from "axios"
-import { Box, Center, Text } from "@chakra-ui/react";
+import { Box, Center, Text, useToast } from "@chakra-ui/react";
 import React, { useState, useEffect } from "react";
 import { getCookies } from "../utils/getData";
 import { useNavigate } from "react-router-dom"
@@ -14,9 +14,10 @@ const Posts = () => {
     const userId = getCookies('userId')
     const token = getCookies('fb_token')
     const theme = localStorage.getItem('chakra-ui-color-mode')
-    useEffect(() => {
-        if (userId && token) {
-            axios.get(`${process.env.REACT_APP_DEV_BASE_URL}/post/get`, { headers: { "Authorization": `${token}` } })
+    const toast = useToast()
+
+    const getPosts = () => {
+        axios.get(`${process.env.REACT_APP_DEV_BASE_URL}/post/get`, { headers: { "Authorization": `${token}` } })
                 .then((res) => {
                     console.log(res.data)
                     setPostData(res.data)
@@ -24,24 +25,33 @@ const Posts = () => {
                 .catch((err) => {
                     navigate("/login")
                 })
+    }
+    useEffect(() => {
+        if (userId && token) {
+            getPosts()
         }
         else {
+            toast({
+                title: "User not found.",
+                position: "top",
+                status: 'error',
+                duration: 3000,
+                isClosable: true,
+            })
             navigate("/login")
         }
     }, [])
 
     const boxStyle = {
         border: theme === "light" ? "1px solid white" : "1px solid black"
-      };
+    };
     return postData ?
         (
             <Box
-                // width={{ base: "100%", sm: "100%", md: "100%", lg: "100%", xl: "100%" }}
-                // ml={{ base: "", sm: "0", md: "0", lg: "0", xl: "0" }} 
-                // style={boxStyle}
                 borderRadius="8px"
-                >
-                    <CreatePost />
+            >
+
+                <CreatePost getPosts={getPosts} />
                 {postData && postData.map((el, i) => <Box key={i}>
                     <PostCard
                         user_profile={el.user.profile_pic}
