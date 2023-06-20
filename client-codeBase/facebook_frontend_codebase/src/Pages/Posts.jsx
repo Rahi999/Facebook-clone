@@ -49,6 +49,8 @@ const Posts = () => {
         (
             <Box
                 borderRadius="8px"
+                
+                width={{base: "100%", sm: "100%", md: "70%", lg: "55%", xl: "55%"}}
             >
 
                 <CreatePost getPosts={getPosts} />

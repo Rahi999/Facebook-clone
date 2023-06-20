@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { Tabs, Tab, TabPanels, TabPanel, TabList, Box } from "@chakra-ui/react";
+import { Tabs, Tab, TabPanels, TabPanel, TabList, Box, Flex } from "@chakra-ui/react";
 import { AiFillHome, AiOutlineUsergroupAdd, AiFillYoutube, AiFillShop, AiFillPlayCircle } from 'react-icons/ai';
 import Posts from "../Pages/Posts";
+import Users from "./Users";
 
 const FbTabs = () => {
     const [currentTab, setCurrentTab] = useState(0);
@@ -20,11 +21,15 @@ const FbTabs = () => {
                     <Tab title=""> <AiFillPlayCircle size={27} /></Tab>
                 </TabList>
 
-                <TabPanels mt={{ base: "30%", sm: "5%", md: "5%", lg: "0", xl: "0" }}>
-                    <TabPanel width={{base: "100%", sm: "100%", md: "70%", lg: "55%", xl: "55%"}}
+                <TabPanels mt={{ base: "30%", sm: "5%", md: "5%", lg: "0", xl: "0" }} >
+                    <TabPanel width={{base: "100%", sm: "100%", md: "70%", lg: "100%", xl: "100%"}}
                     marginLeft={{base: "-10", sm: "-10", md:"0", lg: "0", xl: "0"}} position="relative"
                     >
+                        <Flex  width={'100%'}>
                         <Posts />
+                        {/* <Users /> */}
+                        </Flex>
+                        
                         
                     </TabPanel>
                     <TabPanel>

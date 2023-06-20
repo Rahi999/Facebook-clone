@@ -9,6 +9,8 @@ import "./Post.css";
 import LikeButton from "./Like";
 import CreatePost from "./CreatePost";
 import { getCookies } from "../utils/getData";
+import boopSfx from "../Assets/fb_like.mp3";
+import useSound from "use-sound";
 // import "./ImageInput.css";
 const PostCard = ({
     user_profile,
@@ -26,6 +28,8 @@ const PostCard = ({
     const navigate = useNavigate()
     const [selectedImage, setSelectedImage] = useState(null);
     const token = getCookies("fb_token")
+    const [play] = useSound(boopSfx);
+
 
     const handleImageChange = (event) => {
         const file = event.target.files[0];
@@ -40,6 +44,7 @@ const PostCard = ({
             axios.put(`${process.env.REACT_APP_DEV_BASE_URL}/post/dislike/${PostId}`, payload, { headers: { "Authorization": `${token}` } })
                 .then((res) => {
                     setLoading(false)
+                    play()
                     setTimeout(() => {
                         setDisLiked(true)
                     }, 100)
