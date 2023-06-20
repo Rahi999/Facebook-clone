@@ -12,7 +12,8 @@ const AllRoutes = () => {
   return (
     <div>
       <Routes>
-        <Route path="/" element={<Suspense fallback={null}><Dashboard /></Suspense>} />
+        <Route path="/" element={<Suspense fallback={null}><Login /></Suspense>} />
+        <Route path="/dashboard" element={<Suspense fallback={null}><Dashboard /></Suspense>} />
         <Route path="/login" element={<Suspense fallback={null}><Login /></Suspense>} />
         <Route path="/signUp" element={<Suspense fallback={null}><SignUp /></Suspense>} />
         <Route path="/user-profile/:userId" element={<Suspense fallback={null}><Profile /></Suspense>} />

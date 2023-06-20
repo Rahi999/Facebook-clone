@@ -21,8 +21,9 @@ import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 import "./login.css"
 import { Link, useNavigate } from 'react-router-dom';
 import SignUp from './SignUp';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { saveCookies } from "../utils/saveCookies";
+import { getCookies } from '../utils/getData';
 
 const Login = () => {
 
@@ -32,6 +33,14 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate()
   const toast = useToast()
+  const token = getCookies("fb_token")
+  const userId = getCookies("userId")
+
+  useEffect(() => {
+   if(userId && token){
+    navigate("/dashboard")
+   }
+  },[])
 
 
   const handleLogin = () => {
@@ -54,7 +63,7 @@ const Login = () => {
           saveCookies("fb_token", res.data.token)
           saveCookies("userId", res.data.userId)
           setLoading(false)
-          navigate("/")
+          navigate("/dashboard")
         })
         .catch((err) => {
           toast({
