@@ -109,13 +109,16 @@ const LikeButton = ({ postId }) => {
                             </Button> */}
                         {/* <Tooltip label="Like"> */}
                             <Flex textAlign='left'>
-                            <IconButton
+                           <Tooltip label='Like'>
+                           <IconButton
                                 isDisabled={isLiked || liked}
                                 className="button"
                                 aria-label="Like"
                                 icon={isLiked || liked ? <AiFillLike /> : <AiOutlineLike />}
-                                colorScheme={isLiked || liked ? "blue" : undefined}
+                                // colorScheme={isLiked || liked ? "blue" : undefined}
+                                
                             />
+                           </Tooltip>
                             </Flex>
                         {/* </Tooltip> */}
 
