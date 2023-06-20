@@ -60,12 +60,13 @@ const PostCard = ({
       </Tooltip>
                 {/* <Button width={{ base: "70%", sm: "70%", md: "70%", lg: "70%", xl: "30%" }} fontSize={{ base: "12px", sm: "14px", md: "", lg: "", xl: "" }} className="post-comment">Comment</Button> */}
                 <Tooltip label="Comment">
+        <Link to={`/comments/${PostId}`}>
         <IconButton
           aria-label="Comment"
           icon={<BiCommentDetail />}
         //   colorScheme="blue"
         //   ml={4}
-        />
+        /></Link>
       </Tooltip>
             </Box>
             {/* </Box> */}
