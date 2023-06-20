@@ -25,6 +25,19 @@ const getAllPosts = async (req, res) => {
     }
 }
 
+const getSinglePost = async (req, res) => {
+  try{
+      const getSignlePost = await PostModel.findById(req.params.postId)
+      if(!getSignlePost) {
+          return res.status(404).json({message: "Post not found!!"})
+      }
+      return res.status(200).json(getSignlePost)
+  }
+  catch(err){
+      return res.status(500).json(err.message)
+  }
+}
+
 const addComment = async (req, res) => {
     try {
       const { comment, image, postId, user, commentAt} = req.body;
@@ -86,4 +99,4 @@ const addComment = async (req, res) => {
   }
   }
   
-module.exports = {createPost, getAllPosts, addComment, likePost, dislikePost}
+module.exports = {createPost, getAllPosts, getSinglePost, addComment, likePost, dislikePost}
