@@ -41,7 +41,7 @@ const PostCard = ({
                 </Box>
             </Box>
             <Box className="post-content">
-                <Text className="post-text">{post_text}</Text>
+                <Text className="post-text" fontSize={{base: "14px", sm:"14px", md: "26px", lg:"27px", xl: "28px"}} maxW={'100%'}>{post_text}</Text>
                 <Image className="post-image" src={post_image} alt="" />
             </Box>
             

@@ -39,7 +39,7 @@
 }
 
 .post-text {
-    font-size: 14px;
+    font-size: 18px;
     margin-bottom: 12px;
     position: relative;
     width: 100%;
@@ -110,7 +110,7 @@
 }
 
 .post-text {
-    font-size: 14px;
+    font-size: 18px;
     margin-bottom: 12px;
     text-align: left;
 }
@@ -138,14 +138,15 @@
 /* Media Query for Desktop Screens */
 @media screen and (min-width: 768px) {
     .post-image {
-        max-width: 500px;
+        /* max-width: 500px; */
         height: auto;
         margin-right: 90%;
     }
 
     .post-text {
         margin-right: 90%;
-        max-width: 500px;
+        /* max-width: 500px; */
         text-align: left;
+        font-size: 14px;
     }
 }

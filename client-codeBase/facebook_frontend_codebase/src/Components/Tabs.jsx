@@ -21,7 +21,7 @@ const FbTabs = () => {
                 </TabList>
 
                 <TabPanels mt={{ base: "30%", sm: "5%", md: "5%", lg: "0", xl: "0" }}>
-                    <TabPanel width={{base: "100%", sm: "100%", md: "70%", lg: "70%", xl: "70%"}}
+                    <TabPanel width={{base: "100%", sm: "100%", md: "70%", lg: "55%", xl: "55%"}}
                     marginLeft={{base: "-10", sm: "-10", md:"0", lg: "0", xl: "0"}} position="relative"
                     >
                         <Posts />
