@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from 'axios'
 import useSound from "use-sound";
 import boopSfx from "../Assets/fb_like.mp3";
-import { ListItem, UnorderedList, Box, Button, useToast, IconButton } from "@chakra-ui/react";
+import { ListItem, UnorderedList, Box, Button, useToast, IconButton, Tooltip, Text, Flex, AvatarGroup, Avatar } from "@chakra-ui/react";
 import { AiFillLike, AiOutlineLike } from "react-icons/ai";
 import Theme from "./Theme";
 import "./LikeButton.css"
@@ -36,7 +36,7 @@ const LikeButton = ({ postId }) => {
         axios.get(`${process.env.REACT_APP_DEV_BASE_URL}/post/get/${postId}`, { headers: { "Authorization": `${token}` } })
             .then((res) => {
                 setPost(res.data.likes)
-                console.log(res.data.likes)
+                console.log(res.data)
             })
             .catch((err) => {
                 toast({
@@ -79,7 +79,7 @@ const LikeButton = ({ postId }) => {
         }
     };
     return (<>
-        <Box>
+        <Box  >
             <Box>
                 <Box className="react">
                     <Box className="react-me">
@@ -88,17 +88,23 @@ const LikeButton = ({ postId }) => {
                         >
                             {isLiked || liked ? 'Liked' : 'Like'}
                             </Button> */}
-                        <IconButton
-                            isDisabled = {isLiked || liked}
-                            className="button"
-                            aria-label="Like"
-                            icon={isLiked || liked ? <AiFillLike /> : <AiOutlineLike />}
-                            colorScheme={isLiked || liked ? "blue" : undefined}
-                        />
+                        {/* <Tooltip label="Like"> */}
+                            <Flex textAlign='left'>
+                            <IconButton
+                                isDisabled={isLiked || liked}
+                                className="button"
+                                aria-label="Like"
+                                icon={isLiked || liked ? <AiFillLike /> : <AiOutlineLike />}
+                                colorScheme={isLiked || liked ? "blue" : undefined}
+                                text="Like"
+                            />
+                            </Flex>
+                        {/* </Tooltip> */}
+
                         <Box className="inner" onClick={handleClick}>
 
                             <Box className="react-box" >
-                                {liked ? null : (<UnorderedList  >
+                                {isLiked || liked ? null : (<UnorderedList  >
                                     <ListItem className="like" data-hover="like"></ListItem>
                                     <ListItem className="love" data-hover="love"></ListItem>
                                     <ListItem className="haha" data-hover="haha"></ListItem>

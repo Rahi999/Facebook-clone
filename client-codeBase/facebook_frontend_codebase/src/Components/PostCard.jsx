@@ -1,5 +1,8 @@
 import React, { useState } from "react";
-import { Box, Text, Button, Image } from "@chakra-ui/react"
+import { Box, Text, Button, Image, Tooltip, AvatarGroup } from "@chakra-ui/react"
+import { IconButton } from '@chakra-ui/react';
+import { BiCommentDetail } from 'react-icons/bi';
+import { AiOutlineDislike } from 'react-icons/ai';
 import { Link, useNavigate } from "react-router-dom";
 import "./Post.css";
 import LikeButton from "./Like";
@@ -41,11 +44,28 @@ const PostCard = ({
                 <Text className="post-text">{post_text}</Text>
                 <Image className="post-image" src={post_image} alt="" />
             </Box>
+            
             {/* <Box className="post-actions"> */}
             <LikeButton postId={PostId} />
-            <Box mt="-10" width="70%" display="flex" textAlign="right" ml="30%" gap="3">
-                <Button width={{ base: "70%", sm: "70%", md: "70%", lg: "70%", xl: "30%" }} fontSize={{ base: "12px", sm: "14px", md: "", lg: "", xl: "" }} className="post-comment">Comment</Button>
-                <Button width={{ base: "70%", sm: "70%", md: "70%", lg: "70%", xl: "30%" }} fontSize={{ base: "12px", sm: "14px", md: "", lg: "", xl: "" }} className="post-share">Share</Button>
+            <Box mt="-10" width={{ base: "40%", sm: "40%", md: "40%", lg: "27%", xl: "27%" }} display="flex" textAlign="right" ml={{ base: "30%", sm: "30%", md: "30%", lg: "20%", xl: '20%' }} justifyContent={'space-between'}>
+                {/* <Button width={{ base: "70%", sm: "70%", md: "70%", lg: "70%", xl: "30%" }} fontSize={{ base: "12px", sm: "14px", md: "", lg: "", xl: "" }} className="post-share">Share</Button> */}
+                <Tooltip label="Dislike">
+        <IconButton
+          aria-label="Dislike"
+          icon={<AiOutlineDislike />}
+        //   colorScheme="blue"
+          ml={4}
+        />
+      </Tooltip>
+                {/* <Button width={{ base: "70%", sm: "70%", md: "70%", lg: "70%", xl: "30%" }} fontSize={{ base: "12px", sm: "14px", md: "", lg: "", xl: "" }} className="post-comment">Comment</Button> */}
+                <Tooltip label="Comment">
+        <IconButton
+          aria-label="Comment"
+          icon={<BiCommentDetail />}
+        //   colorScheme="blue"
+          ml={4}
+        />
+      </Tooltip>
             </Box>
             {/* </Box> */}
         </Box>
