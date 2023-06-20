@@ -13,7 +13,9 @@ import {
     Stack,
     Button,
     useColorModeValue,
-    IconButton
+    IconButton,
+    Toast,
+    useToast
 } from '@chakra-ui/react';
 import { SmallCloseIcon, EditIcon } from '@chakra-ui/icons';
 import { getCookies } from "../utils/getData";
@@ -23,6 +25,7 @@ const Profile = () => {
 
     const [userData, setUserData] = useState(null)
     const [loading, setLoading] = useState(false)
+    const toast = useToast()
     const params = useParams()
     const userId = params.userId
     const id = getCookies('userId')
@@ -41,6 +44,13 @@ const Profile = () => {
                 })
                 .catch((err) => {
                     setLoading(false)
+                    toast({
+                        title: "User not found",
+                        position: "top",
+                        status: 'error',
+                        duration: 3000,
+                    })
+                    navigate("/")
                 })
         }
         else {

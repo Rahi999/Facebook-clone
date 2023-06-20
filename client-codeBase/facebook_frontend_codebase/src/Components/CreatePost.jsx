@@ -68,6 +68,16 @@ const CreatePost = ({getPosts}) => {
     };
 
     const handleCreatePost = async () => {
+       if(!text || !cloudinaryImage){
+        toast({
+            title: "cann't create empty post.",
+            position: "top",
+            status: 'info',
+            duration: 3000,
+            isClosable: true,
+        })
+       }
+       else{
         setLoading(true)
         const userId = getCookies('userId')
         const token = getCookies("fb_token")
@@ -116,6 +126,7 @@ const CreatePost = ({getPosts}) => {
                 duration: 3000,
             })
         }
+       }
 
     };
 
