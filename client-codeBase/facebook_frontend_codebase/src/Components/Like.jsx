@@ -4,9 +4,12 @@ import boopSfx from "../Assets/fb_like.mp3";
 import { ListItem, UnorderedList, Box, Button } from "@chakra-ui/react";
 import Theme from "./Theme";
 import "./LikeButton.css"
+import { getCookies } from "../utils/getData"
 
 const LikeButton = ({ postId }) => {
 
+
+    const userId = getCookies("userId")
     const [play] = useSound(boopSfx);
     const [liked, setLiked] = useState(false);
     const handleClick = () => {
