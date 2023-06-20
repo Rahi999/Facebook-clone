@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Box, Text, Button, Image, Tooltip, AvatarGroup } from "@chakra-ui/react"
+import { Box, Text, Button, Image, Tooltip, AvatarGroup, Drawer, Divider, Flex } from "@chakra-ui/react"
 import { IconButton } from '@chakra-ui/react';
 import { BiCommentDetail } from 'react-icons/bi';
 import { AiOutlineDislike } from 'react-icons/ai';
@@ -46,6 +46,7 @@ const PostCard = ({
             </Box>
             
             {/* <Box className="post-actions"> */}
+            
             <LikeButton postId={PostId} />
             <Box mt="-10" width={{ base: "40%", sm: "40%", md: "40%", lg: "27%", xl: "27%" }} display="flex" textAlign="right" ml={{ base: "30%", sm: "30%", md: "30%", lg: "20%", xl: '20%' }} justifyContent={'space-between'}>
                 {/* <Button width={{ base: "70%", sm: "70%", md: "70%", lg: "70%", xl: "30%" }} fontSize={{ base: "12px", sm: "14px", md: "", lg: "", xl: "" }} className="post-share">Share</Button> */}

@@ -79,9 +79,16 @@ const LikeButton = ({ postId }) => {
         }
     };
     return (<>
-        <Box  >
+        <Box >
+        <Flex justifyContent={'space-between'} width={{ base: "100%", sm: "100%", md: "100%", lg: "50%", xl: "50%" }}>
+                <Text fontWeight={'medium'} color={'gray.600'} fontSize={{base: "12px", sm: "14px", md: "14px", lg: "16px", xl: "16px"}}>1 Likes</Text>
+                <Text fontWeight={'medium'} color={'gray.600'} fontSize={{base: "12px", sm: "14px", md: "14px", lg: "16px", xl: "16px"}}>1 Dislikes</Text>
+                <Text fontWeight={'medium'} color={'gray.600'} fontSize={{base: "12px", sm: "14px", md: "14px", lg: "16px", xl: "16px"}}>1 Comments</Text>
+
+            </Flex>
+            <Box bg="grey" height='2px' borderRadius='50px' mt="10px" ></Box>
             <Box>
-                <Box className="react">
+                <Box className="react" padding={'1'}>
                     <Box className="react-me">
                         {/* <Button width="28%" fontSize={{ base: "12px", sm: "14px", md: "", lg: "", xl: "" }} className="button"
                         // colorScheme={isLiked || liked ? 'green' : 'blue'}
