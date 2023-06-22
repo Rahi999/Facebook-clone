@@ -28,6 +28,9 @@ const getAllPosts = async (req, res) => {
 const getSinglePost = async (req, res) => {
   try{
       const getSignlePost = await PostModel.findById(req.params.postId)
+      .populate('user', "firstname surename profile_pic")
+        .populate({path: "comments", populate: {path: 'user', model: 'user', select: "firstname surename profile_pic"}})
+        .sort({'_id':'descending'});
       if(!getSignlePost) {
           return res.status(404).json({message: "Post not found!!"})
       }
