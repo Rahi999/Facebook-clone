@@ -123,8 +123,8 @@ const SidebarContent = ({ onClose, ...rest }) => {
   }, [searchInput]);
 
   const getSearchedData = () => {
-    if(searchInput.length > 3)
-    console.log(token);
+    if (searchInput.length > 3)
+      console.log(token);
     console.log(searchInput)
     const encodedSearchInput = encodeURIComponent(searchInput);
     axios.post(`${process.env.REACT_APP_DEV_BASE_URL}/profile/search/${encodedSearchInput}`, { headers: { "Authorization": `${token}` } })
@@ -311,13 +311,13 @@ const MobileNav = ({ onOpen, ...rest }) => {
   }, [searchInput]);
 
   const getSearchedData = () => {
-    if(searchInput.length > 3){
+    if (searchInput.length > 3) {
       console.log(token);
-    console.log(searchInput)
-    const encodedSearchInput = encodeURIComponent(searchInput);
-    axios.post(`${process.env.REACT_APP_DEV_BASE_URL}/profile/search/${encodedSearchInput}`, { headers: { "Authorization": `${token}` } })
-      .then((res) => setFilteredResults(res.data))
-      .catch((err) => null)
+      console.log(searchInput)
+      const encodedSearchInput = encodeURIComponent(searchInput);
+      axios.post(`${process.env.REACT_APP_DEV_BASE_URL}/profile/search/${encodedSearchInput}`, { headers: { "Authorization": `${token}` } })
+        .then((res) => setFilteredResults(res.data))
+        .catch((err) => null)
     }
   }
   const navigate = useNavigate()
