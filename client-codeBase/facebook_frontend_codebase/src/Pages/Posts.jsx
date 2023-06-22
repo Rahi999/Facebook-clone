@@ -64,7 +64,7 @@ const Posts = () => {
                 {postData && postData.map((el, i) => <Box key={i}>
                     <PostCard
                         user_profile={el.user.profile_pic}
-                        user_name={el.user.firstname + el.user.surename}
+                        user_name={el.user.firstname + " "+ el.user.surename}
                         time={el.date}
                         post_text={el.text}
                         post_image={el.images}
