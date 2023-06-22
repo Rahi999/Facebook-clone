@@ -285,6 +285,7 @@ const MobileNav = ({ onOpen, ...rest }) => {
         })
         .catch((err) => {
           setLoading(false)
+          logout()
           navigate("/login")
         })
     }
