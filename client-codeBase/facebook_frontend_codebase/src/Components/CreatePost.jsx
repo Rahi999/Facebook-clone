@@ -93,13 +93,13 @@ const CreatePost = ({getPosts}) => {
             console.log(payload)
             axios.post(`${process.env.REACT_APP_DEV_BASE_URL}/post/create`, payload)
                 .then((res) => {
-                    toast({
-                        title: res.data.message,
-                        position: "top",
-                        status: 'success',
-                        duration: 3000,
-                        isClosable: true,
-                    })
+                    // toast({
+                    //     title: res.data.message,
+                    //     position: "top",
+                    //     status: 'success',
+                    //     duration: 3000,
+                    //     isClosable: true,
+                    // })
                     setLoading(false)
                     setImage("")
                     setText("")
