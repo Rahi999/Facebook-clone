@@ -48,7 +48,7 @@ const CommentsList = ({ postId }) => {
                         PostId={post._id}
                         userId={post.user._id}
                     />}
-                    <AddComment postId={postId} getPost={getPost} />
+                    <AddComment postId={postId} profile_pic={post && post.user.profile_pic} getPost={getPost} />
                     {comments && comments.map((el) => <AllComments
                      id = {el._id}
                      userId = {el.user._id}

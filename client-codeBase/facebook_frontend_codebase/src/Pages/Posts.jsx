@@ -23,6 +23,13 @@ const Posts = () => {
                     setPostData(res.data)
                 })
                 .catch((err) => {
+                    toast({
+                        title: "User not found.",
+                        position: "top",
+                        status: 'error',
+                        duration: 3000,
+                        isClosable: true,
+                    })
                     navigate("/login")
                 })
     }

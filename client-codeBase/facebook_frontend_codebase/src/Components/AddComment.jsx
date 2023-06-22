@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { getCookies } from "../utils/getData";
 import axios from "axios";
 
-const AddComment = ({postId, getPost}) => {
+const AddComment = ({postId, profile_pic, getPost}) => {
 
   const [loading, setLoading] = useState(false)
   const [newComment, setNewComment] = useState("");
@@ -25,6 +25,7 @@ const AddComment = ({postId, getPost}) => {
   const handleCommentChange = (e) => {
     setNewComment(e.target.value);
   };
+  console.log("profile_pix: ", profile_pic)
 
   const handleAddComment = () => {
     if(newComment){
@@ -67,10 +68,10 @@ const AddComment = ({postId, getPost}) => {
         <>
         <Box>
         <Flex mb={4}>
-        <Avatar size="sm" mr={2} />
+        <Avatar src={profile_pic} size="sm" mr={2} />
         <Input
           flex="1"
-          bg="white"
+          // bg="white"
           borderRadius="full"
           borderWidth="1px"
           borderColor="gray.200"
