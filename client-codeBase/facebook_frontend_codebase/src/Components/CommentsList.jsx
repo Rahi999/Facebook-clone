@@ -41,7 +41,7 @@ const CommentsList = ({ postId }) => {
         >
             {post && <PostCard
                         user_profile={post.user.profile_pic}
-                        user_name={post.user.firstname + post.user.surename}
+                        user_name={post.user.firstname +" "+ post.user.surename}
                         time={post.date}
                         post_text={post.text}
                         post_image={post.images}
@@ -54,7 +54,7 @@ const CommentsList = ({ postId }) => {
                      userId = {el.user._id}
                      comment={el.comment}
                      date = {el.commentAt}
-                     username = {el.user.firstname + el.user.surename}
+                     username = {el.user.firstname + " "+ el.user.surename}
                      profile_pic = {el.user.profile_pic}
                      />)}
         </Box>
