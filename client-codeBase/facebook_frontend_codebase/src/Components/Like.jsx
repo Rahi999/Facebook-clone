@@ -7,7 +7,7 @@ import { AiFillLike, AiOutlineLike } from "react-icons/ai";
 import Theme from "./Theme";
 import "./LikeButton.css"
 import { getCookies } from "../utils/getData"
-import { useNavigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 
 const LikeButton = ({ postId }) => {
 
@@ -95,8 +95,9 @@ const LikeButton = ({ postId }) => {
                     <Text fontWeight={'medium'} color={'gray.600'} fontSize={{base: "12px", sm: "14px", md: "14px", lg: "16px", xl: "16px"}}>{like && like.length}</Text>
                     </Flex>
                 <Text fontWeight={'medium'} color={'gray.600'} fontSize={{base: "12px", sm: "14px", md: "14px", lg: "16px", xl: "16px"}}>{dislike && dislike.length} Dislikes</Text>
-                <Text fontWeight={'medium'} color={'gray.600'} fontSize={{base: "12px", sm: "14px", md: "14px", lg: "16px", xl: "16px"}}>{comment && comment.length} Comments</Text>
-
+                <Link to={`/comments/${postId}`}>
+                    <Text fontWeight={'medium'} color={'gray.600'} fontSize={{base: "12px", sm: "14px", md: "14px", lg: "16px", xl: "16px"}}>{comment && comment.length} Comments</Text>
+                    </Link>
             </Flex>
             <Box bg="grey" height='2px' borderRadius='50px' mt="10px" ></Box>
             <Box>
