@@ -117,7 +117,7 @@ const SignUpForm = () => {
           saveCookies('fb_token', res.data.token)
           saveCookies('userId', res.data.userId)
           setLoading(false)
-          navigate('/')
+          navigate('/dashboard')
         })
         .catch((err) => {
           toast({
