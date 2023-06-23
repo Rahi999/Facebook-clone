@@ -18,12 +18,13 @@ import {
   Radio,
   RadioGroup,
   useToast,
-  useDisclosure
+  useDisclosure,
+  InputLeftAddon
 } from '@chakra-ui/react';
 import { useState } from 'react';
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 import "./signupform.css"
-import {saveCookies} from "../utils/saveCookies"
+import { saveCookies } from "../utils/saveCookies"
 
 const SignUpForm = () => {
 
@@ -185,11 +186,19 @@ const SignUpForm = () => {
               />
             </FormControl>
             <FormControl id="phone" isRequired>
-              <Input type="tel"
+              <InputGroup>
+                <InputLeftAddon children='+91' />
+                <Input type='tel'
+                  placeholder='Phone number'
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                />
+              </InputGroup>
+              {/* <Input type="tel"
                 placeholder='Phone number'
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
-              />
+              /> */}
             </FormControl>
             <FormControl id="password" isRequired>
               <InputGroup>
@@ -251,11 +260,11 @@ const SignUpForm = () => {
               >
                 Sign up
               </Button>) : (<Button
-              
-              isLoading
-              loadingText='Registering...'
-              colorScheme='blue'
-              spinnerPlacement='end'
+
+                isLoading
+                loadingText='Registering...'
+                colorScheme='blue'
+                spinnerPlacement='end'
                 size="lg"
                 bg={'blue.400'}
                 color={'white'}
