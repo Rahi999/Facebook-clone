@@ -5,7 +5,7 @@ import { FaUserMinus } from 'react-icons/fa';
 import { useNavigate } from "react-router-dom";
 import { getCookies } from "../utils/getData";
 
-const UnFollow = ({getUserprofile, userId}) => {
+const UnFollow = ({getUserprofile, userId, followers}) => {
 
     const [loading, setLoading] = useState(false)
     const toast = useToast()
@@ -59,6 +59,7 @@ const UnFollow = ({getUserprofile, userId}) => {
         <Box>
         <Button 
         onClick={handleUnFollow}
+        isDisabled={!followers.includes(myId)}
                 marginTop="10%"
                 width="70%"
                 flex={1}

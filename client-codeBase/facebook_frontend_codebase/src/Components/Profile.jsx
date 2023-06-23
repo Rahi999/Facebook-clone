@@ -122,7 +122,7 @@ const Profile = () => {
             </Stack>
 
             {userData && <Follow getUserprofile={getUserprofile} userId={userId} followers={userData.followers} following={userData.following} />}
-            {userData && <UnFollow getUserprofile={getUserprofile} userId={userId} />}
+            {userData && <UnFollow getUserprofile={getUserprofile} userId={userId} followers={userData.followers}  />}
         </Box>
     </Box></Center>) : (<Loading />)
 
