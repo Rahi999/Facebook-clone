@@ -35,7 +35,7 @@ const Profile = () => {
     const token = getCookies('fb_token')
     const navigate = useNavigate()
 
-    useEffect(() => {
+    const getUserprofile = () => {
         if (userId && token) {
             setLoading(true)
             axios.get(`${process.env.REACT_APP_DEV_BASE_URL}/profile/getSingleUser/${userId}`, { headers: { "Authorization": `${token}` } })
@@ -59,6 +59,10 @@ const Profile = () => {
         else {
             navigate("/login")
         }
+    }
+
+    useEffect(() => {
+       getUserprofile()
     }, [])
     return userData ? (<Center py={6}><Box
         maxW={'300px'}
@@ -117,8 +121,8 @@ const Profile = () => {
                 </Stack>
             </Stack>
 
-            {userData && <Follow userId={userId} followers={userData.followers} following={userData.following} />}
-            {userData && <UnFollow userId={userId} />}
+            {userData && <Follow getUserprofile={getUserprofile} userId={userId} followers={userData.followers} following={userData.following} />}
+            {userData && <UnFollow getUserprofile={getUserprofile} userId={userId} />}
         </Box>
     </Box></Center>) : (<Loading />)
 

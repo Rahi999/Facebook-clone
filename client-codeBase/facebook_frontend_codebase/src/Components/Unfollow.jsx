@@ -5,7 +5,7 @@ import { FaUserMinus } from 'react-icons/fa';
 import { useNavigate } from "react-router-dom";
 import { getCookies } from "../utils/getData";
 
-const UnFollow = ({userId}) => {
+const UnFollow = ({getUserprofile, userId}) => {
 
     const [loading, setLoading] = useState(false)
     const toast = useToast()
@@ -23,7 +23,7 @@ const UnFollow = ({userId}) => {
             const payload = {
                 userId : myId
             }
-            axios.put(`${process.env.REACT_APP_DEV_BASE_URL}/user/follow/${userId}`,payload)
+            axios.put(`${process.env.REACT_APP_DEV_BASE_URL}/user/unfollow/${userId}`,payload)
             .then((res) => {
                 toast({
                     description: res.data.message,
@@ -32,6 +32,7 @@ const UnFollow = ({userId}) => {
                     duration: "3000"
                 })
                 setLoading(false)
+                getUserprofile()
             })
             .catch((err) => {
                 setLoading(false)

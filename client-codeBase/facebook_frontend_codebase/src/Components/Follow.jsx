@@ -4,7 +4,7 @@ import { Box, Button, Toast, useToast } from "@chakra-ui/react"
 import { getCookies } from "../utils/getData"
 import {useNavigate} from "react-router-dom"
 
-const Follow = ({userId, followers, following}) => {
+const Follow = ({getUserprofile, userId, followers, following}) => {
 
 
     const [loading, setLoading] = useState(false)
@@ -32,6 +32,7 @@ const Follow = ({userId, followers, following}) => {
                     duration: "3000"
                 })
                 setLoading(false)
+                getUserprofile()
             })
             .catch((err) => {
                 setLoading(false)
