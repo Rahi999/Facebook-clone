@@ -60,6 +60,7 @@ const Follow = ({getUserprofile, userId, followers, following}) => {
         <Box>
             <Button onClick={handleFollow}
             isDisabled={followers.includes(myId)}
+            title="Follow"
                 marginTop="10%"
                 width="70%"
                 flex={1}
@@ -76,7 +77,7 @@ const Follow = ({getUserprofile, userId, followers, following}) => {
                 _focus={{
                     bg: 'blue.500',
                 }}>
-                {loading ? "Loading..." : followers.includes(myId) ? "Following": "Follow" }
+                {loading ? "Please wait..." : followers.includes(myId) ? "Following": "Follow" }
             </Button>
         </Box>
         </>

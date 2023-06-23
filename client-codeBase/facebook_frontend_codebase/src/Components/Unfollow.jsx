@@ -60,6 +60,7 @@ const UnFollow = ({getUserprofile, userId, followers}) => {
         <Button 
         onClick={handleUnFollow}
         isDisabled={!followers.includes(myId)}
+        title="Unfollow"
                 marginTop="10%"
                 width="70%"
                 flex={1}
@@ -76,8 +77,9 @@ const UnFollow = ({getUserprofile, userId, followers}) => {
                 _focus={{
                     bg: 'red.500',
                 }}>
-                {/* {loading ? "Loading..." : followers.includes(myId) ? "Following": "Follow" } */}
-                Unfollow
+                {loading ? "Please wait..." :  "Unfollow" }
+                {/* Unfollow */}
+                
             </Button>
         </Box>
     </>)
