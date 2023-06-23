@@ -40,6 +40,7 @@ const Profile = () => {
             axios.get(`${process.env.REACT_APP_DEV_BASE_URL}/profile/getSingleUser/${userId}`, { headers: { "Authorization": `${token}` } })
                 .then((res) => {
                     setUserData(res.data)
+                    // console.log(res)
                     setLoading(false)
                     console.log(userData)
                 })
@@ -115,7 +116,7 @@ const Profile = () => {
                 </Stack>
             </Stack>
 
-            <Follow userId={userId} />
+            <Follow userId={userId} followers={userData.followers} following={userData.following} />
         </Box>
     </Box></Center>) : (<Loading />)
 

@@ -4,7 +4,7 @@ import { Box, Button, Toast, useToast } from "@chakra-ui/react"
 import { getCookies } from "../utils/getData"
 import {useNavigate} from "react-router-dom"
 
-const Follow = ({userId}) => {
+const Follow = ({userId, followers, following}) => {
 
 
     const [loading, setLoading] = useState(false)
@@ -13,6 +13,9 @@ const Follow = ({userId}) => {
     const myId = getCookies("userId");
     const token = getCookies("fb_token")
     // console.log(token)
+
+    console.log(followers)
+    console.log(following)
 
     const handleFollow = () => {
         if(myId && userId){
@@ -71,7 +74,7 @@ const Follow = ({userId}) => {
                 _focus={{
                     bg: 'blue.500',
                 }}>
-                {loading ? "Loading..." : "Follow "}
+                {loading ? "Loading..." : followers.includes(myId) ? "Following": "Follow" }
             </Button>
         </Box>
         </>
