@@ -1,17 +1,45 @@
+import React, { useState } from "react"
+import axios from "axios"
 import { Box, Button, Toast, useToast } from "@chakra-ui/react"
-import React from "react"
 import { getCookies } from "../utils/getData"
 import {useNavigate} from "react-router-dom"
 
 const Follow = ({userId}) => {
 
+
+    const [loading, setLoading] = useState(false)
     const toast = useToast()
     const navigate = useNavigate()
     const myId = getCookies("userId");
+    const token = getCookies("fb_token")
+    // console.log(token)
 
     const handleFollow = () => {
         if(myId && userId){
-
+            setLoading(true)
+            const payload = {
+                userId : myId
+            }
+            axios.put(`${process.env.REACT_APP_DEV_BASE_URL}/user/follow/${userId}`,payload)
+            .then((res) => {
+                toast({
+                    description: res.data.message,
+                    position: "top",
+                    status: "success",
+                    duration: "3000"
+                })
+                setLoading(false)
+            })
+            .catch((err) => {
+                setLoading(false)
+                toast({
+                    description: err.response.data.message,
+                    position: "top",
+                    status: "error",
+                    duration: "3000"
+                })
+            })
+            
         }
         else{
             toast({
@@ -43,7 +71,7 @@ const Follow = ({userId}) => {
                 _focus={{
                     bg: 'blue.500',
                 }}>
-                Follow 
+                {loading ? "Loading..." : "Follow "}
             </Button>
         </Box>
         </>
