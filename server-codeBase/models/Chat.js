@@ -6,4 +6,6 @@ const chatSchema = new mongoose.Schema({
     message: { type: String, required: true },
   });
   
-  module.exports = mongoose.model('Message', chatSchema);
+  const chatModel = mongoose.model('Message', chatSchema);
+
+ module.exports = {chatModel, chatSchema}
