@@ -4,6 +4,6 @@ const {Follow, UnFollow} = require("../controllers/Follow")
 const followRouter = express.Router()
 
 followRouter.put("/follow/:userId", Follow)
-followRouter.put("/unfollow/:userId", authMiddleware, UnFollow)
+followRouter.put("/unfollow/:userId", UnFollow)
 
 module.exports = {followRouter}

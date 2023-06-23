@@ -21,6 +21,7 @@ import { SmallCloseIcon, EditIcon } from '@chakra-ui/icons';
 import { getCookies } from "../utils/getData";
 import Loading from "./Loading";
 import Follow from "./Follow";
+import UnFollow from "./Unfollow";
 
 const UserProfile = () => {
 
@@ -101,12 +102,14 @@ const UserProfile = () => {
                 <Stack spacing={0} align={'center'}>
                     <Text fontWeight={600}>{userData.following.length}</Text>
                     <Text fontSize={'sm'} color={'gray.500'}>
-                        Followeing
+                        Following
                     </Text>
                 </Stack>
             </Stack>
 
-            <Follow userId={userId} />
+            {userData && <Follow userId={userId} followers={userData.followers} following={userData.following} />}
+            {userData && <UnFollow userId={userId} />}
+
         </Box>
     </Box></Center>) : (<Loading />)
 
