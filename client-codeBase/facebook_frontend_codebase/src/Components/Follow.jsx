@@ -59,6 +59,7 @@ const Follow = ({getUserprofile, userId, followers, following}) => {
         <>
         <Box>
             <Button onClick={handleFollow}
+            isDisabled={followers.includes(myId)}
                 marginTop="10%"
                 width="70%"
                 flex={1}
