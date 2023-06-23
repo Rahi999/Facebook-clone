@@ -78,16 +78,7 @@ const UserProfile = () => {
                 alt={'User_image'}
 
             >
-                <AvatarBadge
-                    as={IconButton}
-                    size="xs"
-                    rounded="full"
-                    border="0px"
-                    top="50px"
-                    colorScheme="blue"
-                    aria-label="edit Image"
-                    icon={<EditIcon />}
-                />
+                
             </Avatar>
         </Flex>
 
