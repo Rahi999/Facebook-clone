@@ -1,4 +1,4 @@
-import { Button, ButtonProps, Flex, useColorMode, Link } from '@chakra-ui/react';
+import { Button, ButtonProps, Flex, useColorMode, Link, Text, Switch, FormControl, FormLabel } from '@chakra-ui/react';
 import { BsSun, BsMoonStarsFill } from 'react-icons/bs';
 
 export default function Theme(props) {
@@ -9,7 +9,7 @@ export default function Theme(props) {
      * Props compatible with <Button /> are supported.
      */
     <Flex h="" justifyContent="center" alignItems="center">
-      <Link textDecoration="none"
+      <Text cursor={'pointer'} textDecoration="none"
         aria-label="Toggle Color Mode"
         onClick={toggleColorMode}
         _focus={{ boxShadow: 'none' }}
@@ -17,7 +17,8 @@ export default function Theme(props) {
         mr="20px"
         {...props}>
         {colorMode === 'light' ? "Dark-mode" : "Light-mode"}
-      </Link>
+      </Text>
+      
     </Flex>
   );
 }
