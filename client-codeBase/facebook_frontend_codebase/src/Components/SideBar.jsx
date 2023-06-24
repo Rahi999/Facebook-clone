@@ -28,6 +28,7 @@ import {
   Input,
   InputGroup,
   InputLeftElement,
+  Switch,
 } from '@chakra-ui/react';
 import { AiFillHome, AiOutlineUsergroupAdd, AiFillYoutube, AiFillShop, AiFillPlayCircle } from 'react-icons/ai';
 import { BsSun, BsMoonStarsFill } from 'react-icons/bs';
@@ -49,7 +50,6 @@ import { getCookies } from "../utils/getData"
 import FbTabs from "./Tabs"
 import { BiCommentDetail } from 'react-icons/bi';
 const theme = localStorage.getItem('chakra-ui-color-mode')
-
 const boxStyle = {
   border: theme === "light" ? "3px solid transparent" : "3px solid transparent",
 };
@@ -67,6 +67,7 @@ const LinkItems = [
   { name: 'Friends', icon: AiOutlineUsergroupAdd, title: "Friends & Group", to: "/" },
   { name: 'Profile', icon: FaUserCircle, title: "Profile", to: "/" },
   { name: 'Settings', icon: FiSettings, title: "Profile setting", to: "/" },
+  { name: <Theme />, icon: theme === "light" ? BsMoonStarsFill : BsSun, title: "Click here to toggle theme", to: "#"}
 ];
 
 
