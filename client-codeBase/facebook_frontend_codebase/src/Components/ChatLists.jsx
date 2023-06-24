@@ -1,5 +1,5 @@
 import React from "react";
-import {useParams} from "react-router-dom"
+import {Link, useParams} from "react-router-dom"
 import axios from "axios"
 import { Box, VStack, Avatar, Text, IconButton } from '@chakra-ui/react';
 import { BiCommentDetail } from "react-icons/bi";
@@ -17,14 +17,17 @@ const ChatLists = ({users}) => {
         <Box>
             <VStack align="start" spacing={4}>
                 {users.map((user) => (
-                    <Box key={user.id} display="flex" alignItems="center">
+                    <Link to={`/messages/${senderId}/${receiverId}`} key={user.id}>
+                    <Box  display="flex" alignItems="center">
                         <Avatar src={user.profile_pic} />
                         <Text ml={2}>{`${user.firstname} ${user.surename}`}</Text>
-                        <IconButton
+                       
+                       <IconButton
                             aria-label="Comment"
                             icon={<BiCommentDetail />}
                         />
                     </Box>
+                    </Link>
                 ))}
             </VStack>
         </Box>
