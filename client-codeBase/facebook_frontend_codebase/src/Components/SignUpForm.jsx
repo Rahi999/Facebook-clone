@@ -117,6 +117,7 @@ const SignUpForm = () => {
           })
           saveCookies('fb_token', res.data.token)
           saveCookies('userId', res.data.userId)
+          saveCookies("user-profile", res.data.profile_pic)
           setLoading(false)
           navigate('/dashboard')
         })
