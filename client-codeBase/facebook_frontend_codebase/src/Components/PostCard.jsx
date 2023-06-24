@@ -11,6 +11,7 @@ import CreatePost from "./CreatePost";
 import { getCookies } from "../utils/getData";
 import boopSfx from "../Assets/fb_like.mp3";
 import useSound from "use-sound";
+import SendMessage from "./SendMessage";
 // import "./ImageInput.css";
 const PostCard = ({
     user_profile,
@@ -78,6 +79,7 @@ const PostCard = ({
                     <h3 className="post-user">{user_name}</h3>
                     <Text className="post-timestamp">{time}</Text>
                 </Box>
+                {/* <Box ml='40%' width={'40%'}><SendMessage senderId={getCookies("userId")} receiverId={userId} /></Box> */}
             </Box>
             <Box className="post-content">
                 <Text className="post-text" fontSize={{ base: "14px", sm: "14px", md: "16px", lg: "17px", xl: "18px" }} maxW={'100%'}>{post_text}</Text>
