@@ -7,7 +7,7 @@ import Follow from "./Follow";
 import { getCookies } from "../utils/getData";
 import SideBar from "./SideBar";
 
-const ChatLists = ({users}) => {
+const ChatList = ({users}) => {
 
     const navigate = useNavigate()
     const params = useParams()
@@ -18,7 +18,7 @@ const ChatLists = ({users}) => {
     const receiverId = "6495c422e94b5545318eb3ec";
     
     return (<>
-        <SideBar children={
+        
             <Box width={{base: "100%", sm: "100%", md: "100%", lg: "50%", xl: "50%"}}  mt={{base: "20", sm: "20", md: "10", lg: "10", xl: "10"}}>
             <VStack align="start" spacing={4} >
                 {users.map((user) => (
@@ -47,7 +47,6 @@ const ChatLists = ({users}) => {
                 ))}
             </VStack>
         </Box>
-        } />
     </>)
 }
-export default ChatLists
+export default ChatList

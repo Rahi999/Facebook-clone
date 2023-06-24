@@ -32,7 +32,7 @@ const Follow = ({getUserprofile, userId, followers, following}) => {
                     duration: "3000"
                 })
                 setLoading(false)
-                getUserprofile()
+                getUserprofile && getUserprofile()
             })
             .catch((err) => {
                 setLoading(false)

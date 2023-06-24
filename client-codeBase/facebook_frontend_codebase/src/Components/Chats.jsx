@@ -7,7 +7,7 @@ import { Navigate, useNavigate } from "react-router-dom";
 import Loading from "./Loading";
 import ChatList from "./ChatList";
 
-const Chat = () => {
+const Chats = () => {
 
     const [users, setUsers] = useState(null);
     const [loading, setLoading] = useState(null)
@@ -39,9 +39,9 @@ const Chat = () => {
     // ]
     return loading ? (<Loading />): (<>
         <Box>
-            {users && <ChatList users={users} />}
+            {users && <ChatLists users={users} />}
            
         </Box>
     </>)
 }
-export default Chat
+export default Chats

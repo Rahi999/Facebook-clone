@@ -12,6 +12,7 @@ import DetailedPostImage from '../Components/DetailedPostImage.jsx';
 import Chat from '../Components/Chat.jsx';
 import ChatLists from '../Components/ChatLists.jsx';
 import Messages from '../Components/Messages.jsx';
+import Chats from '../Components/Chats.jsx';
 const Login = React.lazy(() => import('../Pages/Login.jsx'));
 
 
@@ -27,7 +28,7 @@ const AllRoutes = () => {
         <Route path="/users-profile/:userId" element={<Suspense fallback={null}><UserProfile /></Suspense>} />
         <Route path="/detailed-image/:src" element={<Suspense fallback={null}><DetailedPostImage /></Suspense>} />
         <Route path="/loading" element={<Suspense fallback={null}><Loading /></Suspense>} />
-        <Route path="/chat" element={<Suspense fallback={null}><Chat /></Suspense>} />
+        <Route path="/chat" element={<Suspense fallback={null}><Chats /></Suspense>} />
         <Route path="/chatLists" element={<Suspense fallback={null}><ChatLists /></Suspense>} />
         <Route path="/messages/:senderId/:receiverId" element={<Suspense fallback={null}><Messages /></Suspense>} />
         <Route path="/comments/:postId" element={<Suspense fallback={null}><Comments /></Suspense>} />
