@@ -17,11 +17,13 @@ import {
     Toast,
     useToast
 } from '@chakra-ui/react';
+import { FaFacebookMessenger } from 'react-icons/fa';
 import { SmallCloseIcon, EditIcon } from '@chakra-ui/icons';
 import { getCookies } from "../utils/getData";
 import Loading from "./Loading";
 import Follow from "./Follow";
 import UnFollow from "./Unfollow";
+import SendMessage from "./SendMessage";
 
 const UserProfile = () => {
 
@@ -113,7 +115,7 @@ const UserProfile = () => {
 
             {userData && <Follow getUserprofile={getUserprofile} userId={userId} followers={userData.followers} following={userData.following} />}
             {userData && <UnFollow getUserprofile={getUserprofile} userId={userId} followers={userData.followers} />}
-
+            {userData && <SendMessage senderId={userId} receiverId={userData._id} />}
         </Box>
     </Box></Center>) : (<Loading />)
 
