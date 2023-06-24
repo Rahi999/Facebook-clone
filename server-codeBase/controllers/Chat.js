@@ -23,7 +23,7 @@ const getMessages = async (req, res) => {
       ],
     });
 
-    console.log(messages); // Add this line to check the retrieved messages
+    // console.log(messages); // Add this line to check the retrieved messages
 
     return res.status(200).json(messages);
   } catch (error) {
