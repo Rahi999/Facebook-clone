@@ -5,6 +5,7 @@ import { getCookies } from '../utils/getData';
 import axios from 'axios';
 import "./message.css"
 import { Navigate, useNavigate, useParams } from 'react-router-dom';
+import Follow from './Follow';
 
 const Messages = ({ senderId, receiverId }) => {
 
@@ -13,6 +14,7 @@ const Messages = ({ senderId, receiverId }) => {
   const [messages, setMessages] = useState([])
   const [loading, setLoading] = useState(false)
   const boxRef = useRef(null);
+  const inputRef = useRef(null);
   const userId = getCookies("userId")
   const token = getCookies("fb_token")
   const params = useParams()
@@ -50,6 +52,9 @@ const Messages = ({ senderId, receiverId }) => {
           console.log(res.data)
           setText("")
           getMessages()
+          setTimeout(() => {
+            scrollToBottom()
+          }, 2000)
         })
         .catch((err) => console.log(err))
 
@@ -71,9 +76,9 @@ const Messages = ({ senderId, receiverId }) => {
     }
   };
 
-  const handleScrollToBottom = () => {
+  const scrollToBottom = () => {
     if (boxRef.current) {
-      boxRef.current.scrollTop = boxRef.current.scrollHeight;
+      boxRef.current.scrollIntoView({ behavior: "smooth", block: "end" });
     }
   };
 
@@ -82,9 +87,11 @@ const Messages = ({ senderId, receiverId }) => {
       axios.get(`${process.env.REACT_APP_DEV_BASE_URL}/profile/getSingleUser/${params.receiverId}`,
       { headers: { "Authorization": `${token}` } })
       .then((res) => {
+        inputRef.current.focus();
         console.log(res.data)
         setUser(res.data)
         getMessages()
+        scrollToBottom()
       })
       .catch((err) => console.log)
     }
@@ -113,12 +120,13 @@ const Messages = ({ senderId, receiverId }) => {
             <Flex position={'sticky'} onClick={() => navigate(`/users-profile/${params.receiverId}`)} gap='2' p='2' align="center" width="100%" boxShadow={'rgba(0, 0, 0, 0.16) 0px 2px 6px'} cursor={'pointer'}>
               <Avatar src={user && user.profile_pic} size="sm" />
               <Text fontWeight="bold">{user && user.firstname + " " + user.surename}</Text>
+              
               {/* <Avatar src={messages && messages[0]?.profile_pic} size="sm" /> */}
             </Flex>
 
             {/* Chat messages */}
             <VStack
-            ref={boxRef}
+             ref={boxRef}
             width="100%" align="flex-start" spacing={2} overflowY="auto" flex="1" pb={16}
             p='2' boxShadow={'rgba(0, 0, 0, 0.24) 0px 3px 8px'}>
               {messages && messages.map((message) => (
@@ -161,12 +169,14 @@ const Messages = ({ senderId, receiverId }) => {
             <Box position="sticky" bottom={0} width="100%" p={4} backdropFilter="blur(8px)"
             >
               <Flex align="center">
-                <Input placeholder="Type a message"
+                <Input 
+                 ref={inputRef}
+                 placeholder="Type a message"
                  flex="1"
-                  mr={2}
-                   value={text}
-                   onKeyDown={handleKeyDown}
-                   onChange={handleInputChange} />
+                 mr={2}
+                 value={text}
+                 onKeyDown={handleKeyDown}
+                 onChange={handleInputChange} />
                 <Button colorScheme="blue" onClick={() => handleSendMessages()}>Send</Button>
               </Flex>
             </Box>
