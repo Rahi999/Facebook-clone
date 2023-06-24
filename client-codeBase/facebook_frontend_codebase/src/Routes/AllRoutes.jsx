@@ -9,6 +9,8 @@ import Comment from '../Components/Comment.jsx';
 import Comments from '../Pages/Comments.jsx';
 import UserProfile from '../Components/Userprofile.jsx';
 import DetailedPostImage from '../Components/DetailedPostImage.jsx';
+import Chat from '../Components/Chat.jsx';
+import ChatLists from '../Components/ChatLists.jsx';
 const Login = React.lazy(() => import('../Pages/Login.jsx'));
 
 
@@ -24,6 +26,8 @@ const AllRoutes = () => {
         <Route path="/users-profile/:userId" element={<Suspense fallback={null}><UserProfile /></Suspense>} />
         <Route path="/detailed-image/:src" element={<Suspense fallback={null}><DetailedPostImage /></Suspense>} />
         <Route path="/loading" element={<Suspense fallback={null}><Loading /></Suspense>} />
+        <Route path="/chat" element={<Suspense fallback={null}><Chat /></Suspense>} />
+        <Route path="/chat/:senderId/:receiverId" element={<Suspense fallback={null}><ChatLists /></Suspense>} />
         <Route path="/comments/:postId" element={<Suspense fallback={null}><Comments /></Suspense>} />
       </Routes>
     </div>
