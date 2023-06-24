@@ -38,17 +38,11 @@ const AllUsers = () => {
     //     { id: "1", firstname: "Name", surename: "lastname", profile_pic: "demo_img.png" },
     //     { id: "2", firstname: "Name", surename: "lastname", profile_pic: "demo_img.png" }
     // ]
-    return loading ? (<Loading />): users && users.legth > 1 ? (<>
+    return loading ? (<Loading />): (<>
         <Box>
-            {users && <ChatList users={users} />}
+            {users && <ChatLists users={users} />}
         </Box>
-    </>) : 
-    (
-        <Box mt='20'  textAlign={'left'}>
-        <Text fontSize={{base: "14px", sm: "15px", md: "16px", lg: "18px", xl: "18px"}}>
-            No users found
-        </Text>
-    </Box>
-    )
+    </>)
+    
 }
 export default AllUsers

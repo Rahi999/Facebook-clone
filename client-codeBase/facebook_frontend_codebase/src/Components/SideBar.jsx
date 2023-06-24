@@ -49,6 +49,7 @@ import { removeCookies } from '../utils/removeData';
 import { getCookies } from "../utils/getData"
 import FbTabs from "./Tabs"
 import { BiCommentDetail } from 'react-icons/bi';
+import { FaUsers } from 'react-icons/fa';
 const theme = localStorage.getItem('chakra-ui-color-mode')
 const boxStyle = {
   border: theme === "light" ? "3px solid transparent" : "3px solid transparent",
@@ -62,9 +63,10 @@ const bgStyle = {
 const LinkItems = [
   { name: 'Home', icon: FiHome, title: "Home", to: "/" },
   { name: "Chat", icon: BiCommentDetail, title: "Chat", to: "/chat" },
+  { name: 'Friends', icon: AiOutlineUsergroupAdd, title: "Friends & Group", to: "/chat" },
   { name: 'Trending', icon: FiTrendingUp, title: "Trending stories", to: "/" },
   { name: "Story", icon: AiFillYoutube, title: "Stories", to: "/" },
-  { name: 'Friends', icon: AiOutlineUsergroupAdd, title: "Friends & Group", to: "/" },
+  { name: "Groups", icon: FaUsers, title: "Groups", to: "/users"},
   { name: 'Profile', icon: FaUserCircle, title: "Profile", to: "/" },
   { name: 'Settings', icon: FiSettings, title: "Profile setting", to: "/" },
   { name: <Theme />, icon: theme === "light" ? BsMoonStarsFill : BsSun, title: "Click here to toggle theme", to: "#"}
