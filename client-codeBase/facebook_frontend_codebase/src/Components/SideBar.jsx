@@ -47,6 +47,7 @@ import { ReactText } from 'react';
 import { removeCookies } from '../utils/removeData';
 import { getCookies } from "../utils/getData"
 import FbTabs from "./Tabs"
+import { BiCommentDetail } from 'react-icons/bi';
 const theme = localStorage.getItem('chakra-ui-color-mode')
 
 const boxStyle = {
@@ -59,12 +60,13 @@ const bgStyle = {
 
 
 const LinkItems = [
-  { name: 'Home', icon: FiHome, title: "Home" },
-  { name: 'Trending', icon: FiTrendingUp, title: "Trending stories" },
-  { name: "Story", icon: AiFillYoutube, title: "Stories" },
-  { name: 'Friends', icon: AiOutlineUsergroupAdd, title: "Friends & Group" },
-  { name: 'Profile', icon: FaUserCircle, title: "Profile" },
-  { name: 'Settings', icon: FiSettings, title: "Profile setting" },
+  { name: 'Home', icon: FiHome, title: "Home", to: "/" },
+  { name: "Chat", icon: BiCommentDetail, title: "Chat", to: "/chat" },
+  { name: 'Trending', icon: FiTrendingUp, title: "Trending stories", to: "/" },
+  { name: "Story", icon: AiFillYoutube, title: "Stories", to: "/" },
+  { name: 'Friends', icon: AiOutlineUsergroupAdd, title: "Friends & Group", to: "/" },
+  { name: 'Profile', icon: FaUserCircle, title: "Profile", to: "/" },
+  { name: 'Settings', icon: FiSettings, title: "Profile setting", to: "/" },
 ];
 
 
@@ -226,18 +228,18 @@ const SidebarContent = ({ onClose, ...rest }) => {
         <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
       </Flex>
       {LinkItems.map((link) => (
-        <NavItem key={link.name} icon={link.icon} title={link.title}>
-          {link.name}
-        </NavItem>
+          <NavItem key={link.name} to={link.to} icon={link.icon} title={link.title}>
+            {link.name}
+          </NavItem>
       ))}
     </Box>
   );
 };
 
 
-const NavItem = ({ icon, children, ...rest }) => {
+const NavItem = ({to, icon, children, ...rest }) => {
   return (
-    <Link href="#" style={{ textDecoration: 'none' }} _focus={{ boxShadow: 'none' }}>
+    <Link to={to} style={{ textDecoration: 'none' }} _focus={{ boxShadow: 'none' }}>
       <Flex
         align="center"
         p="4"
