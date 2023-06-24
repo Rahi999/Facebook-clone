@@ -1,4 +1,4 @@
-import { Box, VStack, Avatar, Text, Input, Button, Flex, Toast, useToast } from '@chakra-ui/react';
+import { Box, VStack, Avatar, Text, Input, Button, Flex, Toast, useToast, Image } from '@chakra-ui/react';
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import SideBar from './SideBar';
 import { getCookies } from '../utils/getData';
@@ -129,7 +129,9 @@ const Messages = ({ senderId, receiverId }) => {
              ref={boxRef}
             width="100%" align="flex-start" spacing={2} overflowY="auto" flex="1" pb={16}
             p='2' boxShadow={'rgba(0, 0, 0, 0.24) 0px 3px 8px'}>
-              {messages && messages.map((message) => (
+              {messages.length > 1 ?   
+              
+              messages && messages.map((message) => (
                 <Flex key={message.id} justify={message.senderId == userId ? 'flex-end' : 'flex-start'} width="100%" gap={'1'}>
                   {message.senderId !== userId && (
                     <Avatar
@@ -162,7 +164,14 @@ const Messages = ({ senderId, receiverId }) => {
                        />
                   )}
                 </Flex>
-              ))}
+              ))
+             
+            : <Image onClick={() => navigate("/users")}
+             cursor={'pointer'}
+            src="https://img.freepik.com/premium-vector/no-message-found_637684-6.jpg?w=2000"
+             alt="No messages yet"
+             borderRadius={'8px'}
+             />}
             </VStack>
 
             {/* Message input */}
