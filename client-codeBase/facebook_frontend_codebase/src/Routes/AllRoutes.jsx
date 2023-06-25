@@ -14,6 +14,7 @@ import ChatLists from '../Components/ChatLists.jsx';
 import Messages from '../Components/Messages.jsx';
 import Chats from '../Components/Chats.jsx';
 import AllUsers from '../Components/AllUsers.jsx';
+import SingleVideo from '../Components/SingleVideo.jsx';
 const Login = React.lazy(() => import('../Pages/Login.jsx'));
 
 
@@ -34,6 +35,7 @@ const AllRoutes = () => {
         <Route path="/messages/:senderId/:receiverId" element={<Suspense fallback={null}><Messages /></Suspense>} />
         <Route path="/users" element={<Suspense fallback={null}><AllUsers /></Suspense>} />
         <Route path="/comments/:postId" element={<Suspense fallback={null}><Comments /></Suspense>} />
+        <Route path="/video/:videoSrc" element={<Suspense fallback={null}><SingleVideo /></Suspense>} />
       </Routes>
     </div>
   )

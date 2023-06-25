@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom"
 import PostCard from "../Components/PostCard";
 import Loading from "../Components/Loading"
 import CreatePost from "../Components/CreatePost";
+import Story from "../Components/Story";
 
 const Posts = () => {
 
@@ -59,7 +60,7 @@ const Posts = () => {
                 
                 width={{base: "100%", sm: "100%", md: "70%", lg: "55%", xl: "55%"}}
             >
-
+                <Story />
                 <CreatePost getPosts={getPosts} />
                 {postData && postData.map((el, i) => <Box key={i}>
                     <PostCard
