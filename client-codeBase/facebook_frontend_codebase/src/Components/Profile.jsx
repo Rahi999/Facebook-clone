@@ -25,6 +25,7 @@ import Follow from "./Follow";
 import UnFollow from "./Unfollow";
 import SideBar from "./SideBar";
 import Theme from "./Theme";
+import ButtonTheme from "./ButtonTheme";
 
 const Profile = () => {
 
@@ -128,7 +129,7 @@ const Profile = () => {
 
                 {userData && <Follow getUserprofile={getUserprofile} userId={userId} followers={userData.followers} following={userData.following} />}
                 {userData && <UnFollow getUserprofile={getUserprofile} userId={userId} followers={userData.followers} />}
-               
+               <ButtonTheme />
             </Box>
         </Box></Center>
     ) : (<Loading />)
