@@ -431,7 +431,7 @@ const MobileNav = ({ onOpen, ...rest }) => {
                 <Avatar
                   size={'sm'}
                   src={
-                    ''
+                    getCookies("user-profile") ? getCookies('user-profile') : ''
                   }
                   name={userData.firstname + userData.surename}
                 />
