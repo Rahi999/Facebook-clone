@@ -59,16 +59,16 @@ const bgStyle = {
   backgroundColor: theme === "light" ? "white" : "black",
 };
 
-
+const userId = getCookies("userId")
 const LinkItems = [
   { name: 'Home', icon: FiHome, title: "Home", to: "/" },
   { name: "Chat", icon: BiCommentDetail, title: "Chat", to: "/chat" },
   { name: 'Friends', icon: AiOutlineUsergroupAdd, title: "Friends & Group", to: "/chat" },
   { name: 'Trending', icon: FiTrendingUp, title: "Trending stories", to: "/trending" },
-  { name: "Story", icon: AiFillYoutube, title: "Stories", to: "/" },
+  { name: "Story", icon: AiFillYoutube, title: "Stories", to: "/trending" },
   { name: "Groups", icon: FaUsers, title: "Groups", to: "/users"},
-  { name: 'Profile', icon: FaUserCircle, title: "Profile", to: "/" },
-  { name: 'Settings', icon: FiSettings, title: "Profile setting", to: "/" },
+  { name: 'Profile', icon: FaUserCircle, title: "Profile", to: `/user-profile/${userId}` },
+  { name: 'Settings', icon: FiSettings, title: "Profile setting", to: `/user-profile/${userId}` },
   { name: <Theme />, icon: theme === "light" ? BsMoonStarsFill : BsSun, title: "Click here to toggle theme", to: "#"}
 ];
 
