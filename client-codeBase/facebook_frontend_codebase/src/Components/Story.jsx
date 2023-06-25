@@ -9,118 +9,23 @@ import {
     Text,
     Avatar
   } from "@chakra-ui/react";
+  import axios from 'axios'
 import { useState, useEffect, useRef } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
+import { getCookies } from "../utils/getData";
   
   const Story = () => {
+    
+    const [videos, setVideos] = useState(null)
+    const token = getCookies('fb_token')
+
+    useEffect(() => {
+        axios.get(`${process.env.REACT_APP_DEV_BASE_URL}/story/getAll`, { headers: { "Authorization": `${token}` } })
+        .then((res) => setVideos(res.data))
+        .catch((err) => console.log(err))
+    },[])
 
     const navigate = useNavigate()
-    const videos = [
-      {
-        id: 1,
-        url:
-          "https://mobstatus.com/wp-content/uploads/2022/10/Very-Sad-Song-status-Broken-Heart-WhatsApp-Status-Video-Breakup-Song-Hindi-_shorts%E2%80%8B_sad720P_HD.mp4",
-
-          name: "John Doe",
-        
-      },
-      {
-        id: 2,
-        url:
-          "https://mobstatus.com/wp-content/uploads/2022/10/New-Sad-Dj-Remix-Hindi-Old-Song-Full-Screen-WhatsApp-Status-2022-_-Mood-Off-WhatsApp-Status720P_HD.mp4",
-          name: "Jane Smith",
-          avatar: "/jane-smith.jpg"
-        
-      },
-      {
-        id: 3,
-        url:
-          "https://mobstatus.com/wp-content/uploads/2022/10/Very-Sad-Song-status-Broken-Heart-Whatsapp-Status-Video-Breakup-Song-Hindi-_shorts720P_HD.mp4",
-          name: "John Doe",
-          avatar: "/john-doe.jpg"
-        
-      },
-      {
-        id: 4,
-        url:
-          "https://mobstatus.com/wp-content/uploads/2022/10/Broken-heart-WhatsApp-status-sad-status-best-sad-shayari-status-shayari-status-_shorts720P_HD_2.mp4",
-          name: "Jane Smith",
-          avatar: "/jane-smith.jpg"
-        
-      },
-      {
-        id: 5,
-        url:
-          "https://mobstatus.com/wp-content/uploads/2022/10/tumhara-dil-itna-badsurat-hai-sad-dialogue-status-_faheemys-_new-_sadstatus-_shorts720P_HD.mp4",
-          name: "John Doe",
-          avatar: "/john-doe.jpg"
-        
-      },
-      {
-        id: 6,
-        url:
-          "https://mobstatus.com/wp-content/uploads/2022/10/sad-song-status-_-sad-status-_-full-screen-status-_-Broken-status-_-along720P_HD-1.mp4",
-          name: "Jane Smith",
-          avatar: "/jane-smith.jpg"
-        
-      },
-      {
-        id: 7,
-        url:
-          "https://mobstatus.com/wp-content/uploads/2022/10/Future-Ki-Tension-Lena-Very-Sad-Song-status-WhatsApp-status-video_Broken-Heart-Breakup_shorts720P_HD.mp4",
-          name: "John Doe",
-          avatar: "/john-doe.jpg"
-        
-      },
-      {
-        id: 8,
-        url:
-          "https://mobstatus.com/wp-content/uploads/2022/10/Samjhaya-bahot-_-_LoveNotes-__Short-video-status-%E2%9D%A4%EF%B8%8F720P_HD.mp4",
-          name: "Jane Smith",
-          avatar: "/jane-smith.jpg"
-        
-      },
-      {
-        id: 9,
-        url:
-          "https://mobstatus.com/wp-content/uploads/2022/10/4k-Sad-Shayari-WhatsApp-Status-II-Broken-Heart-Sad-Shayari-WhatsApp-Status-II720P_HD.mp4",
-          name: "Jane Smith",
-          avatar: "/jane-smith.jpg"
-        
-      },
-      {
-        id: 10,
-        url:
-          "https://mobstatus.com/wp-content/uploads/2022/10/So-Sad-Status-_-Sad-Shayari-_-True-Line_s-_-Breakup-Status-_-New-WhatsApp-Status-_-Heart-Broken720P_HD.mp4",
-          name: "Jane Smith",
-          avatar: "/jane-smith.jpg"
-        
-      },
-      {
-        id: 11,
-        url:
-          "https://mobstatus.com/wp-content/uploads/2022/10/Very-Sad-Song-status-Broken-Heart-Whatsapp-Status-Video-Breakup-Song-Hindi-_shorts720P_HD_1.mp4",
-          name: "Jane Smith",
-          avatar: "/jane-smith.jpg"
-        
-      },
-      {
-        id: 12,
-        url:
-          "https://mobstatus.com/wp-content/uploads/2022/10/shorts-sad-status-new-_-new-status-2022-mood-off-status-broken-heart-status-love_brekup-_sad720P_HD.mp4",
-          name: "Jane Smith",
-          avatar: "/jane-smith.jpg"
-        
-      },
-      {
-        id: 13,
-        url:
-          "https://mobstatus.com/wp-content/uploads/2021/12/Pehle-The-Hase-Jitna-Ab-Utna-Bura-Lagta-Ha-status-video.mp4",
-          name: "Rahi",
-          avatar: ""
-        
-      }
-    ];
 
     const videoRefs = useRef([]);
   const [isPlaying, setIsPlaying] = useState([]);
@@ -164,7 +69,7 @@ import { Navigate, useNavigate } from "react-router-dom";
             }
           }}
         >
-          {videos.map((video, index) => {
+          {videos && videos.map((video, index) => {
             return (
               <Box
                 key={video.id}
