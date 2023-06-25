@@ -20,7 +20,7 @@ import { CloseIcon } from "@chakra-ui/icons";
 import Uploading from "./Uploading";
 import { getCookies } from "../utils/getData";
 
-const CreatePost = ({getPosts}) => {
+const CreatePost = ({getPosts, inputRef}) => {
     const [text, setText] = useState("");
     const [image, setImage] = useState("");
     const [cloudinaryImage, setCloudinaryImage] = useState("")
@@ -157,6 +157,7 @@ const CreatePost = ({getPosts}) => {
                     />
                     </Box>
                     <Textarea
+                        ref={inputRef}
                         borderTopRightRadius={'30px'}
                         borderBottomRightRadius={'30px'}
                         borderBottomLeftRadius={'30px'}

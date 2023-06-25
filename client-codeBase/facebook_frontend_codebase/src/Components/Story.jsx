@@ -51,7 +51,9 @@ import { getCookies } from "../utils/getData";
         <CSSReset />
       <Box p={0}>
       <Flex
-          maxW="800px"
+          // border={'3px solid'}
+          // position={'relative'}
+          maxW={{base: "300px", sm: "300px", md: "300px", lg: "800px", xl: "800px"}}
           m="0 auto"
           overflowX="auto"
           flexWrap="nowrap"

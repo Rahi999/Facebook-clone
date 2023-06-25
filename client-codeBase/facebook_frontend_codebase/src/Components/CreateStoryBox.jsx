@@ -2,15 +2,17 @@ import { Box, Flex, Text, IconButton } from "@chakra-ui/react";
 import { AddIcon } from "@chakra-ui/icons";
 import React from "react";
 
-const CreateStoryBox = () => {
+const CreateStoryBox = ( { handleCreateStory} ) => {
+    const theme = localStorage.getItem('chakra-ui-color-mode')
     return(<>
      <Box
-      bg="gray.200"
+      onClick={handleCreateStory}
+      bg={theme=="light" ? "gray.200" : ""}
       borderRadius="20px"
       boxShadow="sm"
       p={4}
       cursor="pointer"
-      _hover={{ bg: "gray.300" }}
+      _hover={{ bg: "gray.600" }}
     //   border={'2px solid red'}
     mt={'8px'}
       width={'140px'}
@@ -22,13 +24,13 @@ const CreateStoryBox = () => {
         <IconButton
           icon={<AddIcon />}
           size="md"
-          bg="white"
+          bg=""
           borderRadius="full"
           mr={2}
         />
         <Text fontWeight="bold">Create Story</Text>
       </Flex>
-      <Text color="gray.600">Share your story with friends</Text>
+      <Text color="">Share your story with friends</Text>
     </Box>
     </>)
 }
