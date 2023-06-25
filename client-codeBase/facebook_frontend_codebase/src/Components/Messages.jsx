@@ -27,13 +27,16 @@ const Messages = ({ senderId, receiverId }) => {
   }, []);
 
   const getMessages = () => {
+    setLoading(true)
     axios.get(`${process.env.REACT_APP_DEV_BASE_URL}/chat/get-messages/${userId}/${params.receiverId}`,
       { headers: { "Authorization": `${token}` } })
       .then((res) => {
         setMessages(res.data)
+        setLoading(false)
       })
       .catch((err) => {
         console.log(err)
+        setLoading(false)
       })
   }
 
@@ -73,6 +76,7 @@ const Messages = ({ senderId, receiverId }) => {
   const handleKeyDown = (event) => {
     if (event.key === "Enter") {
       handleSendMessages();
+      scrollToBottom()
     }
   };
 
@@ -83,6 +87,9 @@ const Messages = ({ senderId, receiverId }) => {
   };
 
   useEffect(() => {
+    if(loading){
+      scrollToBottom()
+    }
     if(userId && params.receiverId){
       axios.get(`${process.env.REACT_APP_DEV_BASE_URL}/profile/getSingleUser/${params.receiverId}`,
       { headers: { "Authorization": `${token}` } })
