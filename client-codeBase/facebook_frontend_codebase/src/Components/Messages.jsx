@@ -53,38 +53,38 @@ const Messages = ({ senderId, receiverId }) => {
   }
 
   const handleSendMessages = () => {
-    if (text) {
-      const payload = {
-        senderId: userId,
-        receiverId: params.receiverId,
-        time: formattedDateTime,
-        message: text
-      };
-      console.log("Payload:", payload); // Log the payload before sending the request
-      console.log("Formatted DateTime:", formattedDateTime); // Log the value of formattedDateTime
-  
-      axios.post(`${process.env.REACT_APP_DEV_BASE_URL}/chat/send-messages`, payload, {
-        headers: { "Authorization": `${token}` }
+  if (text) {
+    const payload = {
+      senderId: userId,
+      receiverId: params.receiverId,
+      time: formattedDateTime,
+      message: text
+    };
+    console.log("Payload:", payload); // Log the payload before sending the request
+    console.log("Formatted DateTime:", formattedDateTime); // Log the value of formattedDateTime
+
+    axios.post(`${process.env.REACT_APP_DEV_BASE_URL}/chat/send-messages`, payload, {
+      headers: { "Authorization": `${token}` }
+    })
+      .then((res) => {
+        console.log(res.data);
+        setText("");
+        getMessages();
+        setTimeout(() => {
+          scrollToBottom();
+        }, 2000);
       })
-        .then((res) => {
-          console.log(res.data);
-          setText("");
-          getMessages();
-          setTimeout(() => {
-            scrollToBottom();
-          }, 2000);
-        })
-        .catch((err) => console.log(err));
-  
-    } else {
-      toast({
-        description: "Please type your message",
-        position: "top",
-        status: "info",
-        duration: "3000"
-      });
-    }
-  };
+      .catch((err) => console.log(err));
+
+  } else {
+    toast({
+      description: "Please type your message",
+      position: "top",
+      status: "info",
+      duration: "3000"
+    });
+  }
+};
 
   const handleKeyDown = (event) => {
     if (event.key === "Enter") {
@@ -165,14 +165,15 @@ const Messages = ({ senderId, receiverId }) => {
                   borderBottomRightRadius={message.senderId !== userId ? "20px" : "20px"}
                   borderBottomLeftRadius={message.senderId !== userId ? "20px" : "20px"}
                   borderTopLeftRadius={message.senderId === userId ? "20px" : "0px"}
-                    bg={ message.senderId === userId ? theme == "dark" ? 'grey' : "white" : 'blue.500'}
-                    color={message.senderId === userId ? theme == "dark" ? "white" : 'gray.800' : 'white'}
+                    bg={ message.senderId === userId ? theme == "dark" ? 'grey' : "blue.500" : 'white'}
+                    color={message.senderId === userId ? theme == "dark" ? "white" : 'gray.800' : 'black'}
                     p={2.5}
                     // borderRadius="md"
                     boxShadow="md"
                     maxWidth="90%"
                   >
                     <Text>{message.message}</Text>
+                    <Text textAlign={message.senderId === userId ? "left" : "right"} fontSize={'9px'}>{message.time && message.time}</Text>
                   </Box>
                   {message.senderId === userId && (
                     <Avatar  
