@@ -44,6 +44,7 @@ const SingleVideo = () => {
                   position="relative"
                 >
                   <Box
+                  borderRadius={'8px'}
                     width="100%"
                     height="95vh"
                     padding="1%"
@@ -53,6 +54,7 @@ const SingleVideo = () => {
                     style={{ cursor: "pointer" }}
                   >
                     <video
+                    borderRadius={'8px'}
                       ref={(el) => (videoRefs.current[index] = el)}
                       src={params.videoSrc}
                       controls={false}

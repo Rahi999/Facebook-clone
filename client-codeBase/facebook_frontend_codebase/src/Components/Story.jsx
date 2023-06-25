@@ -74,7 +74,7 @@ import { getCookies } from "../utils/getData";
               <Box
                 key={video.id}
                 bg=""
-                borderRadius="md"
+                // borderRadius="20px"
                 boxShadow=""
                 p={2}
                 width="300px"
@@ -83,21 +83,25 @@ import { getCookies } from "../utils/getData";
               >
                 <Box
                   bg="gray.800"
-                  borderRadius="md"
+                  borderRadius="20px"
                   overflow="hidden"
                   position="relative"
+                  // borderRadius='20px'
                 >
                   <Box
                   onClickCapture={() => navigate(`/video/${encodeURIComponent(video.url)}`)}
                     width="140px"
-                    height="160px"
+                    height="170px"
                     padding="1%"
                     paddingBottom="" // Aspect ratio of 16:9 (9 / 16 * 100%)
                     position="relative"
                     onClick={() => handleVideoClick(index)}
                     style={{ cursor: "pointer" }}
+                    borderRadius={'20px'}
+                    // border='2px solid red'
                   >
                     <video
+                    borderRadius={'20px'}
                       ref={(el) => (videoRefs.current[index] = el)}
                       src={video.url}
                       controls={false}
