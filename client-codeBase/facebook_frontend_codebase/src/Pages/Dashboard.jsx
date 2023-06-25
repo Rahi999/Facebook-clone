@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import SideBar from '../Components/SideBar'
-import { Center, Container, Toast, useToast } from '@chakra-ui/react'
+import { Box, Center, Container, Toast, useToast } from '@chakra-ui/react'
 import { getCookies } from '../utils/getData'
 import { removeCookies } from '../utils/removeData'
 import Loading from '../Components/Loading'
@@ -23,11 +23,11 @@ const Dashboard = () => {
     navigate("/login")
   }
   return (
-    <div >
+    <Box bg={'white'} >
       <SideBar
        children={<FbTabs />}
         />
-    </div>
+    </Box>
   )
 }
 
