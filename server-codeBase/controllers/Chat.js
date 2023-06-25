@@ -31,6 +31,18 @@ const getMessages = async (req, res) => {
   }
 };
 
+const deleteMessages = async (req, res) => {
+  try{
+    const { senderId, receiverId } = req.params;
+    console.log(senderId, receiverId)
+    await chatModel.deleteMany({ senderId, receiverId });
+    res.status(200).json({ message: "Messages deleted successfully" });
+  }
+  catch(error){
+    return res.status(500).json(err.message)
+  }
+}
 
 
-module.exports = {sendMessage, getMessages}
+
+module.exports = {sendMessage, getMessages, deleteMessages}
