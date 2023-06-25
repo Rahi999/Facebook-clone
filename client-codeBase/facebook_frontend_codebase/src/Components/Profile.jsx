@@ -66,7 +66,7 @@ const Profile = () => {
        getUserprofile()
     }, [])
     return userData ? (
-            <Center py={6} m='auto'w='100%'><Box
+            <Center py={6} m='auto' w='100%'><Box
         maxW={{base: "100%", sm: "100%", md: "300px", lg: "300px", xl: '300px'}}
         w={'full'}
         // bg={useColorModeValue('white', 'gray.800')}
