@@ -10,8 +10,11 @@ import {
     FormControl,
     FormLabel,
     Avatar,
-    useToast
+    useToast,
+    Text,
+    Divider
 } from "@chakra-ui/react";
+import "./createPost.css"
 import { BsFillImageFill } from "react-icons/bs";
 import { CloseIcon } from "@chakra-ui/icons";
 import Uploading from "./Uploading";
@@ -139,29 +142,63 @@ const CreatePost = ({getPosts}) => {
                 boxShadow="md"
             >
                 <Flex alignItems="center" mb={4} gap="5">
-                    <Box as="label" htmlFor="upload-image" cursor="pointer">
-                        <Image src="https://static.xx.fbcdn.net/rsrc.php/v3/yC/r/a6OjkIIE-R0.png" size="4rem" title="Choose files" />
-                    </Box>
-                    <input
+                    <Box>
+                        <Avatar src={getCookies("user-profile")} display={{base: "none", sm: "none", md: "flex", lg: "flex", xl: "flex"}} />
+                        <Flex as="label" htmlFor="upload-image" cursor="pointer" display={{md: "none", lg: "none", xl: "none"}}>
+                <Image className="image" src="https://static.xx.fbcdn.net/rsrc.php/v3/yC/r/a6OjkIIE-R0.png" size="4rem" title="Choose files" />
+                <Text fontSize={{base: "12px", sm: "13px", md: '14px', lg: "", xl: ""}} className="create-post-title">Photo</Text>
+                </Flex>
+                <input
                         type="file"
                         accept="image/*"
                         onChange={handleImageChange}
                         style={{ display: "none" }}
                         id="upload-image"
                     />
+                    </Box>
                     <Textarea
+                        borderTopRightRadius={'30px'}
+                        borderBottomRightRadius={'30px'}
+                        borderBottomLeftRadius={'30px'}
                         placeholder="What's on your mind?"
                         value={text}
                         onChange={handleTextChange}
                         resize="none"
                         rows={3}
                         borderColor="gray.300"
-                        borderRadius="md"
+                        // borderRadius="md"
                         p={2}
                         flex="1"
                     />
                 </Flex>
-                <Flex justifyContent="flex-start">
+                <Box height={'1px'} bg={'grey'} display={{base: "none", sm: "none", md: 'block', lg: "block", xl: "block"}}></Box>
+                <Flex justifyContent={'space-evenly'} p='2' display={{base: "none", sm: "none", md: 'flex', lg: "flex", xl: "flex"}}>
+                
+                <Flex as="label" htmlFor="upload-image" cursor="pointer" >
+                <Image className="image" src="https://static.xx.fbcdn.net/rsrc.php/v3/yC/r/a6OjkIIE-R0.png" size="4rem" title="Choose files" />
+                <Text fontSize={{base: "12px", sm: "13px", md: '14px', lg: "", xl: ""}} className="create-post-title">Photo</Text>
+                </Flex>
+
+                <Flex as="label" htmlFor="upload-image" cursor="pointer" >
+                    <Image className="image" src="https://static.xx.fbcdn.net/rsrc.php/v3/yF/r/v1iF2605Cb5.png" />
+                    <Text fontSize={{base: "12px", sm: "13px", md: '14px', lg: "", xl: ""}} className="create-post-title">Video</Text>
+                </Flex>
+
+                <Flex as="label" htmlFor="upload-image" cursor="pointer" >
+                    <Image className="image" src="https://static.xx.fbcdn.net/rsrc.php/v3/yk/r/yMDS19UDsWe.png" />
+                    <Text fontSize={{base: "12px", sm: "13px", md: '14px', lg: "", xl: ""}} className="create-post-title">
+                        Feeling/activity
+                    </Text>
+                </Flex>
+                </Flex>
+                <input
+                        type="file"
+                        accept="image/*"
+                        onChange={handleImageChange}
+                        style={{ display: "none" }}
+                        id="upload-image"
+                    />
+                <Flex justifyContent="flex-start" >
                     {loading ? <Box width="100%"><Uploading /></Box> : image && (
                         <Box>
                             <Flex justifyContent="flex-end" cursor='pointer' onClick={() => setImage("")} title="Remove selected image">

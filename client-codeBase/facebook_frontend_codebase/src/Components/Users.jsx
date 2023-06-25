@@ -11,7 +11,7 @@ const Users = () => {
 
     const getUsers = () => {
         setLoading(true)
-      axios.get(`${process.env.REACT_APP_DEV_BASE_URL}/profile//getAllUsers`)
+      axios.get(`${process.env.REACT_APP_DEV_BASE_URL}/profile/getAllUsers`)
       .then((res) => {
         console.log(res.data)
         setData(res.data)
