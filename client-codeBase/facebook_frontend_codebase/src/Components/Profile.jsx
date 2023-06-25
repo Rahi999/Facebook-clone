@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import {
@@ -26,6 +26,7 @@ import UnFollow from "./Unfollow";
 import SideBar from "./SideBar";
 import Theme from "./Theme";
 import ButtonTheme from "./ButtonTheme";
+import { saveCookies } from "../utils/saveCookies";
 
 const Profile = () => {
 
@@ -39,6 +40,44 @@ const Profile = () => {
     const token = getCookies('fb_token')
     const navigate = useNavigate()
     const { colorMode, toggleColorMode } = useColorMode();
+    const [image, setImage] = useState('');
+    const [cloudinaryImage, setCloudinaryImage] = useState("")
+    const uploadInputRef = useRef(null); // Ref to the file input element
+
+
+    const handleImageChange = async (event) => {
+        const selectedImage = event.target.files[0];
+        const imageURL = URL.createObjectURL(selectedImage);
+        setImage(imageURL);
+        console.log(image)
+        const formData = new FormData();
+        formData.append('file', selectedImage);
+        formData.append('upload_preset', process.env.REACT_APP_CLOUDINARY_PRESET);
+        try {
+            setLoading(true);
+            const res = await axios.post(process.env.REACT_APP_CLOUDINARY_BASE_URL, formData);
+            const imageUrl = res.data.secure_url;
+            setCloudinaryImage(res.data.secure_url)
+            console.log(imageUrl)
+            setLoading(false)
+        } catch (err) {
+            toast({
+                title: "Uploading failed",
+                position: "top",
+                status: 'error',
+                duration: 3000,
+                isClosable: true,
+            })
+            setLoading(false)
+            console.error(err);
+        }
+    }
+
+    const handleEditClick = () => {
+        if (uploadInputRef.current) {
+            uploadInputRef.current.click(); // Trigger the click event on the file input element
+        }
+    };
 
     const getUserprofile = () => {
         if (userId && token) {
@@ -48,7 +87,8 @@ const Profile = () => {
                     setUserData(res.data)
                     // console.log(res)
                     setLoading(false)
-                    console.log(userData)
+                    console.log(res.data)
+                    saveCookies("user-profile", res.data.profile_pic)
                 })
                 .catch((err) => {
                     setLoading(false)
@@ -69,6 +109,40 @@ const Profile = () => {
     useEffect(() => {
         getUserprofile()
     }, [])
+
+    const handleSave = () => {
+        if (cloudinaryImage) {
+            const payload = {
+                profile_pic: cloudinaryImage
+            }
+            axios.patch(`${process.env.REACT_APP_DEV_BASE_URL}/profile/editUserProfile/${userId}`,
+                payload,
+                { headers: { "Authorization": `${token}` } }
+            )
+                .then((res) => {
+                    toast({
+                        description: res.data.message,
+                        position: "top",
+                        status: 'sucess',
+                        duration: 3000,
+                    })
+                    getUserprofile()
+                })
+                .catch((err) => toast({
+                    description: err.response.data.message,
+                    position: "top",
+                    status: 'error',
+                    duration: 3000,
+                }))
+        } else {
+            toast({
+                title: "Profile cann't edit right now",
+                position: "top",
+                status: 'error',
+                duration: 3000,
+            })
+        }
+    }
     return userData ? (
         <Center py={6} m='auto' w='100%'><Box
             maxW={{ base: "100%", sm: "100%", md: "300px", lg: "300px", xl: '300px' }}
@@ -86,7 +160,7 @@ const Profile = () => {
             <Flex justify={'center'} mt={-12}>
                 <Avatar
                     size={'xl'}
-                    src=''
+                    src={cloudinaryImage ? cloudinaryImage : userData.profile_pic}
                     name={userData.firstname + userData.surename}
                     alt={'User_image'}
 
@@ -100,10 +174,37 @@ const Profile = () => {
                         colorScheme="blue"
                         aria-label="edit Image"
                         icon={<EditIcon />}
+                        onClick={handleEditClick}
                     />
-                </Avatar>
-            </Flex>
 
+                </Avatar>
+                <input
+                    ref={uploadInputRef}
+                    type="file"
+                    accept="image/*"
+                    onChange={handleImageChange}
+                    style={{ display: "none" }}
+                    id="upload-image"
+                />
+            </Flex>
+            {cloudinaryImage && <Button
+                onClick={() => handleSave()}
+                title="Sabe"
+                marginTop="10%"
+                width="70%"
+                flex={1}
+                fontSize={'sm'}
+                rounded={'full'}
+                bg={'blue.400'}
+                color={'white'}
+                _hover={{
+                    bg: 'blue.500',
+                }}
+                _focus={{
+                    bg: 'blue.500',
+                }}>
+                Save
+            </Button>}
             <Box p={6}>
                 <Stack spacing={0} align={'center'} mb={5}>
                     <Heading fontSize={'2xl'} fontWeight={500} fontFamily={'body'}>
@@ -129,7 +230,7 @@ const Profile = () => {
 
                 {userData && <Follow getUserprofile={getUserprofile} userId={userId} followers={userData.followers} following={userData.following} />}
                 {userData && <UnFollow getUserprofile={getUserprofile} userId={userId} followers={userData.followers} />}
-               <ButtonTheme />
+                <ButtonTheme />
             </Box>
         </Box></Center>
     ) : (<Loading />)
