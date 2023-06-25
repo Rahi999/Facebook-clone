@@ -451,7 +451,7 @@ const MobileNav = ({ onOpen, ...rest }) => {
               bg={useColorModeValue('white', 'gray.900')}
               borderColor={useColorModeValue('gray.200', 'gray.700')}>
               <MenuItem onClick={() => navigate(`/user-profile/${userId}`)}><Link to={`/user-profile/${userId}`}>Profile</Link></MenuItem>
-              <MenuItem>Settings</MenuItem>
+              <MenuItem onClick={() => navigate(`/user-profile/${userId}`)}>Settings</MenuItem>
               <MenuItem>  <Theme /></MenuItem>
               <MenuItem onClick={() => navigate("/login")}>
                 <Link to="/login">LogIn</Link>
