@@ -180,12 +180,12 @@ const CreatePost = ({getPosts}) => {
                 </Flex>
 
                 <Flex as="label" htmlFor="upload-image" cursor="pointer" >
-                    <Image className="image" src="https://static.xx.fbcdn.net/rsrc.php/v3/yF/r/v1iF2605Cb5.png" />
+                    <Image size="4rem" className="image" src="https://static.xx.fbcdn.net/rsrc.php/v3/yF/r/v1iF2605Cb5.png" />
                     <Text fontSize={{base: "12px", sm: "13px", md: '14px', lg: "", xl: ""}} className="create-post-title">Video</Text>
                 </Flex>
 
                 <Flex as="label" htmlFor="upload-image" cursor="pointer" >
-                    <Image className="image" src="https://static.xx.fbcdn.net/rsrc.php/v3/yk/r/yMDS19UDsWe.png" />
+                    <Image size="4rem" className="image" src="https://static.xx.fbcdn.net/rsrc.php/v3/yk/r/yMDS19UDsWe.png" />
                     <Text fontSize={{base: "12px", sm: "13px", md: '14px', lg: "", xl: ""}} className="create-post-title">
                         Feeling/activity
                     </Text>
