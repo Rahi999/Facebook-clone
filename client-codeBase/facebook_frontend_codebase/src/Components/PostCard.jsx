@@ -82,7 +82,7 @@ const PostCard = ({
                 {/* <Box ml='40%' width={'40%'}><SendMessage senderId={getCookies("userId")} receiverId={userId} /></Box> */}
             </Box>
             <Box className="post-content">
-                <Text className="post-text" fontSize={{ base: "14px", sm: "14px", md: "16px", lg: "17px", xl: "18px" }} maxW={'100%'}>{post_text}</Text>
+                <Text className="post-text" fontSize={{ base: "14px", sm: "14px", md: "16px", lg: "16px", xl: "16px" }} maxW={'100%'}>{post_text}</Text>
                 <Image className="post-image" src={post_image} alt=""
                 onClick={() => navigate(`/detailed-image/${encodeURIComponent(post_image)}`)} cursor="pointer"
                 />

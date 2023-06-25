@@ -9,8 +9,8 @@ import ChatList from "./ChatList";
 
 const Chat = () => {
 
-    const [users, setUsers] = useState(null);
-    const [following, setFollowing] = useState(null)
+    const [users, setUsers] = useState([]);
+    const [following, setFollowing] = useState([])
     const [loading, setLoading] = useState(null)
     const token = getCookies("fb_token")
     const userId = getCookies("userId")
@@ -35,23 +35,17 @@ const Chat = () => {
             navigate("/login")
         }
     }, [])
+    console.log(users, following)
 
     // const users = [
     //     { id: "1", firstname: "Name", surename: "lastname", profile_pic: "demo_img.png" },
     //     { id: "2", firstname: "Name", surename: "lastname", profile_pic: "demo_img.png" }
     // ]
-    return loading ? (<Loading />): users && users.legth > 1 || following && following.legth > 1 ? (<>
+    return loading ? (<Loading />):  (<>
         <Box>
             {users && <ChatList users={users} />}
             { following && <ChatList users={following} />}
         </Box>
-    </>) : 
-    (
-        <Box mt='20'  textAlign={'left'}>
-        <Text fontSize={{base: "14px", sm: "15px", md: "16px", lg: "18px", xl: "18px"}}>
-            Please follow someone to chat with him
-        </Text>
-    </Box>
-    )
+    </>) 
 }
 export default Chat

@@ -6,6 +6,7 @@ import { BiCommentDetail } from "react-icons/bi";
 import Follow from "./Follow";
 import { getCookies } from "../utils/getData";
 import SideBar from "./SideBar";
+import "./chatList.css"
 
 const ChatLists = ({users}) => {
 
@@ -23,17 +24,18 @@ const ChatLists = ({users}) => {
             <VStack align="start" spacing={4} >
                 {users.map((user) => (
                     <Box justifyContent={'space-between'} width="100%"  key={user._id}
+                    className="vstack"
                     title="Chat with the person"
                     cursor={'pointer'}
                     onClick={() => navigate(`/messages/${senderId}/${user._id}`)}
                     display="flex" alignItems="center"
-                    boxShadow={'rgba(0, 0, 0, 0.24) 0px 3px 8px'}
+                    // boxShadow={'rgba(0, 0, 0, 0.24) 0px 3px 8px'}
                     p='3'
                     borderRadius={'8px'}
                     >
                         <Flex >
                         <Avatar size={{base: "xs", sm: "xs", md: "md", lg: "md", xl: "md"}} src={user.profile_pic} />
-                        <Text ml={2}>{`${user.firstname} ${user.surename}`}</Text>
+                        <Text ml={2} mt={{base:'', sm:'', md: "10px", lg: "10px", xl: "10px"}}>{`${user.firstname} ${user.surename}`}</Text>
                         </Flex>
                         <Box>
                         <IconButton 
