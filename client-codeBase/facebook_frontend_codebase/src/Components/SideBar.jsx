@@ -64,7 +64,7 @@ const LinkItems = [
   { name: 'Home', icon: FiHome, title: "Home", to: "/" },
   { name: "Chat", icon: BiCommentDetail, title: "Chat", to: "/chat" },
   { name: 'Friends', icon: AiOutlineUsergroupAdd, title: "Friends & Group", to: "/chat" },
-  { name: 'Trending', icon: FiTrendingUp, title: "Trending stories", to: "/" },
+  { name: 'Trending', icon: FiTrendingUp, title: "Trending stories", to: "/trending" },
   { name: "Story", icon: AiFillYoutube, title: "Stories", to: "/" },
   { name: "Groups", icon: FaUsers, title: "Groups", to: "/users"},
   { name: 'Profile', icon: FaUserCircle, title: "Profile", to: "/" },
