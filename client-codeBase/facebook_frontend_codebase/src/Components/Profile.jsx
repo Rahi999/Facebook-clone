@@ -22,6 +22,7 @@ import { getCookies } from "../utils/getData";
 import Loading from "./Loading";
 import Follow from "./Follow";
 import UnFollow from "./Unfollow";
+import SideBar from "./SideBar";
 
 const Profile = () => {
 
@@ -64,8 +65,9 @@ const Profile = () => {
     useEffect(() => {
        getUserprofile()
     }, [])
-    return userData ? (<Center py={6}><Box
-        maxW={'300px'}
+    return userData ? (
+            <Center py={6} m='auto'w='100%'><Box
+        maxW={{base: "100%", sm: "100%", md: "300px", lg: "300px", xl: '300px'}}
         w={'full'}
         // bg={useColorModeValue('white', 'gray.800')}
         boxShadow={'2xl'}
@@ -124,7 +126,8 @@ const Profile = () => {
             {userData && <Follow getUserprofile={getUserprofile} userId={userId} followers={userData.followers} following={userData.following} />}
             {userData && <UnFollow getUserprofile={getUserprofile} userId={userId} followers={userData.followers}  />}
         </Box>
-    </Box></Center>) : (<Loading />)
+    </Box></Center>
+    ) : (<Loading />)
 
 
 }
