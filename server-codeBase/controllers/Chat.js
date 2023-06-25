@@ -2,7 +2,7 @@ const { chatModel } = require("../models/Chat")
 
 const sendMessage = async (req, res) => {
     try {
-        const { senderId, receiverId, message } = req.body;
+        const { senderId, receiverId, message, date } = req.body;
         const newMessage = new chatModel({ senderId, receiverId, message });
     
         await newMessage.save();
