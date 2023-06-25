@@ -23,10 +23,10 @@ const FbTabs = () => {
                             icon={<BiCommentDetail />}
                         />
                     </Tab>
-                    <Tab title="Friends & Group"><AiOutlineUsergroupAdd size={27} /></Tab>
                     <Tab title="Story"><AiFillYoutube size={27} /></Tab>
-                    <Tab title="Story"><AiFillShop size={27} /></Tab>
+                    <Tab title="Friends & Group"><AiOutlineUsergroupAdd size={27} /></Tab>
                     <Tab title=""> <AiFillPlayCircle size={27} /></Tab>
+                    <Tab title="Story"><AiFillShop size={27} /></Tab>
                 </TabList>
 
                 <TabPanels mt={{ base: "30%", sm: "5%", md: "5%", lg: "0", xl: "0" }} >
@@ -42,10 +42,10 @@ const FbTabs = () => {
                         <Chat />
                     </TabPanel>
                     <TabPanel>
-                        <p>two!</p>
+                        <p></p>
                     </TabPanel>
                     <TabPanel>
-                        <p>three!</p>
+                        <Chat />
                     </TabPanel>
                     <TabPanel>
                         <p>Four!</p>
