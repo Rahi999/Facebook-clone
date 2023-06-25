@@ -7,12 +7,12 @@ const CreateStoryBox = ( { handleCreateStory} ) => {
     return(<>
      <Box
       onClick={handleCreateStory}
-      bg={theme=="light" ? "gray.200" : ""}
+      bg={theme=="light" ? "gray.200" : "gray.600"}
       borderRadius="20px"
       boxShadow="sm"
       p={4}
       cursor="pointer"
-      _hover={{ bg: "gray.600" }}
+      _hover={{ bg: "gray.300" }} 
     //   border={'2px solid red'}
     mt={'8px'}
       width={'140px'}
@@ -24,13 +24,13 @@ const CreateStoryBox = ( { handleCreateStory} ) => {
         <IconButton
           icon={<AddIcon />}
           size="md"
-          bg=""
+          bg= {theme=="light" ? "" : "gray.800"}
           borderRadius="full"
           mr={2}
         />
-        <Text fontWeight="bold">Create Story</Text>
+        <Text fontWeight="bold" color={'black'}>Create Story</Text>
       </Flex>
-      <Text color="">Share your story with friends</Text>
+      <Text color="black" >Share your story with friends</Text>
     </Box>
     </>)
 }
