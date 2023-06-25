@@ -34,7 +34,7 @@ const getMessages = async (req, res) => {
 const deleteMessages = async (req, res) => {
   try{
     const { senderId, receiverId } = req.params;
-    console.log(senderId, receiverId)
+    // console.log(senderId, receiverId)
     await chatModel.deleteMany({ senderId, receiverId });
     res.status(200).json({ message: "Messages deleted successfully" });
   }
