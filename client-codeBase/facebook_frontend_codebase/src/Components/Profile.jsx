@@ -15,7 +15,8 @@ import {
     useColorModeValue,
     IconButton,
     Toast,
-    useToast
+    useToast,
+    useColorMode
 } from '@chakra-ui/react';
 import { SmallCloseIcon, EditIcon } from '@chakra-ui/icons';
 import { getCookies } from "../utils/getData";
@@ -23,6 +24,7 @@ import Loading from "./Loading";
 import Follow from "./Follow";
 import UnFollow from "./Unfollow";
 import SideBar from "./SideBar";
+import Theme from "./Theme";
 
 const Profile = () => {
 
@@ -35,6 +37,7 @@ const Profile = () => {
     // console.log(userId, id)
     const token = getCookies('fb_token')
     const navigate = useNavigate()
+    const { colorMode, toggleColorMode } = useColorMode();
 
     const getUserprofile = () => {
         if (userId && token) {
@@ -63,70 +66,71 @@ const Profile = () => {
     }
 
     useEffect(() => {
-       getUserprofile()
+        getUserprofile()
     }, [])
     return userData ? (
-            <Center py={6} m='auto' w='100%'><Box
-        maxW={{base: "100%", sm: "100%", md: "300px", lg: "300px", xl: '300px'}}
-        w={'full'}
-        // bg={useColorModeValue('white', 'gray.800')}
-        boxShadow={'2xl'}
-        rounded={'md'}
-        overflow={'hidden'}>
-        <Image
-            h={'120px'}
+        <Center py={6} m='auto' w='100%'><Box
+            maxW={{ base: "100%", sm: "100%", md: "300px", lg: "300px", xl: '300px' }}
             w={'full'}
-            src={userData.cover_pic}
-            objectFit={'cover'}
-        />
-        <Flex justify={'center'} mt={-12}>
-            <Avatar
-                size={'xl'}
-                src=''
-                name={userData.firstname + userData.surename}
-                alt={'User_image'}
+            // bg={useColorModeValue('white', 'gray.800')}
+            boxShadow={'2xl'}
+            rounded={'md'}
+            overflow={'hidden'}>
+            <Image
+                h={'120px'}
+                w={'full'}
+                src={userData.cover_pic}
+                objectFit={'cover'}
+            />
+            <Flex justify={'center'} mt={-12}>
+                <Avatar
+                    size={'xl'}
+                    src=''
+                    name={userData.firstname + userData.surename}
+                    alt={'User_image'}
 
-            >
-                <AvatarBadge
-                    as={IconButton}
-                    size="xs"
-                    rounded="full"
-                    border="0px"
-                    top="50px"
-                    colorScheme="blue"
-                    aria-label="edit Image"
-                    icon={<EditIcon />}
-                />
-            </Avatar>
-        </Flex>
+                >
+                    <AvatarBadge
+                        as={IconButton}
+                        size="xs"
+                        rounded="full"
+                        border="0px"
+                        top="50px"
+                        colorScheme="blue"
+                        aria-label="edit Image"
+                        icon={<EditIcon />}
+                    />
+                </Avatar>
+            </Flex>
 
-        <Box p={6}>
-            <Stack spacing={0} align={'center'} mb={5}>
-                <Heading fontSize={'2xl'} fontWeight={500} fontFamily={'body'}>
-                    {userData.firstname + " " + userData.surename}
-                </Heading>
-                <Text color={'gray.500'}>{userData.email[0] + userData.email[1] + userData.email[2] + "******@gmail.com"}</Text>
-            </Stack>
-
-            <Stack direction={'row'} justify={'center'} spacing={6}>
-                <Stack spacing={0} align={'center'}>
-                    <Text fontWeight={600}>{userData.followers.length}</Text>
-                    <Text fontSize={'sm'} color={'gray.500'}>
-                        Followers
-                    </Text>
+            <Box p={6}>
+                <Stack spacing={0} align={'center'} mb={5}>
+                    <Heading fontSize={'2xl'} fontWeight={500} fontFamily={'body'}>
+                        {userData.firstname + " " + userData.surename}
+                    </Heading>
+                    <Text color={'gray.500'}>{userData.email[0] + userData.email[1] + userData.email[2] + "******@gmail.com"}</Text>
                 </Stack>
-                <Stack spacing={0} align={'center'}>
-                    <Text fontWeight={600}>{userData.following.length}</Text>
-                    <Text fontSize={'sm'} color={'gray.500'}>
-                        Following
-                    </Text>
-                </Stack>
-            </Stack>
 
-            {userData && <Follow getUserprofile={getUserprofile} userId={userId} followers={userData.followers} following={userData.following} />}
-            {userData && <UnFollow getUserprofile={getUserprofile} userId={userId} followers={userData.followers}  />}
-        </Box>
-    </Box></Center>
+                <Stack direction={'row'} justify={'center'} spacing={6}>
+                    <Stack spacing={0} align={'center'}>
+                        <Text fontWeight={600}>{userData.followers.length}</Text>
+                        <Text fontSize={'sm'} color={'gray.500'}>
+                            Followers
+                        </Text>
+                    </Stack>
+                    <Stack spacing={0} align={'center'}>
+                        <Text fontWeight={600}>{userData.following.length}</Text>
+                        <Text fontSize={'sm'} color={'gray.500'}>
+                            Following
+                        </Text>
+                    </Stack>
+                </Stack>
+
+                {userData && <Follow getUserprofile={getUserprofile} userId={userId} followers={userData.followers} following={userData.following} />}
+                {userData && <UnFollow getUserprofile={getUserprofile} userId={userId} followers={userData.followers} />}
+               
+            </Box>
+        </Box></Center>
     ) : (<Loading />)
 
 

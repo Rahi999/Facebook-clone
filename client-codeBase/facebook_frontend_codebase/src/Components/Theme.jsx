@@ -16,7 +16,7 @@ export default function Theme(props) {
         w="fit-content"
         mr="20px"
         {...props}>
-        {colorMode === 'light' ? "Dark-mode" : "Light-mode"}
+        {colorMode === 'light' ? "Dark Mode" : "Light Mode"}
       </Text>
       
     </Flex>

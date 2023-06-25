@@ -29,6 +29,7 @@ import {
   InputGroup,
   InputLeftElement,
   Switch,
+  useColorMode,
 } from '@chakra-ui/react';
 import { AiFillHome, AiOutlineUsergroupAdd, AiFillYoutube, AiFillShop, AiFillPlayCircle } from 'react-icons/ai';
 import { BsSun, BsMoonStarsFill } from 'react-icons/bs';
