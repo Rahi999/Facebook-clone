@@ -5,6 +5,7 @@ import Posts from "../Pages/Posts";
 import Users from "./Users";
 import { BiCommentDetail } from "react-icons/bi";
 import Chat from "./Chat";
+import Story from "./Story";
 
 const FbTabs = () => {
     const [currentTab, setCurrentTab] = useState(0);
@@ -26,7 +27,7 @@ const FbTabs = () => {
                     <Tab title="Story"><AiFillYoutube size={27} /></Tab>
                     <Tab title="Friends & Group"><AiOutlineUsergroupAdd size={27} /></Tab>
                     <Tab title=""> <AiFillPlayCircle size={27} /></Tab>
-                    <Tab title="Story"><AiFillShop size={27} /></Tab>
+                    {/* <Tab title="Story"><AiFillShop size={27} /></Tab> */}
                 </TabList>
 
                 <TabPanels mt={{ base: "30%", sm: "5%", md: "5%", lg: "0", xl: "0" }} >
@@ -42,16 +43,21 @@ const FbTabs = () => {
                         <Chat />
                     </TabPanel>
                     <TabPanel>
-                        <p></p>
+                        <Box  
+                         ml={{base: "0", sm: "0", md: "0", lg: "-80", xl: "-80"}}
+                         >
+                        <Story />
+                        </Box>
                     </TabPanel>
                     <TabPanel>
                         <Chat />
                     </TabPanel>
                     <TabPanel>
-                        <p>Four!</p>
-                    </TabPanel>
-                    <TabPanel>
-                        <p>Five!</p>
+                    <Box  
+                         ml={{base: "0", sm: "0", md: "0", lg: "-80", xl: "-80"}}
+                         >
+                        <Story />
+                        </Box>
                     </TabPanel>
                 </TabPanels>
             </Tabs>
