@@ -1,4 +1,4 @@
-import { Box, VStack, Avatar, Text, Input, Button, Flex, Toast, useToast, Image } from '@chakra-ui/react';
+import { Box, VStack, Avatar, Text, Input, Button, Flex, Toast, useToast, Image, useUpdateEffect } from '@chakra-ui/react';
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import SideBar from './SideBar';
 import { getCookies } from '../utils/getData';
@@ -21,6 +21,17 @@ const Messages = ({ senderId, receiverId }) => {
   const toast = useToast()
   const navigate = useNavigate()
   const theme = localStorage.getItem('chakra-ui-color-mode')
+  const [currentDateTime, setCurrentDateTime] = useState(new Date());
+  
+  const options = {
+    day: 'numeric',
+    month: 'short',
+    year: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: true
+};
+  const formattedDateTime = currentDateTime.toLocaleString('en-US', options);
 
   const handleInputChange = useCallback((e) => {
     setText(e.target.value);
@@ -32,6 +43,7 @@ const Messages = ({ senderId, receiverId }) => {
       { headers: { "Authorization": `${token}` } })
       .then((res) => {
         setMessages(res.data)
+        console.log(res.data)
         setLoading(false)
       })
       .catch((err) => {
@@ -45,33 +57,34 @@ const Messages = ({ senderId, receiverId }) => {
       const payload = {
         senderId: userId,
         receiverId: params.receiverId,
+        time: formattedDateTime,
         message: text
-      }
-      console.log(payload)
-      axios.post(`${process.env.REACT_APP_DEV_BASE_URL}/chat/send-messages`,
-        payload,
-        { headers: { "Authorization": `${token}` } })
+      };
+      console.log("Payload:", payload); // Log the payload before sending the request
+      console.log("Formatted DateTime:", formattedDateTime); // Log the value of formattedDateTime
+  
+      axios.post(`${process.env.REACT_APP_DEV_BASE_URL}/chat/send-messages`, payload, {
+        headers: { "Authorization": `${token}` }
+      })
         .then((res) => {
-          console.log(res.data)
-          setText("")
-          getMessages()
+          console.log(res.data);
+          setText("");
+          getMessages();
           setTimeout(() => {
-            scrollToBottom()
-          }, 2000)
+            scrollToBottom();
+          }, 2000);
         })
-        .catch((err) => console.log(err))
-
+        .catch((err) => console.log(err));
+  
+    } else {
+      toast({
+        description: "Please type your message",
+        position: "top",
+        status: "info",
+        duration: "3000"
+      });
     }
-    else {
-     toast({
-      description: "Please type your message",
-      position: "top",
-      status: "info",
-      duration: "3000"
-     })
-    }
-
-  }
+  };
 
   const handleKeyDown = (event) => {
     if (event.key === "Enter") {
