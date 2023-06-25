@@ -27,6 +27,7 @@ import SideBar from "./SideBar";
 import Theme from "./Theme";
 import ButtonTheme from "./ButtonTheme";
 import { saveCookies } from "../utils/saveCookies";
+import Uploading from "./Uploading";
 
 const Profile = () => {
 
@@ -42,10 +43,11 @@ const Profile = () => {
     const { colorMode, toggleColorMode } = useColorMode();
     const [image, setImage] = useState('');
     const [cloudinaryImage, setCloudinaryImage] = useState("")
-    const uploadInputRef = useRef(null); // Ref to the file input element
+    const uploadInputRef = useRef(null); 
 
 
     const handleImageChange = async (event) => {
+        setLoading(true)
         const selectedImage = event.target.files[0];
         const imageURL = URL.createObjectURL(selectedImage);
         setImage(imageURL);
@@ -54,7 +56,6 @@ const Profile = () => {
         formData.append('file', selectedImage);
         formData.append('upload_preset', process.env.REACT_APP_CLOUDINARY_PRESET);
         try {
-            setLoading(true);
             const res = await axios.post(process.env.REACT_APP_CLOUDINARY_BASE_URL, formData);
             const imageUrl = res.data.secure_url;
             setCloudinaryImage(res.data.secure_url)
@@ -186,7 +187,9 @@ const Profile = () => {
                     style={{ display: "none" }}
                     id="upload-image"
                 />
+                
             </Flex>
+            {loading && <Uploading />}
             {cloudinaryImage && <Button
                 onClick={() => handleSave()}
                 title="Sabe"
