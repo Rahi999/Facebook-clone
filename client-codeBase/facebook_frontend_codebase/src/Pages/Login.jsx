@@ -68,8 +68,7 @@ const Login = () => {
         })
         .catch((err) => {
           toast({
-            title: 'Login Error',
-            description: `${err.response.data.message}`,
+            description: `${err ? err.response.data.message : "Server error"}`,
             position: "top",
             status: 'error',
             duration: 5000,
