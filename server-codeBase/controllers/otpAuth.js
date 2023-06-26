@@ -69,6 +69,7 @@
 // }
 
 const otpModel = require('../models/otpAuth');
+const { Vonage } = require('@vonage/server-sdk');
 
 function generateOTP() {
   const digits = '0123456789';
@@ -79,33 +80,66 @@ function generateOTP() {
   return otp;
 }
 
-const { Vonage } = require('@vonage/server-sdk');
-
 const vonage = new Vonage({
-  apiKey: "24d7a3b4",
-  apiSecret: "U07UBDRnouT2Wtek"
+  apiKey: '24d7a3b4',
+  apiSecret: 'U07UBDRnouT2Wtek'
 });
 
-const from = "Vonage APIs";
+const from = 'Vonage APIs';
 
 async function sendSMS(req, res) {
   const { phoneNumber } = req.body; // Assuming the phone number is provided in the request body
   const otp = generateOTP();
 
-  const text = `Hi, your 6-digit OTP for Facebook registration is: ${otp}`;
+  const text = `${otp} is your OTP to validate your number with Facebook. Use this to login/register to your account and start sharing your thoughts on Facebook. THANK YOU.`;
 
-  vonage.sms.send({ to: phoneNumber, from, text })
-    .then(() => {
-      console.log('Message sent successfully');
-      new otpModel({ phoneNumber, otp }).save(); // Save phone number and OTP to otpModel
-      res.status(200).json({ message: "Message sent successfully" });
-    })
-    .catch(err => {
-      console.error('There was an error sending the message.', err);
-      res.status(500).json({ error: 'An error occurred while sending the message' });
-    });
+  try {
+    const existingUser = await otpModel.findOne({ phoneNumber });
+
+    if (existingUser) {
+      // Update the existing document with the new OTP
+      existingUser.otp = otp;
+      await existingUser.save();
+    } else {
+      // Create a new document with the phone number and OTP
+      await otpModel.create({ phoneNumber, otp });
+    }
+
+    vonage.sms.send({ to: phoneNumber, from, text })
+      .then(() => {
+        console.log('Message sent successfully');
+        res.status(200).json({ message: 'Message sent successfully' });
+      })
+      .catch(err => {
+        console.error('There was an error sending the message.', err);
+        res.status(500).json({ error: 'An error occurred while sending the message' });
+      });
+  } catch (error) {
+    console.error('Error saving OTP to DB:', error);
+    res.status(500).json({ error: 'An error occurred while saving OTP to DB' });
+  }
+}
+
+async function verifyOTP(req, res) {
+  const { phoneNumber, otp } = req.body;
+
+  try {
+    const user = await otpModel.findOne({ phoneNumber, otp });
+    if (user) {
+      // OTP is valid
+      // Perform any necessary actions here
+      res.status(200).json({ message: 'OTP verified successfully' });
+    } else {
+      // OTP is invalid or not found
+      res.status(400).json({ error: 'Invalid OTP' });
+    }
+  } catch (error) {
+    console.error('Error verifying OTP:', error);
+    res.status(500).json({ error: 'An error occurred while verifying OTP' });
+  }
 }
 
 module.exports = {
   sendSMS,
+  verifyOTP
 };
