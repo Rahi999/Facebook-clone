@@ -40,7 +40,7 @@ const SignUp = () => {
         onClose={onClose}
       >
         <ModalOverlay  />
-        <ModalContent >
+        <ModalContent borderRadius="md">
           <ModalCloseButton />
            <SignUpForm  />
         </ModalContent>

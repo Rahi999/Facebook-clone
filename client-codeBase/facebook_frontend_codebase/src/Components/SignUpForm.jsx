@@ -66,7 +66,7 @@ const SignUpForm = () => {
   const handleVerify = () => {
     if (!firstName || !lastName) {
       toast({
-        // title: 'Name is required.',
+        title: 'Name is required.',
         description: "Please enter first & last name.",
         position: "top",
         status: 'info',
@@ -76,8 +76,8 @@ const SignUpForm = () => {
     }
     else if (!email) {
       toast({
-        description: 'Please enter email to continue.',
-        // description: "Please enter an email.",
+        // title: 'Email is required.',
+        description: "Please enter an email.",
         position: "top",
         status: 'info',
         duration: 5000,
@@ -96,7 +96,7 @@ const SignUpForm = () => {
     }
     else if (!password) {
       toast({
-        // title: 'Password is required.',
+        title: 'Password is required.',
         description: "Please set a password.",
         position: "top",
         status: 'info',
@@ -106,7 +106,7 @@ const SignUpForm = () => {
     }
     else if (!dob) {
       toast({
-        // title: 'DOB is required.',
+        title: 'DOB is required.',
         description: "Please select you date of birth.",
         position: "top",
         status: 'info',
@@ -115,8 +115,29 @@ const SignUpForm = () => {
       })
     }
     else {
-    alert("Verifying OTP:", otp)
-    onOpen()
+      const payload = {
+        phoneNumber: `91${phone}`
+      }
+     axios.post(`${process.env.REACT_APP_DEV_BASE_URL}/otp/send-otp`, payload)
+     .then((res) => {
+      toast({
+        description: res.data.message,
+        position: "top",
+        status: 'success',
+        duration: 3000,
+        isClosable: true,
+      })
+      onOpen()
+     })
+     .catch((err) => {
+      toast({
+        description: err.response.data.message,
+        position: "top",
+        status: 'error',
+        duration: 3000,
+        isClosable: true,
+      })
+     })
     }
 
   };
@@ -152,18 +173,53 @@ const SignUpForm = () => {
         })
         .catch((err) => {
           toast({
-            title: `${err.response.data.message}`,
+            description: `${err.response.data.message}`,
             position: "top",
             status: 'error',
             duration: 5000,
             isClosable: true,
           })
           setLoading(false)
+          onClose()
         })
   }
 
-  const handleOtpSubmit = () => {
-
+  const handleVerifyOtp = () => {
+    if(otp.length == 6){
+      const payload = {
+          phoneNumber : `91${phone}`,
+          otp: otp
+      }
+      axios.post(`${process.env.REACT_APP_DEV_BASE_URL}/otp/verify`, payload)
+      .then((res) => {
+        toast({
+          title: `${res.data.message}`,
+          position: "top",
+          status: 'success',
+          duration: 3000,
+          isClosable: true,
+        })
+        onClose()
+        handleSubmit()
+      })
+      .catch((err) => {
+        toast({
+          title: `${err.response.data.message}`,
+          position: "top",
+          status: 'error',
+          duration: 5000,
+          isClosable: true,
+        })
+      })
+    }else {
+      toast({
+        title: "Please enter the OTP",
+        position: "top",
+        status: 'info',
+        duration: 3000,
+        isClosable: false,
+      })
+    }
   }
 
   return (
@@ -280,9 +336,10 @@ const SignUpForm = () => {
             </FormControl>
             <Stack spacing={10} pt={2}>
               
-              <Box>
+              <Box textAlign={'center'}>
               {/* <Button >Open Modal</Button> */}
               <Button
+              w='100%'
               onClick={handleVerify}
                 // isLoading
                 // loadingText='Registering...'
@@ -294,6 +351,7 @@ const SignUpForm = () => {
                 _hover={{
                   bg: 'blue.500',
                 }}
+                
                 // onClick={handleSubmit}
               >
                 Register
@@ -301,14 +359,14 @@ const SignUpForm = () => {
               <Modal
                 motionPreset="scale"
                 isOpen={isOpen}
-                onClose={onClose}
+                // onClose={onClose}
                 isCentered
                 size="sm"
               >
                 <ModalOverlay />
                 <ModalContent borderRadius="md">
                   <ModalHeader>Enter OTP</ModalHeader>
-                  <ModalCloseButton />
+                  {/* <ModalCloseButton /> */}
                   <ModalBody>
                     <Center gap={4} textAlign="center">
                       <PinInput
@@ -331,14 +389,14 @@ const SignUpForm = () => {
                     <Button
                       colorScheme="blue"
                       mr={3}
-                      onClick={handleVerify}
+                      onClick={handleVerifyOtp}
                       isDisabled={otp.length !== 6}
                     >
                       Verify
                     </Button>
-                    <Button variant="ghost" onClick={onClose}>
+                    {/* <Button variant="ghost" onClick={}>
                       Close
-                    </Button>
+                    </Button> */}
                   </ModalFooter>
                 </ModalContent>
               </Modal>

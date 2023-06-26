@@ -131,7 +131,7 @@ async function verifyOTP(req, res) {
       res.status(200).json({ message: 'OTP verified successfully' });
     } else {
       // OTP is invalid or not found
-      res.status(400).json({ error: 'Invalid OTP' });
+      res.status(400).json({ message: 'Invalid OTP' });
     }
   } catch (error) {
     console.error('Error verifying OTP:', error);
