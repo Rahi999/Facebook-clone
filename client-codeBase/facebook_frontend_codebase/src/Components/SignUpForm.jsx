@@ -21,6 +21,20 @@ import {
   useDisclosure,
   InputLeftAddon
 } from '@chakra-ui/react';
+import {
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
+  PinInput,
+  PinInputField,
+  VStack,
+  Center,
+} from "@chakra-ui/react";
+
 import { useState } from 'react';
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 import "./signupform.css"
@@ -41,10 +55,18 @@ const SignUpForm = () => {
   const toast = useToast()
   const { DEV_BASE_URL } = process.env
 
-  const handleSubmit = () => {
+ 
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [otp, setOtp] = useState("");
+
+  const handleChange = (value) => {
+    setOtp(value);
+  };
+
+  const handleVerify = () => {
     if (!firstName || !lastName) {
       toast({
-        title: 'Name is required.',
+        // title: 'Name is required.',
         description: "Please enter first & last name.",
         position: "top",
         status: 'info',
@@ -54,18 +76,18 @@ const SignUpForm = () => {
     }
     else if (!email) {
       toast({
-        title: 'Email is required.',
-        description: "Please enter an email.",
+        description: 'Please enter email to continue.',
+        // description: "Please enter an email.",
         position: "top",
         status: 'info',
         duration: 5000,
         isClosable: true,
       })
     }
-    else if (!phone) {
+    else if (!phone || phone.length < 10 || phone[0] < 5 || phone.length > 10) {
       toast({
-        title: 'Phone is required.',
-        description: "Please enter your phone number.",
+        // title: 'Phone is required.',
+        description: "Please enter a valid phone number.",
         position: "top",
         status: 'info',
         duration: 5000,
@@ -74,7 +96,7 @@ const SignUpForm = () => {
     }
     else if (!password) {
       toast({
-        title: 'Password is required.',
+        // title: 'Password is required.',
         description: "Please set a password.",
         position: "top",
         status: 'info',
@@ -84,7 +106,7 @@ const SignUpForm = () => {
     }
     else if (!dob) {
       toast({
-        title: 'DOB is required.',
+        // title: 'DOB is required.',
         description: "Please select you date of birth.",
         position: "top",
         status: 'info',
@@ -93,6 +115,13 @@ const SignUpForm = () => {
       })
     }
     else {
+    alert("Verifying OTP:", otp)
+    onOpen()
+    }
+
+  };
+
+  const handleSubmit = () => {
       setLoading(true)
       const payload = {
         firstname: firstName,
@@ -131,9 +160,10 @@ const SignUpForm = () => {
           })
           setLoading(false)
         })
+  }
 
+  const handleOtpSubmit = () => {
 
-    }
   }
 
   return (
@@ -249,21 +279,13 @@ const SignUpForm = () => {
               </RadioGroup>
             </FormControl>
             <Stack spacing={10} pt={2}>
-              {!loading ? (<Button
-                loadingText="Submitting"
-                size="lg"
-                bg={'blue.400'}
-                color={'white'}
-                _hover={{
-                  bg: 'blue.500',
-                }}
-                onClick={handleSubmit}
-              >
-                Sign up
-              </Button>) : (<Button
-
-                isLoading
-                loadingText='Registering...'
+              
+              <Box>
+              {/* <Button >Open Modal</Button> */}
+              <Button
+              onClick={handleVerify}
+                // isLoading
+                // loadingText='Registering...'
                 colorScheme='blue'
                 spinnerPlacement='end'
                 size="lg"
@@ -272,10 +294,56 @@ const SignUpForm = () => {
                 _hover={{
                   bg: 'blue.500',
                 }}
-                onClick={handleSubmit}
+                // onClick={handleSubmit}
               >
-                Sign up
-              </Button>)}
+                Register
+              </Button>
+              <Modal
+                motionPreset="scale"
+                isOpen={isOpen}
+                onClose={onClose}
+                isCentered
+                size="sm"
+              >
+                <ModalOverlay />
+                <ModalContent borderRadius="md">
+                  <ModalHeader>Enter OTP</ModalHeader>
+                  <ModalCloseButton />
+                  <ModalBody>
+                    <Center gap={4} textAlign="center">
+                      <PinInput
+                        // size={{ base: "xs", sm: "sm", md: "md", lg: "md", xl: "md" }}
+                        size="md"
+                        otp={otp}
+                        onChange={handleChange}
+                        autoFocus={true}
+                      >
+                        <PinInputField />
+                        <PinInputField />
+                        <PinInputField />
+                        <PinInputField />
+                        <PinInputField />
+                        <PinInputField />
+                      </PinInput>
+                    </Center>
+                  </ModalBody>
+                  <ModalFooter>
+                    <Button
+                      colorScheme="blue"
+                      mr={3}
+                      onClick={handleVerify}
+                      isDisabled={otp.length !== 6}
+                    >
+                      Verify
+                    </Button>
+                    <Button variant="ghost" onClick={onClose}>
+                      Close
+                    </Button>
+                  </ModalFooter>
+                </ModalContent>
+              </Modal>
+            </Box>
+             
             </Stack>
             <Stack pt={6}>
               <Text align={'center'}>
