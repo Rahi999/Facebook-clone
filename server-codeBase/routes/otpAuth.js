@@ -1,7 +1,7 @@
 const express = require('express');
-const {sendOTP} = require("../controllers/otpAuth");
+const {sendSMS} = require("../controllers/otpAuth");
 const otpRouter = express.Router()
 
-otpRouter.post('/send-otp', sendOTP);
+otpRouter.post('/send-otp', sendSMS);
 
 module.exports = {otpRouter}
