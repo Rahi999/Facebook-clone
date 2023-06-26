@@ -81,11 +81,11 @@ function generateOTP() {
 }
 
 const vonage = new Vonage({
-  apiKey: '24d7a3b4',
-  apiSecret: 'U07UBDRnouT2Wtek'
+  apiKey: process.env.VONAGE_API_KEY,
+  apiSecret: process.env.VONAGE_API_SECRET
 });
 
-const from = 'Vonage APIs';
+const from = process.env.VONAGE_FROM_NUMBER;
 
 async function sendSMS(req, res) {
   const { phoneNumber } = req.body; // Assuming the phone number is provided in the request body
