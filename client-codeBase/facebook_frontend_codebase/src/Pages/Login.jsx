@@ -1,6 +1,5 @@
 import axios from 'axios';
 import {
-  Flex,
   Box,
   FormControl,
   FormLabel,
@@ -8,7 +7,6 @@ import {
   Checkbox,
   Stack,
   Button,
-  Heading,
   Text,
   useColorModeValue,
   SimpleGrid,
@@ -18,8 +16,6 @@ import {
   useToast,
   useDisclosure,
   InputLeftAddon,
-} from '@chakra-ui/react';
-import {
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -29,9 +25,8 @@ import {
   ModalOverlay,
   PinInput,
   PinInputField,
-  VStack,
-  Center,
-} from "@chakra-ui/react";
+  Center
+} from '@chakra-ui/react';
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 import "./login.css"
 import { Link, useNavigate } from 'react-router-dom';
@@ -53,7 +48,6 @@ const Login = () => {
   const toast = useToast()
   const token = getCookies("fb_token")
   const userId = getCookies("userId")
-
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   useEffect(() => {
@@ -61,7 +55,6 @@ const Login = () => {
       navigate("/dashboard")
     }
   }, [])
-
 
   const handleLogin = (email, password) => {
     if (email && password) {
@@ -73,12 +66,10 @@ const Login = () => {
       axios.post(`${process.env.REACT_APP_DEV_BASE_URL}/users/signin`, paylod)
         .then((res) => {
           toast({
-            // title: 'Login Succeed!!',
             description: `${res.data.message}`,
             position: "top",
             status: 'success',
             duration: 3000,
-            // isClosable: true,
           })
           saveCookies("fb_token", res.data.token)
           saveCookies("userId", res.data.userId)
@@ -123,12 +114,10 @@ const Login = () => {
     axios.post(`${process.env.REACT_APP_DEV_BASE_URL}/users/signin`, paylod)
       .then((res) => {
         toast({
-          title: 'Login Succeed!!',
-          // description: `${res.data.message}`,
+          description: 'Login Succeed!!',
           position: "top",
           status: 'success',
           duration: 3000,
-          // isClosable: true,
         })
         saveCookies("fb_token", res.data.token)
         saveCookies("userId", res.data.userId)
@@ -157,7 +146,6 @@ const Login = () => {
     axios.post(`${process.env.REACT_APP_DEV_BASE_URL}/profile/getusercredentialsbyphonenumber`, payload)
       .then((res) => {
         setLoading(false)
-        // console.log(res.data)
         handleLoginByPhone(res.data.email, res.data.password)
       })
       .catch((err) => {
@@ -179,30 +167,29 @@ const Login = () => {
         phoneNumber: `91${phone}`,
         otp: otp
       }
-        setLoading(true)
-        axios.post(`${process.env.REACT_APP_DEV_BASE_URL}/otp/verify`, payload)
-          .then((res) => {
-            setLoading(false)
-            toast({
-              title: `${res.data.message}`,
-              position: "top",
-              status: 'success',
-              duration: 3000,
-              isClosable: true,
-            })
-            // onClose()
-            get(phone)
+      setLoading(true)
+      axios.post(`${process.env.REACT_APP_DEV_BASE_URL}/otp/verify`, payload)
+        .then((res) => {
+          setLoading(false)
+          toast({
+            title: `${res.data.message}`,
+            position: "top",
+            status: 'success',
+            duration: 3000,
+            isClosable: true,
           })
-          .catch((err) => {
-            setLoading(false)
-            toast({
-              title: `${err.response.data.message}`,
-              position: "top",
-              status: 'error',
-              duration: 5000,
-              isClosable: true,
-            })
+          get(phone)
+        })
+        .catch((err) => {
+          setLoading(false)
+          toast({
+            title: `${err.response.data.message}`,
+            position: "top",
+            status: 'error',
+            duration: 5000,
+            isClosable: true,
           })
+        })
     } else {
       setLoading(false)
       toast({
@@ -218,7 +205,6 @@ const Login = () => {
   const handleSendOtp = () => {
     if (!phone || phone.length < 10 || phone[0] < 5 || phone.length > 10) {
       toast({
-        // title: 'Phone is required.',
         description: "Please enter a valid phone number.",
         position: "top",
         status: 'info',
@@ -322,7 +308,6 @@ const Login = () => {
                       {!sendOtp ? <ModalHeader>Your Phone number*</ModalHeader>
                         : <ModalHeader>Your OTP*</ModalHeader>
                       }
-
                       <ModalCloseButton />
                       <ModalBody>
                         {/* <Input  type='tel' /> */}
@@ -393,15 +378,9 @@ const Login = () => {
                         }
                       </ModalBody>
                       <ModalFooter>
-
-                        {/* <Button variant="ghost" onClick={}>
-                      Close
-                    </Button> */}
                       </ModalFooter>
                     </ModalContent>
                   </Modal>
-
-
                 </Stack>
                 {!loading ? (<Button
                   bg={'#1877f2'}
