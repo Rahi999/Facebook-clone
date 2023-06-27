@@ -83,10 +83,15 @@ const PostCard = ({
             </Box>
             <Box className="post-content">
                 <Text className="post-text" fontSize={{ base: "14px", sm: "14px", md: "16px", lg: "16px", xl: "16px" }} maxW={'100%'}>{post_text}</Text>
-                <Image className="post-image" src={post_image} alt=""
-                onClick={() => navigate(`/detailed-image/${encodeURIComponent(post_image)}`)} cursor="pointer"
-                />
-                
+                    <Image className="post-image"
+                        src={post_image}
+                        objectFit="cover"
+                        width="100%"
+                        maxHeight="500px"
+                        position="relative"
+                        alt="Post Image"
+                        onClick={() => navigate(`/detailed-image/${encodeURIComponent(post_image)}`)} cursor="pointer"
+                    />
             </Box>
 
             {/* <Box className="post-actions"> */}
@@ -96,11 +101,11 @@ const PostCard = ({
                 {/* <Button width={{ base: "70%", sm: "70%", md: "70%", lg: "70%", xl: "30%" }} fontSize={{ base: "12px", sm: "14px", md: "", lg: "", xl: "" }} className="post-share">Share</Button> */}
                 <Tooltip label="Dislike" >
                     <IconButton
-                                isDisabled={disliked}
+                        isDisabled={disliked}
                         onClick={handleDislike}
                         aria-label="Dislike"
                         // icon={<AiOutlineDislike />}
-                        icon={ disliked ? <AiFillDislike /> : <AiOutlineDislike />}
+                        icon={disliked ? <AiFillDislike /> : <AiOutlineDislike />}
                     //   colorScheme="blue"
                     //   ml={4}
                     />

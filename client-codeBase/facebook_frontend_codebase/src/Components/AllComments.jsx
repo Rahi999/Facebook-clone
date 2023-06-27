@@ -8,7 +8,7 @@ const AllComments = ({ id, userId, comment, date, username, profile_pic }) => {
     return (<>
         <Box borderRadius={'8px'} mt="10px" p='1' boxShadow={'rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px'}>
         <Flex align="center" mb={2}>
-        <Box className="post-header" onClick={() => navigate(`/user-profile/${userId}`)} cursor="pointer">
+        <Box className="post-header" onClick={() => navigate(`/users-profile/${userId}`)} cursor="pointer">
                 <Box className="image-input">
                     <Image
                         className="post-avatar"
@@ -26,7 +26,7 @@ const AllComments = ({ id, userId, comment, date, username, profile_pic }) => {
             
             </Flex>
             <Box pl='3'>
-                <Text color='gray.600' fontWeight={'medium'} fontStyle={'italic'} className="post-text" fontSize={{ base: "16px", sm: "17px", md: "17px", lg: "19px", xl: "20px" }} maxW={'100%'}>{comment}</Text>
+                <Text fontWeight={'medium'} className="post-text" fontSize={{ base: "16px", sm: "16px", md: "17px", lg: "17px", xl: "17px" }} maxW={'100%'}>{comment}</Text>
 
                 </Box>
         </Box>

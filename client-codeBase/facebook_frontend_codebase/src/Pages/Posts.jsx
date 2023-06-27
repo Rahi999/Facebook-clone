@@ -21,20 +21,20 @@ const Posts = () => {
 
     const getPosts = () => {
         axios.get(`${process.env.REACT_APP_DEV_BASE_URL}/post/get`, { headers: { "Authorization": `${token}` } })
-                .then((res) => {
-                    console.log(res.data)
-                    setPostData(res.data)
+            .then((res) => {
+                console.log(res.data)
+                setPostData(res.data)
+            })
+            .catch((err) => {
+                toast({
+                    title: "User not found.",
+                    position: "top",
+                    status: 'error',
+                    duration: 3000,
+                    isClosable: true,
                 })
-                .catch((err) => {
-                    toast({
-                        title: "User not found.",
-                        position: "top",
-                        status: 'error',
-                        duration: 3000,
-                        isClosable: true,
-                    })
-                    navigate("/login")
-                })
+                navigate("/login")
+            })
     }
     useEffect(() => {
         if (userId && token) {
@@ -57,7 +57,7 @@ const Posts = () => {
         const targetScrollY = currentScrollY + 150;
         window.scrollTo(0, targetScrollY);
         inputRef.current.focus();
-        
+
     }
 
     const boxStyle = {
@@ -67,18 +67,17 @@ const Posts = () => {
         (
             <Box
                 borderRadius="8px"
-                
-                width={{base: "100%", sm: "100%", md: "70%", lg: "55%", xl: "55%"}}
+                width={{ base: "100%", sm: "100%", md: "70%", lg: "55%", xl: "55%" }}
             >
-                <Box display={{base: "none", sm: "none", md: 'none', lg: "flex", xl: "flex"}}>
+                <Box display={{ base: "none", sm: "none", md: 'none', lg: "flex", xl: "flex" }}>
                     <CreateStoryBox handleCreateStory={handleCreateStory} />
-                <Story />
+                    <Story />
                 </Box>
                 <CreatePost getPosts={getPosts} inputRef={inputRef} />
                 {postData && postData.map((el, i) => <Box key={i}>
                     <PostCard
                         user_profile={el.user.profile_pic}
-                        user_name={el.user.firstname + " "+ el.user.surename}
+                        user_name={el.user.firstname + " " + el.user.surename}
                         time={el.date}
                         post_text={el.text}
                         post_image={el.images}

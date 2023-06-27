@@ -22,6 +22,7 @@ const CommentsList = ({ postId }) => {
                 console.log(res.data)
                 setPost(res.data)
                 setComments(res.data.comments.reverse())
+                console.log(res.data.comments.reverse())
                 setLoading(false)
             })
             .catch((err) => {
