@@ -29,6 +29,23 @@ const getSingleUser = async (req, res) => {
     }
 }
 
+const  getUserCredentialsByPhoneNumber = async (req, res) => {
+    const { phoneNumber } = req.body;
+  
+    try {
+      const user = await userModel.findOne({ mobile: phoneNumber }, "email password");
+      if (!user) {
+        return res.status(404).json({ message: "User not found" });
+      }
+  
+      const { email, password } = user;
+      return res.status(200).json({ email, password });
+    } catch (error) {
+      console.error("Error retrieving user credentials:", error);
+      return res.status(500).json({ message: "Internal server error" });
+    }
+  }
+
 // Edit user's personal profile (only if user is editing his own profile)
 const editUser = async (req, res) => {
     // taking credentials from user
@@ -84,4 +101,4 @@ const search = async (req, res) => {
     }
   };
 
-module.exports = {search, getUsers, getSingleUser, editUser, deleteUser}
+module.exports = {search, getUsers, getSingleUser, getUserCredentialsByPhoneNumber, editUser, deleteUser}
