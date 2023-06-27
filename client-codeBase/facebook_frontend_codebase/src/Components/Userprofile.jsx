@@ -81,7 +81,7 @@ const UserProfile = () => {
         <Flex justify={'center'} mt={-12}>
             <Avatar
                 size={'xl'}
-                src=''
+                src={userData.profile_pic}
                 name={userData.firstname + userData.surename}
                 alt={'User_image'}
 

@@ -16,12 +16,14 @@ import Chats from '../Components/Chats.jsx';
 import AllUsers from '../Components/AllUsers.jsx';
 import SingleVideo from '../Components/SingleVideo.jsx';
 import Trending from '../Components/Trending.jsx';
+import NotFound from '../Pages/NotFound.jsx';
+import { Box } from '@chakra-ui/react';
 const Login = React.lazy(() => import('../Pages/Login.jsx'));
 
 
 const AllRoutes = () => {
   return (
-    <div>
+    <Box>
       <Routes>
         <Route path="/" element={<Suspense fallback={null}><Login /></Suspense>} />
         <Route path="/dashboard" element={<Suspense fallback={null}><Dashboard /></Suspense>} />
@@ -38,8 +40,9 @@ const AllRoutes = () => {
         <Route path="/comments/:postId" element={<Suspense fallback={null}><Comments /></Suspense>} />
         <Route path="/video/:videoSrc" element={<Suspense fallback={null}><SingleVideo /></Suspense>} />
         <Route path="/trending" element={<Suspense fallback={null}><Trending /></Suspense>} />
+        <Route path="*" element={<Suspense fallback={null}><NotFound /></Suspense>} />
       </Routes>
-    </div>
+    </Box>
   )
 }
 
