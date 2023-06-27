@@ -63,29 +63,37 @@ const Posts = () => {
     const boxStyle = {
         border: theme === "light" ? "1px solid white" : "1px solid black"
     };
-    return postData ?
-        (
-            <Box
-                borderRadius="8px"
-                width={{ base: "100%", sm: "100%", md: "70%", lg: "55%", xl: "55%" }}
-            >
-                <Box display={{ base: "none", sm: "none", md: 'none', lg: "flex", xl: "flex" }}>
-                    <CreateStoryBox handleCreateStory={handleCreateStory} />
-                    <Story />
-                </Box>
-                <CreatePost getPosts={getPosts} inputRef={inputRef} />
-                {postData && postData.map((el, i) => <Box key={i}>
-                    <PostCard
-                        user_profile={el.user.profile_pic}
-                        user_name={el.user.firstname + " " + el.user.surename}
-                        time={el.date}
-                        post_text={el.text}
-                        post_image={el.images}
-                        PostId={el._id}
-                        userId={el.user._id}
-                    />
-                </Box>)}
-            </Box>
-        ) : (<Loading />)
+    return postData ? (
+        <Box
+          borderRadius="8px"
+          width={{ base: "100%", sm: "100%", md: "70%", lg: "55%", xl: "55%" }}
+        >
+          <Box
+            display={{ base: "none", sm: "none", md: "none", lg: "flex", xl: "flex" }}
+          >
+            <CreateStoryBox handleCreateStory={handleCreateStory} />
+            <Story />
+          </Box>
+          <CreatePost getPosts={getPosts} inputRef={inputRef} />
+          {postData &&
+            postData.map((el, i) => (
+              <Box key={i}>
+                {el && el.user && el.user.profile_pic ? (
+                  <PostCard
+                    user_profile={el.user.profile_pic}
+                    user_name={el.user.firstname + " " + el.user.surename}
+                    time={el.date}
+                    post_text={el.text}
+                    post_image={el.images}
+                    PostId={el._id}
+                    userId={el.user._id}
+                  />
+                ) : null}
+              </Box>
+            ))}
+        </Box>
+      ) : (
+        <Loading />
+      );
 }
 export default Posts
