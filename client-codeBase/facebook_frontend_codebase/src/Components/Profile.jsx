@@ -153,6 +153,8 @@ const Profile = () => {
             rounded={'md'}
             overflow={'hidden'}>
             <Image
+                cursor={'pointer'}
+                onClick={() => navigate(`/detailed-image/${encodeURIComponent(userData.cover_pic)}`)}
                 h={'120px'}
                 w={'full'}
                 src={userData.cover_pic}
@@ -160,6 +162,9 @@ const Profile = () => {
             />
             <Flex justify={'center'} mt={-12}>
                 <Avatar
+                    // onClick={() => navigate(`/detailed-image/${encodeURIComponent(cloudinaryImage ? cloudinaryImage : userData.profile_pic)}`)}
+                    onClick={handleEditClick}
+                    cursor={'pointer'}
                     size={'xl'}
                     src={cloudinaryImage ? cloudinaryImage : userData.profile_pic}
                     name={userData.firstname + userData.surename}
