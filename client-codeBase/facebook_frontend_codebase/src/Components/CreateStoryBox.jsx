@@ -15,8 +15,8 @@ const CreateStoryBox = ( { handleCreateStory} ) => {
       _hover={{ bg: "gray.300" }} 
     //   border={'2px solid red'}
     mt={'8px'}
-      width={'140px'}
-      height={'165px'}
+      width={'125px'}
+      height={'175px'}
     >
       <Flex align="center" justify="center" mb={2} 
     //   border={'2px solid'}

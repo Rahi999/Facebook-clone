@@ -92,7 +92,7 @@ import { getCookies } from "../utils/getData";
                 >
                   <Box
                   onClickCapture={() => navigate(`/video/${encodeURIComponent(video.url)}`)}
-                    width="140px"
+                    width="120px"
                     height="170px"
                     padding="1%"
                     paddingBottom="" // Aspect ratio of 16:9 (9 / 16 * 100%)

@@ -70,7 +70,7 @@ const Posts = () => {
                 
                 width={{base: "100%", sm: "100%", md: "70%", lg: "55%", xl: "55%"}}
             >
-                <Box display={{base: "block", sm: "block", md: 'flex', lg: "flex", xl: "flex"}}>
+                <Box display={{base: "none", sm: "none", md: 'none', lg: "flex", xl: "flex"}}>
                     <CreateStoryBox handleCreateStory={handleCreateStory} />
                 <Story />
                 </Box>

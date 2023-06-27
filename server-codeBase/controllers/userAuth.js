@@ -20,8 +20,8 @@ const SignUp = async (req, res) => {
         if(!emailEx.some(emailex => email.includes(emailex) )){
             return res.status(400).json({message: "Invalid email!!"});
         }
-        const emailExist = await userModel.findOne({email, mobile})
-        if(emailExist){
+        const userExist = await userModel.findOne({email, mobile})
+        if(userExist){
             return res.status(400).json({message: "User already exist!!"})
         }
         else{
