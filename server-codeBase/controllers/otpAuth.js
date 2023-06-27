@@ -112,7 +112,7 @@ async function sendSMS(req, res) {
       })
       .catch(err => {
         console.error('There was an error sending the message.', err);
-        res.status(500).json({ message: 'An error occurred while sending the message' });
+        res.status(500).json({ message: 'API limit exceeded!' });
       });
   } catch (error) {
     console.error('Error saving OTP to DB:', error);

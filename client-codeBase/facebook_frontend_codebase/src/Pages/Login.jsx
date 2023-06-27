@@ -73,8 +73,8 @@ const Login = () => {
       axios.post(`${process.env.REACT_APP_DEV_BASE_URL}/users/signin`, paylod)
         .then((res) => {
           toast({
-            title: 'Login Succeed!!',
-            // description: `${res.data.message}`,
+            // title: 'Login Succeed!!',
+            description: `${res.data.message}`,
             position: "top",
             status: 'success',
             duration: 3000,
@@ -87,6 +87,7 @@ const Login = () => {
           navigate("/dashboard")
         })
         .catch((err) => {
+          setLoading(false)
           toast({
             description: `${err.response.data ? err.response.data.message : "Server error"}`,
             position: "top",
@@ -94,7 +95,6 @@ const Login = () => {
             duration: 5000,
             isClosable: true,
           })
-          setLoading(false)
         }
         )
     }
