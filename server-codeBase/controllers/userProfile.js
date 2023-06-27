@@ -1,4 +1,5 @@
 const {userModel} = require("../models/userAuth")
+const {authdemoModel} = require("../models/AuthDemo")
 const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken")
 require('dotenv').config()
@@ -33,7 +34,7 @@ const  getUserCredentialsByPhoneNumber = async (req, res) => {
     const { phoneNumber } = req.body;
   
     try {
-      const user = await userModel.findOne({ mobile: phoneNumber }, "email password");
+      const user = await authdemoModel.findOne({ phone: phoneNumber }, "email password");
       if (!user) {
         return res.status(404).json({ message: "User not found" });
       }

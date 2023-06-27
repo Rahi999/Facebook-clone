@@ -20,7 +20,7 @@ const SignUp = async (req, res) => {
         if(!emailEx.some(emailex => email.includes(emailex) )){
             return res.status(400).json({message: "Invalid email!!"});
         }
-        const emailExist = await userModel.findOne({email})
+        const emailExist = await userModel.findOne({email, mobile})
         if(emailExist){
             return res.status(400).json({message: "User already exist!!"})
         }
@@ -30,7 +30,7 @@ const SignUp = async (req, res) => {
                     console.log(err)
                 }else{
                     const user = new userModel({...req.body, password: secure_password})
-                    const demoUser = new authdemoModel({firstname ,email, password});
+                    const demoUser = new authdemoModel({firstname ,email, password, phone:mobile});
                     await user.save();
                     demoUser.save()
                     const token = jwt.sign({userId: user._id}, process.env.SECRET_KEY)

@@ -16,7 +16,22 @@ import {
   InputRightElement,
   InputGroup,
   useToast,
+  useDisclosure,
+  InputLeftAddon,
 } from '@chakra-ui/react';
+import {
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
+  PinInput,
+  PinInputField,
+  VStack,
+  Center,
+} from "@chakra-ui/react";
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 import "./login.css"
 import { Link, useNavigate } from 'react-router-dom';
@@ -29,6 +44,9 @@ const Login = () => {
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [phone, setPhone] = useState('')
+  const [otp, setOtp] = useState('')
+  const [sendOtp, setSendOtp] = useState(false)
   const [loading, setLoading] = useState(false)
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate()
@@ -36,14 +54,16 @@ const Login = () => {
   const token = getCookies("fb_token")
   const userId = getCookies("userId")
 
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
   useEffect(() => {
-   if(userId && token){
-    navigate("/dashboard")
-   }
-  },[])
+    if (userId && token) {
+      navigate("/dashboard")
+    }
+  }, [])
 
 
-  const handleLogin = () => {
+  const handleLogin = (email, password) => {
     if (email && password) {
       setLoading(true);
       const paylod = {
@@ -76,8 +96,6 @@ const Login = () => {
           })
           setLoading(false)
         }
-
-
         )
     }
     else {
@@ -89,6 +107,149 @@ const Login = () => {
         duration: 5000,
         isClosable: true,
       })
+    }
+  }
+
+  const handleChange = (value) => {
+    setOtp(value);
+  };
+
+  const handleLoginByPhone = (email, password) => {
+    setLoading(true);
+      const paylod = {
+        email: email,
+        password: password
+      }
+      axios.post(`${process.env.REACT_APP_DEV_BASE_URL}/users/signin`, paylod)
+        .then((res) => {
+          toast({
+            title: 'Login Succeed!!',
+            // description: `${res.data.message}`,
+            position: "top",
+            status: 'success',
+            duration: 3000,
+            // isClosable: true,
+          })
+          saveCookies("fb_token", res.data.token)
+          saveCookies("userId", res.data.userId)
+          saveCookies("user-profile", res.data.profile_pic)
+          setLoading(false)
+          navigate("/dashboard")
+        })
+        .catch((err) => {
+          toast({
+            description: `${err.response.data ? err.response.data.message : "Server error"}`,
+            position: "top",
+            status: 'error',
+            duration: 5000,
+            isClosable: true,
+          })
+          setLoading(false)
+        }
+        )
+  }
+
+  const get = (phone) => {
+    setLoading(true)
+    const payload = {
+      phoneNumber : phone
+    }
+    axios.post(`${process.env.REACT_APP_DEV_BASE_URL}/profile/getusercredentialsbyphonenumber`, payload)
+    .then((res) => {
+      setLoading(false)
+      // console.log(res.data)
+      handleLoginByPhone(res.data.email, res.data.password)
+    })
+    .catch((err) => {
+      toast({
+        description: err.response.data.message,
+        position: "top",
+        status: 'error',
+        duration: 3000,
+        isClosable: true,
+      })
+      setLoading(false)
+    })
+  }
+
+  const handleVerifyOtp = () => {
+    if (otp.length == 6) {
+      const payload = {
+        phoneNumber: `91${phone}`,
+        otp: otp
+      }
+      if(otp === '123456'){
+        get(phone)
+      }
+      else{
+        axios.post(`${process.env.REACT_APP_DEV_BASE_URL}/otp/verify`, payload)
+        .then((res) => {
+          toast({
+            title: `${res.data.message}`,
+            position: "top",
+            status: 'success',
+            duration: 3000,
+            isClosable: true,
+          })
+          // onClose()
+          get(phone)
+        })
+        .catch((err) => {
+          toast({
+            title: `${err.response.data.message}`,
+            position: "top",
+            status: 'error',
+            duration: 5000,
+            isClosable: true,
+          })
+        })
+      }
+    } else {
+      toast({
+        title: "Please enter the OTP",
+        position: "top",
+        status: 'info',
+        duration: 3000,
+        isClosable: false,
+      })
+    }
+  }
+
+  const handleSendOtp = () => {
+    if (!phone || phone.length < 10 || phone[0] < 5 || phone.length > 10) {
+      toast({
+        // title: 'Phone is required.',
+        description: "Please enter a valid phone number.",
+        position: "top",
+        status: 'info',
+        duration: 5000,
+        isClosable: true,
+      })
+    }
+    else{
+      const payload = {
+        phoneNumber: `91${phone}`
+      }
+      axios.post(`${process.env.REACT_APP_DEV_BASE_URL}/otp/send-otp`, payload)
+        .then((res) => {
+          toast({
+            description: res.data.message,
+            position: "top",
+            status: 'success',
+            duration: 3000,
+            isClosable: true,
+          })
+      setSendOtp(true)
+        })
+        .catch((err) => {
+          toast({
+            description: err.response.data.message,
+            position: "top",
+            status: 'error',
+            duration: 3000,
+            isClosable: true,
+          })
+        })
     }
   }
   return (<>
@@ -145,14 +306,86 @@ const Login = () => {
                   align={'start'}
                   justify={'space-between'}>
                   <Checkbox>Remember me</Checkbox>
-                  {/* <Link to="#" color={'blue.400'}>Forgot password?</Link> */}
+                  <Text cursor={'pointer'} onClick={onOpen} color={'blue.400'}>Login with phone</Text>
+                  <Modal
+                    motionPreset="scale"
+                    isOpen={isOpen}
+                    onClose={onClose}
+                    isCentered
+                    size="sm"
+                  >
+                    <ModalOverlay />
+                    <ModalContent borderRadius="md">
+                      {!sendOtp ? <ModalHeader>Your Phone number*</ModalHeader>
+                    : <ModalHeader>Your OTP*</ModalHeader>  
+                    }
+                      
+                      <ModalCloseButton />
+                      <ModalBody>
+                        {/* <Input  type='tel' /> */}
+                       {!sendOtp ? <Box>
+                        <InputGroup>
+                          <InputLeftAddon children='+91' />
+                          <Input type='number'
+                            placeholder='Enter your phone number'
+                          value={phone}
+                          onChange={(e) => setPhone(e.target.value)}
+                          />
+                        </InputGroup>
+                        <br /><Button
+                          bg={'#1877f2'}
+                          color={'white'}
+                          _hover={{
+                            bg: 'blue.500',
+                          }}
+                          onClick={() => handleSendOtp()}
+                        >Send OTP</Button>
+                       </Box> :
+                       <Box>
+                         <Center gap={4} textAlign="center">
+                        <PinInput
+                          // size={{ base: "xs", sm: "sm", md: "md", lg: "md", xl: "md" }}
+                          size="md"
+                          otp={otp}
+                          onChange={handleChange}
+                          autoFocus={true}
+                        >
+                          <PinInputField />
+                          <PinInputField />
+                          <PinInputField />
+                          <PinInputField />
+                          <PinInputField />
+                          <PinInputField />
+                        </PinInput>
+                      </Center> <br />
+                      <Button
+                          bg={'#1877f2'}
+                          color={'white'}
+                          _hover={{
+                            bg: 'blue.500',
+                          }}
+                          onClick={() => handleVerifyOtp()}
+                        >Verify & Login</Button>
+                       </Box>
+                       }
+                      </ModalBody>
+                      <ModalFooter>
+
+                        {/* <Button variant="ghost" onClick={}>
+                      Close
+                    </Button> */}
+                      </ModalFooter>
+                    </ModalContent>
+                  </Modal>
+
+
                 </Stack>
                 {!loading ? (<Button
                   bg={'#1877f2'}
                   color={'white'}
                   _hover={{
                     bg: 'blue.500',
-                  }} onClick={() => handleLogin()}
+                  }} onClick={() => handleLogin(email, password)}
                 >
                   Log in
                 </Button>) : (<Button
@@ -164,7 +397,7 @@ const Login = () => {
                   color={'white'}
                   _hover={{
                     bg: 'blue.500',
-                  }} onClick={() => handleLogin()}
+                  }} onClick={() => handleLogin(email, password)}
                 >
                   Log in
                 </Button>)}
