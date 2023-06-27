@@ -116,95 +116,101 @@ const Login = () => {
 
   const handleLoginByPhone = (email, password) => {
     setLoading(true);
-      const paylod = {
-        email: email,
-        password: password
-      }
-      axios.post(`${process.env.REACT_APP_DEV_BASE_URL}/users/signin`, paylod)
-        .then((res) => {
-          toast({
-            title: 'Login Succeed!!',
-            // description: `${res.data.message}`,
-            position: "top",
-            status: 'success',
-            duration: 3000,
-            // isClosable: true,
-          })
-          saveCookies("fb_token", res.data.token)
-          saveCookies("userId", res.data.userId)
-          saveCookies("user-profile", res.data.profile_pic)
-          setLoading(false)
-          navigate("/dashboard")
+    const paylod = {
+      email: email,
+      password: password
+    }
+    axios.post(`${process.env.REACT_APP_DEV_BASE_URL}/users/signin`, paylod)
+      .then((res) => {
+        toast({
+          title: 'Login Succeed!!',
+          // description: `${res.data.message}`,
+          position: "top",
+          status: 'success',
+          duration: 3000,
+          // isClosable: true,
         })
-        .catch((err) => {
-          toast({
-            description: `${err.response.data ? err.response.data.message : "Server error"}`,
-            position: "top",
-            status: 'error',
-            duration: 5000,
-            isClosable: true,
-          })
-          setLoading(false)
-        }
-        )
+        saveCookies("fb_token", res.data.token)
+        saveCookies("userId", res.data.userId)
+        saveCookies("user-profile", res.data.profile_pic)
+        setLoading(false)
+        navigate("/dashboard")
+      })
+      .catch((err) => {
+        toast({
+          description: `${err.response.data ? err.response.data.message : "Server error"}`,
+          position: "top",
+          status: 'error',
+          duration: 5000,
+          isClosable: true,
+        })
+        setLoading(false)
+      }
+      )
   }
 
   const get = (phone) => {
     setLoading(true)
     const payload = {
-      phoneNumber : phone
+      phoneNumber: phone
     }
     axios.post(`${process.env.REACT_APP_DEV_BASE_URL}/profile/getusercredentialsbyphonenumber`, payload)
-    .then((res) => {
-      setLoading(false)
-      // console.log(res.data)
-      handleLoginByPhone(res.data.email, res.data.password)
-    })
-    .catch((err) => {
-      toast({
-        description: err.response.data.message,
-        position: "top",
-        status: 'error',
-        duration: 3000,
-        isClosable: true,
+      .then((res) => {
+        setLoading(false)
+        // console.log(res.data)
+        handleLoginByPhone(res.data.email, res.data.password)
       })
-      setLoading(false)
-    })
+      .catch((err) => {
+        toast({
+          description: err.response.data.message,
+          position: "top",
+          status: 'error',
+          duration: 3000,
+          isClosable: true,
+        })
+        setLoading(false)
+      })
   }
 
   const handleVerifyOtp = () => {
     if (otp.length == 6) {
+      setLoading(true)
       const payload = {
         phoneNumber: `91${phone}`,
         otp: otp
       }
-      if(otp === '123456'){
+      if (otp === process.env.OTP) {
+        setLoading(false)
         get(phone)
       }
-      else{
+      else {
+        setLoading(true)
         axios.post(`${process.env.REACT_APP_DEV_BASE_URL}/otp/verify`, payload)
-        .then((res) => {
-          toast({
-            title: `${res.data.message}`,
-            position: "top",
-            status: 'success',
-            duration: 3000,
-            isClosable: true,
+          .then((res) => {
+            setLoading(false)
+            toast({
+              title: `${res.data.message}`,
+              position: "top",
+              status: 'success',
+              duration: 3000,
+              isClosable: true,
+            })
+            // onClose()
+            get(phone)
           })
-          // onClose()
-          get(phone)
-        })
-        .catch((err) => {
-          toast({
-            title: `${err.response.data.message}`,
-            position: "top",
-            status: 'error',
-            duration: 5000,
-            isClosable: true,
+          .catch((err) => {
+            setLoading(false)
+            toast({
+              title: `${err.response.data.message}`,
+              position: "top",
+              status: 'error',
+              duration: 5000,
+              isClosable: true,
+            })
           })
-        })
       }
     } else {
+      setLoading(false)
       toast({
         title: "Please enter the OTP",
         position: "top",
@@ -226,12 +232,15 @@ const Login = () => {
         isClosable: true,
       })
     }
-    else{
+    else {
+      setLoading(true)
+      setSendOtp(true)
       const payload = {
         phoneNumber: `91${phone}`
       }
       axios.post(`${process.env.REACT_APP_DEV_BASE_URL}/otp/send-otp`, payload)
         .then((res) => {
+          setLoading(false)
           toast({
             description: res.data.message,
             position: "top",
@@ -239,9 +248,9 @@ const Login = () => {
             duration: 3000,
             isClosable: true,
           })
-      setSendOtp(true)
         })
         .catch((err) => {
+          setLoading(false)
           toast({
             description: err.response.data.message,
             position: "top",
@@ -317,57 +326,77 @@ const Login = () => {
                     <ModalOverlay />
                     <ModalContent borderRadius="md">
                       {!sendOtp ? <ModalHeader>Your Phone number*</ModalHeader>
-                    : <ModalHeader>Your OTP*</ModalHeader>  
-                    }
-                      
+                        : <ModalHeader>Your OTP*</ModalHeader>
+                      }
+
                       <ModalCloseButton />
                       <ModalBody>
                         {/* <Input  type='tel' /> */}
-                       {!sendOtp ? <Box>
-                        <InputGroup>
-                          <InputLeftAddon children='+91' />
-                          <Input type='number'
-                            placeholder='Enter your phone number'
-                          value={phone}
-                          onChange={(e) => setPhone(e.target.value)}
-                          />
-                        </InputGroup>
-                        <br /><Button
-                          bg={'#1877f2'}
-                          color={'white'}
-                          _hover={{
-                            bg: 'blue.500',
-                          }}
-                          onClick={() => handleSendOtp()}
-                        >Send OTP</Button>
-                       </Box> :
-                       <Box>
-                         <Center gap={4} textAlign="center">
-                        <PinInput
-                          // size={{ base: "xs", sm: "sm", md: "md", lg: "md", xl: "md" }}
-                          size="md"
-                          otp={otp}
-                          onChange={handleChange}
-                          autoFocus={true}
-                        >
-                          <PinInputField />
-                          <PinInputField />
-                          <PinInputField />
-                          <PinInputField />
-                          <PinInputField />
-                          <PinInputField />
-                        </PinInput>
-                      </Center> <br />
-                      <Button
-                          bg={'#1877f2'}
-                          color={'white'}
-                          _hover={{
-                            bg: 'blue.500',
-                          }}
-                          onClick={() => handleVerifyOtp()}
-                        >Verify & Login</Button>
-                       </Box>
-                       }
+                        {!sendOtp ? <Box>
+                          <InputGroup>
+                            <InputLeftAddon children='+91' />
+                            <Input type='number'
+                              placeholder='Enter your phone number'
+                              value={phone}
+                              onChange={(e) => setPhone(e.target.value)}
+                            />
+                          </InputGroup>
+                          <br />{
+                            !loading ? <Button
+                              bg={'#1877f2'}
+                              color={'white'}
+                              _hover={{
+                                bg: 'blue.500',
+                              }}
+                              onClick={() => handleSendOtp()}
+                            >Send OTP</Button> :
+                              <Button
+                                isLoading
+                                loadingText='Please wait...'
+                                colorScheme='blue'
+                                variant='outline'
+                              >
+                                Send OTP
+                              </Button>
+                          }
+                        </Box> :
+                          <Box>
+                            <Center gap={4} textAlign="center">
+                              <PinInput
+                                // size={{ base: "xs", sm: "sm", md: "md", lg: "md", xl: "md" }}
+                                size="md"
+                                otp={otp}
+                                onChange={handleChange}
+                                autoFocus={true}
+                              >
+                                <PinInputField />
+                                <PinInputField />
+                                <PinInputField />
+                                <PinInputField />
+                                <PinInputField />
+                                <PinInputField />
+                              </PinInput>
+                            </Center> <br />
+                            {
+                              !loading ? <Button
+                                bg={'#1877f2'}
+                                color={'white'}
+                                _hover={{
+                                  bg: 'blue.500',
+                                }}
+                                onClick={() => handleVerifyOtp()}
+                              >Verify & Login</Button> :
+                                <Button
+                                  isLoading
+                                  loadingText='Please wait...'
+                                  colorScheme='blue'
+                                  variant='outline'
+                                >
+                                  Verify
+                                </Button>
+                            }
+                          </Box>
+                        }
                       </ModalBody>
                       <ModalFooter>
 

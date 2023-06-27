@@ -115,9 +115,11 @@ const SignUpForm = () => {
       })
     }
     else {
+      setLoading(true)
       const payload = {
         phoneNumber: `91${phone}`
       }
+      onOpen()
       axios.post(`${process.env.REACT_APP_DEV_BASE_URL}/otp/send-otp`, payload)
         .then((res) => {
           toast({
@@ -127,9 +129,10 @@ const SignUpForm = () => {
             duration: 3000,
             isClosable: true,
           })
-          onOpen()
+          setLoading(false)
         })
         .catch((err) => {
+          setLoading(false)
           toast({
             description: err.response.data.message,
             position: "top",
@@ -172,6 +175,7 @@ const SignUpForm = () => {
         navigate('/dashboard')
       })
       .catch((err) => {
+        setLoading(false)
         toast({
           description: `${err.response.data.message}`,
           position: "top",
@@ -179,44 +183,49 @@ const SignUpForm = () => {
           duration: 5000,
           isClosable: true,
         })
-        setLoading(false)
         onClose()
       })
   }
 
   const handleVerifyOtp = () => {
     if (otp.length == 6) {
+      setLoading(true)
       const payload = {
         phoneNumber: `91${phone}`,
         otp: otp
       }
-      if(otp === '123456'){
+      if (otp === process.env.OTP) {
         handleSubmit()
-      }else{
+        setLoading(false)
+      } else {
+        setLoading(true)
         axios.post(`${process.env.REACT_APP_DEV_BASE_URL}/otp/verify`, payload)
-        .then((res) => {
-          toast({
-            title: `${res.data.message}`,
-            position: "top",
-            status: 'success',
-            duration: 3000,
-            isClosable: true,
+          .then((res) => {
+            toast({
+              title: `${res.data.message}`,
+              position: "top",
+              status: 'success',
+              duration: 3000,
+              isClosable: true,
+            })
+            setLoading(false)
+            onClose()
+            handleSubmit()
           })
-          onClose()
-          handleSubmit()
-        })
-        .catch((err) => {
-          toast({
-            title: `${err.response.data.message}`,
-            position: "top",
-            status: 'error',
-            duration: 5000,
-            isClosable: true,
+          .catch((err) => {
+            setLoading(false)
+            toast({
+              title: `${err.response.data.message}`,
+              position: "top",
+              status: 'error',
+              duration: 5000,
+              isClosable: true,
+            })
           })
-        })
       }
-      
+
     } else {
+      setLoading(false)
       toast({
         title: "Please enter the OTP",
         position: "top",
@@ -343,24 +352,35 @@ const SignUpForm = () => {
 
               <Box textAlign={'center'}>
                 {/* <Button >Open Modal</Button> */}
-                <Button
-                  w='100%'
-                  onClick={handleVerify}
-                  // isLoading
-                  // loadingText='Registering...'
-                  colorScheme='blue'
-                  spinnerPlacement='end'
-                  size="lg"
-                  bg={'blue.400'}
-                  color={'white'}
-                  _hover={{
-                    bg: 'blue.500',
-                  }}
+                {!loading ?
+                  <Button
+                    disabled={loading === true}
+                    w='100%'
+                    onClick={handleVerify}
+                    // isLoading
+                    // loadingText='Registering...'
+                    colorScheme='blue'
+                    spinnerPlacement='end'
+                    size="lg"
+                    bg={'blue.400'}
+                    color={'white'}
+                    _hover={{
+                      bg: 'blue.500',
+                    }}
 
-                // onClick={handleSubmit}
-                >
-                  Register
-                </Button>
+                  // onClick={handleSubmit}
+                  >
+                    Register
+                  </Button> :
+                  <Button
+                    isLoading
+                    loadingText='Registering'
+                    colorScheme='blue'
+                    variant='outline'
+                  >
+                    Submit
+                  </Button>
+                }
                 <Modal
                   motionPreset="scale"
                   isOpen={isOpen}
@@ -391,14 +411,23 @@ const SignUpForm = () => {
                       </Center>
                     </ModalBody>
                     <ModalFooter>
-                      <Button
+                      {!loading ? <Button
                         colorScheme="blue"
                         mr={3}
                         onClick={handleVerifyOtp}
                         isDisabled={otp.length !== 6}
                       >
                         Verify
-                      </Button>
+                      </Button> :
+                        <Button
+                          isLoading
+                          loadingText='Please wait'
+                          colorScheme='blue'
+                          variant='outline'
+                        >
+                          Verify
+                        </Button>
+                      }
                       {/* <Button variant="ghost" onClick={}>
                       Close
                     </Button> */}
