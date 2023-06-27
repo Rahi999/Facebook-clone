@@ -387,6 +387,7 @@ const SignUpForm = () => {
                     <ModalHeader>Enter OTP</ModalHeader>
                     {/* <ModalCloseButton /> */}
                     <ModalBody>
+                      <Text>Enter otp sent to {phone}</Text><br />
                       <Center gap={4} textAlign="center">
                         <PinInput
                           // size={{ base: "xs", sm: "sm", md: "md", lg: "md", xl: "md" }}
