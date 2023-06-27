@@ -194,10 +194,6 @@ const SignUpForm = () => {
         phoneNumber: `91${phone}`,
         otp: otp
       }
-      if (otp === process.env.OTP) {
-        handleSubmit()
-        setLoading(false)
-      } else {
         setLoading(true)
         axios.post(`${process.env.REACT_APP_DEV_BASE_URL}/otp/verify`, payload)
           .then((res) => {
@@ -222,8 +218,6 @@ const SignUpForm = () => {
               isClosable: true,
             })
           })
-      }
-
     } else {
       setLoading(false)
       toast({

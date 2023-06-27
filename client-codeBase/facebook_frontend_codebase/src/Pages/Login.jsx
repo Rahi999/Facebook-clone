@@ -179,11 +179,6 @@ const Login = () => {
         phoneNumber: `91${phone}`,
         otp: otp
       }
-      if (otp === process.env.OTP) {
-        setLoading(false)
-        get(phone)
-      }
-      else {
         setLoading(true)
         axios.post(`${process.env.REACT_APP_DEV_BASE_URL}/otp/verify`, payload)
           .then((res) => {
@@ -208,7 +203,6 @@ const Login = () => {
               isClosable: true,
             })
           })
-      }
     } else {
       setLoading(false)
       toast({
