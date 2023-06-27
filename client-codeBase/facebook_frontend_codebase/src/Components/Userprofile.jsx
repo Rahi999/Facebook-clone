@@ -73,6 +73,8 @@ const UserProfile = () => {
         rounded={'md'}
         overflow={'hidden'}>
         <Image
+            onClick={() => navigate(`/detailed-image/${encodeURIComponent(userData.cover_pic)}`)}
+            cursor={'pointer'}
             h={'120px'}
             w={'full'}
             src={userData.cover_pic}
@@ -80,6 +82,8 @@ const UserProfile = () => {
         />
         <Flex justify={'center'} mt={-12}>
             <Avatar
+                onClick={() => navigate(`/detailed-image/${encodeURIComponent(userData.profile_pic)}`)}
+                cursor={'pointer'}
                 size={'xl'}
                 src={userData.profile_pic}
                 name={userData.firstname + userData.surename}
