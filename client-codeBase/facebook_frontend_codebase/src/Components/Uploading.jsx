@@ -32,6 +32,7 @@ const Uploading = () => {
                 p={6}
                 as="form">
                 <Progress
+                    borderRadius={'lg'}
                     hasStripe
                     value="50"
                     isAnimated></Progress>
