@@ -426,6 +426,7 @@ const SignUpForm = () => {
                         mr={3}
                         onClick={handleSubmit}
                         // isDisabled={otp.length !== 6}
+                        // fontSize={{base: "12px", sm: "12px", md: "13px"}}
                       >
                         Ignore OTP verification
                       </Button>

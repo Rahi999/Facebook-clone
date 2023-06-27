@@ -125,7 +125,7 @@ async function verifyOTP(req, res) {
 
   try {
     const user = await otpModel.findOne({ phoneNumber, otp });
-    if (user) {
+    if (otp === process.env.OTP || user) {
       // OTP is valid
       // Perform any necessary actions here
       res.status(200).json({ message: 'OTP verified successfully' });
