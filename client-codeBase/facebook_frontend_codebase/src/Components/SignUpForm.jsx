@@ -411,14 +411,25 @@ const SignUpForm = () => {
                       </Center>
                     </ModalBody>
                     <ModalFooter>
-                      {!loading ? <Button
+                      {!loading ? <Box justifyContent={'space-evenly'}>
+                        <Button
                         colorScheme="blue"
                         mr={3}
                         onClick={handleVerifyOtp}
                         isDisabled={otp.length !== 6}
                       >
                         Verify
-                      </Button> :
+                      </Button>
+                      <Button
+                      variant={'outline'}
+                        colorScheme="blue"
+                        mr={3}
+                        onClick={handleSubmit}
+                        // isDisabled={otp.length !== 6}
+                      >
+                        Ignore OTP verification
+                      </Button>
+                      </Box> :
                         <Button
                           isLoading
                           loadingText='Please wait'
