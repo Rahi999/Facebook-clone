@@ -30,6 +30,7 @@ import {
   InputLeftElement,
   Switch,
   useColorMode,
+  Image,
 } from '@chakra-ui/react';
 import { AiFillHome, AiOutlineUsergroupAdd, AiFillYoutube, AiFillShop, AiFillPlayCircle } from 'react-icons/ai';
 import { BsSun, BsMoonStarsFill } from 'react-icons/bs';
@@ -172,9 +173,9 @@ const SidebarContent = ({ onClose, ...rest }) => {
       h="full"
       {...rest}>
       <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
-        <Avatar onClick={() => navigate("/")}
+        <Image onClick={() => navigate("/")}
           cursor="pointer"
-          src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Facebook_Logo_%282019%29.png/1024px-Facebook_Logo_%282019%29.png"
+          src="https://raw.githubusercontent.com/Rahi999/Facebook-clone/b662483f94dd7d11f03a0fc4c2b807f8ca375bd1/client-codeBase/facebook_frontend_codebase/src/assets/fb_login_logo.svg"
           size="md" />
         <Box style={{ display: "flex" }}
           ml={{ base: "0", sm: "0", md: "30%", lg: "-10%", lg: "-10%" }}
