@@ -416,14 +416,14 @@ const SignUpForm = () => {
                         Verify
                       </Button>
                       <Button
-                      variant={'outline'}
-                        colorScheme="blue"
+                      // variant={''}
+                        colorScheme="green"
                         mr={3}
                         onClick={handleSubmit}
                         // isDisabled={otp.length !== 6}
                         // fontSize={{base: "12px", sm: "12px", md: "13px"}}
                       >
-                        Ignore OTP verification
+                        Ignore OTP Verification
                       </Button>
                       </Box> :
                         <Button
