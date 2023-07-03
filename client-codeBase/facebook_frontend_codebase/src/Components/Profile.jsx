@@ -121,10 +121,11 @@ const Profile = () => {
                 { headers: { "Authorization": `${token}` } }
             )
                 .then((res) => {
+                    // console.log(res.data)
                     toast({
                         description: res.data.message,
                         position: "top",
-                        status: 'sucess',
+                        status: "success",
                         duration: 3000,
                     })
                     getUserprofile()
@@ -177,7 +178,6 @@ const Profile = () => {
                         rounded="full"
                         border="0px"
                         top="50px"
-                        colorScheme="blue"
                         aria-label="edit Image"
                         icon={<EditIcon />}
                         onClick={handleEditClick}
@@ -197,7 +197,7 @@ const Profile = () => {
             {loading && <Uploading />}
             {cloudinaryImage && <Button
                 onClick={() => handleSave()}
-                title="Sabe"
+                title="Save"
                 marginTop="10%"
                 width="70%"
                 flex={1}
