@@ -3,21 +3,25 @@ import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
 import SideBar from "./SideBar";
 import { getCookies } from "../utils/getData";
+import Loading from "./Loading";
 
 const Trending = () => {
   const [videos, setVideos] = useState(null);
+  const [loading, setLoading] = useState(false)
   const token = getCookies("fb_token");
 
   useEffect(() => {
+    setLoading(true)
     axios
       .get(`${process.env.REACT_APP_DEV_BASE_URL}/story/getAll`, {
         headers: { Authorization: `${token}` },
       })
       .then((res) => {
         setVideos(res.data);
-        console.log(res.data);
+        // console.log(res.data);
+        setLoading(false)
       })
-      .catch((err) => console.log(err));
+      .catch((err) => setLoading(false));
   }, []);
 
   const videoRefs = useRef([]);
@@ -39,7 +43,7 @@ const Trending = () => {
     });
   }, [isPlaying]);
 
-  return (
+  return loading ? (<Loading />) : (
     <>
       <SideBar
         children={
