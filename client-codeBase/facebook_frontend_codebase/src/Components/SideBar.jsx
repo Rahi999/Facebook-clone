@@ -53,12 +53,13 @@ import FbTabs from "./Tabs"
 import { BiCommentDetail } from 'react-icons/bi';
 import { FaUsers } from 'react-icons/fa';
 const theme = localStorage.getItem('chakra-ui-color-mode')
+
 const boxStyle = {
   border: theme === "light" ? "3px solid transparent" : "3px solid transparent",
 };
 
 const bgStyle = {
-  backgroundColor: theme === "light" ? "white" : "black",
+  // backgroundColor: theme === "light" ? "white" : "black",
 };
 
 const userId = getCookies("userId")
