@@ -16,6 +16,7 @@ const Dashboard = () => {
     if (!token) {
       navigate("/login")
     }
+    document.title = "Facebook | Dashboard"
   }, [])
 
   const logout = () => {

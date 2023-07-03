@@ -1,5 +1,5 @@
 import { Avatar, Box, Button, Flex, Input, useToast } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { getCookies } from "../utils/getData";
 import axios from "axios";
 
@@ -21,6 +21,10 @@ const AddComment = ({postId, profile_pic, getPost}) => {
         hour12: true
     };
     const formattedDateTime = currentDateTime.toLocaleString('en-US', options);
+
+    useEffect(() => {
+      document.title = "Facebook | Add comments to your frient's post"
+    }, [])
 
   const handleCommentChange = (e) => {
     setNewComment(e.target.value);

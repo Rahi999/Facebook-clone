@@ -37,6 +37,7 @@ const Posts = () => {
             })
     }
     useEffect(() => {
+      document.title = "Facebook | Posts by your friends"
         if (userId && token) {
             getPosts()
         }

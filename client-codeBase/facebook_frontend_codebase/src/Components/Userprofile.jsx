@@ -63,6 +63,7 @@ const UserProfile = () => {
     }
 
     useEffect(() => {
+      document.title = "Facebook | Users' personal profile"
         getUserprofile()
     }, [])
     return userData ? (<Center py={6}><Box

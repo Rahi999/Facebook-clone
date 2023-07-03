@@ -104,6 +104,7 @@ const Messages = ({ senderId, receiverId }) => {
   };
 
   useEffect(() => {
+    document.title = "Facebook | Send messages to your friends"
     if (loading) {
       scrollToBottom()
     }

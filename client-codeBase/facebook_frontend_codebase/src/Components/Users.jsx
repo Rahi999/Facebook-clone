@@ -22,6 +22,7 @@ const Users = () => {
       })
     }
     useEffect(() => {
+      document.title = "Facebook | All facebook users"
         getUsers()
     }, [])
     return loading ? (<Loading />) : (

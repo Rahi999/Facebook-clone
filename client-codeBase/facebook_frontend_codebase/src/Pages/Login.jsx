@@ -54,6 +54,7 @@ const Login = () => {
     if (userId && token) {
       navigate("/dashboard")
     }
+    document.title = "Facebook | Login or SignUp"
   }, [])
 
   const handleLogin = (email, password) => {

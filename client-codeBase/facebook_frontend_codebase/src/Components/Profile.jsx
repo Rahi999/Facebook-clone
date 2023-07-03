@@ -108,6 +108,7 @@ const Profile = () => {
     }
 
     useEffect(() => {
+      document.title = "Facebook | Personal profile"
         getUserprofile()
     }, [])
 

@@ -18,6 +18,7 @@ const Chats = () => {
     const navigate = useNavigate()
 
     useEffect(() => {
+      document.title = "Facebook | Chat with your friends"
         if(token){
             setLoading(true);
         axios.get(`${process.env.REACT_APP_DEV_BASE_URL}/profile/getAllUsers`, { headers: { "Authorization": `${token}` } })

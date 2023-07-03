@@ -34,6 +34,7 @@ const Trending = () => {
   };
 
   useEffect(() => {
+    document.title = "Facebook | Trending stories by the creators"
     videoRefs.current.forEach((videoRef, index) => {
       if (isPlaying[index]) {
         videoRef.play();
