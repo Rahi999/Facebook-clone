@@ -8,6 +8,8 @@ import { Navigate, useNavigate, useParams } from 'react-router-dom';
 import Follow from './Follow';
 import { MdDelete } from 'react-icons/md';
 import { RiSendPlaneFill } from 'react-icons/ri';
+import { Menu, MenuButton, MenuList, MenuItem } from '@chakra-ui/react';
+import { FiMoreVertical } from 'react-icons/fi';
 
 const Messages = ({ senderId, receiverId }) => {
 
@@ -177,7 +179,6 @@ const Messages = ({ senderId, receiverId }) => {
               width="100%" align="flex-start" spacing={2} overflowY="auto" flex="1" pb={16}
               p='2' boxShadow={'rgba(0, 0, 0, 0.24) 0px 3px 8px'}>
               {messages.length > 1 ?
-
                 messages && messages.map((message) => (
                   <Flex key={message.id} justify={message.senderId == userId ? 'flex-end' : 'flex-start'} width="100%" gap={'1'}>
                     {message.senderId !== userId && (
@@ -231,13 +232,15 @@ const Messages = ({ senderId, receiverId }) => {
             {/* Message input */}
             <Box position="sticky" bottom={0} width="100%" p={4} backdropFilter="blur(8px)"
             >
-              <Flex >
-                <IconButton textAlign={'center'} mr='1'
-                  colorScheme="red"
-                  size="md"
-                  leftIcon={<MdDelete />}
-                  onClick={() => handleDelete()}
-                />
+              <Flex gap='1'>
+              <Box>
+              <Menu>
+      <MenuButton as={IconButton} icon={<FiMoreVertical />} variant="ghost" />
+      <MenuList>
+        <MenuItem onClick={()=> handleDelete()}>Delete All messages</MenuItem>
+      </MenuList>
+    </Menu>
+              </Box>
                 <Input
                   ref={inputRef}
                   placeholder="Type a message"
