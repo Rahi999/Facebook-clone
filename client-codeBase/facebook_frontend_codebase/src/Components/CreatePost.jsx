@@ -188,7 +188,7 @@ const CreatePost = ({getPosts, inputRef}) => {
                 </Flex>
 
                 <Flex as="label" htmlFor="upload-image" cursor="pointer" >
-                    <Image size="4rem" className="image" src="https://static.xx.fbcdn.net/rsrc.php/v3/yk/r/yMDS19UDsWe.png" />
+                    <Image size="4rem" className="image" src="https://github.com/Rahi999/Facebook-clone/blob/main/client-codeBase/facebook_frontend_codebase/src/assets/happy.png?raw=true" />
                     <Text fontSize={{base: "12px", sm: "13px", md: '14px', lg: "", xl: ""}} className="create-post-title">
                         Feeling/activity
                     </Text>
@@ -205,7 +205,8 @@ const CreatePost = ({getPosts, inputRef}) => {
                     {loading ? <Box width="100%"><Uploading /></Box> : image && (
                         <Box>
                             <Flex justifyContent="flex-end" cursor='pointer' onClick={() => setImage("")} title="Remove selected image">
-                                <Image width="8" src="https://www.freeiconspng.com/thumbs/close-button-png/close-button-png-27.png" alt="close-icon" />
+                                <Image width="8" src="https://github.com/Rahi999/Facebook-clone/blob/main/client-codeBase/facebook_frontend_codebase/src/assets/remove.png?raw=true"
+                                 alt="close-icon" />
                             </Flex>
                             <Box
                                 as="img"
