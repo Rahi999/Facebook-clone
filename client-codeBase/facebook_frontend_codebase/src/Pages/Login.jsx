@@ -247,7 +247,7 @@ const Login = () => {
     >
       <Box id="loginFirst">
         <Link to="/" >
-          <Image id="LoginLogo" src="https://static.xx.fbcdn.net/rsrc.php/y8/r/dF5SId3UHWd.svg" alt="Login Logo" />
+          <Image id="LoginLogo" src="https://raw.githubusercontent.com/Rahi999/Facebook-clone/b662483f94dd7d11f03a0fc4c2b807f8ca375bd1/client-codeBase/facebook_frontend_codebase/src/assets/fb_login_logo.svg" alt="Login Logo" />
         </Link>
         <Text id="LoginText">
           Facebook helps you connect and share with the people in your life.
