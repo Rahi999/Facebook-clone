@@ -6,6 +6,7 @@ import Users from "./Users";
 import { BiCommentDetail } from "react-icons/bi";
 import Chat from "./Chat";
 import Story from "./Story";
+import MobilePost from "../Pages/MobilePost";
 
 const FbTabs = () => {
     const [currentTab, setCurrentTab] = useState(0);
@@ -31,10 +32,11 @@ const FbTabs = () => {
                 </TabList>
 
                 <TabPanels mt={{ base: "30%", sm: "5%", md: "5%", lg: "0", xl: "0" }} >
-                    <TabPanel width={{ base: "100%", sm: "100%", md: "70%", lg: "100%", xl: "100%" }}
+                    <TabPanel width={{ base: "110%", sm: "110%", md: "70%", lg: "100%", xl: "100%" }}
                         marginLeft={{ base: "-10", sm: "-10", md: "0", lg: "0", xl: "0" }} position="relative"
                     >
-                        <Flex width={'100%'}>
+                        <Flex width={'105%'}>
+                            {/* <MobilePost /> */}
                             <Posts />
                             {/* <Users /> */}
                         </Flex>

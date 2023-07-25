@@ -275,7 +275,7 @@ const Login = () => {
                 <FormLabel>Password</FormLabel>
                 <InputGroup>
                   <Input type={showPassword ? 'text' : 'password'}
-                    placeholder='New password'
+                    placeholder='Password'
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                   />
