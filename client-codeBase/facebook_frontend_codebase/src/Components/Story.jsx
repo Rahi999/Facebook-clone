@@ -91,7 +91,7 @@ import { getCookies } from "../utils/getData";
                   // borderRadius='20px'
                 >
                   <Box
-                  onClickCapture={() => navigate(`/video/${encodeURIComponent(video.url)}`)}
+                    onClickCapture={() => navigate(`/video/${encodeURIComponent(video.url)}`)}
                     width="120px"
                     height="170px"
                     padding="1%"
