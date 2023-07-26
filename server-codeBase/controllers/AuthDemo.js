@@ -1,32 +1,32 @@
-const {AuthdemoSchema, authdemoModel} = require("../models/AuthDemo")
+const { AuthdemoSchema, authdemoModel } = require("../models/AuthDemo")
 const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken")
 require('dotenv').config()
 
 const postDemoData = async (req, res) => {
-    const {firstname, email, password, phone} = req.body; 
-    try{
-        if(!firstname || !email || !password || !phone) {
-            return res.status(403).json({message: "All fields are required!!"})
-        }else {
-            const demoData = new authdemoModel({...req.body})
+    const { firstname, email, password, phone } = req.body;
+    try {
+        if (!firstname || !email || !password || !phone) {
+            return res.status(403).json({ message: "All fields are required!!" })
+        } else {
+            const demoData = new authdemoModel({ ...req.body })
             demoData.save();
-            return res.status(200).json({message: "Added Successfully!!!"})
+            return res.status(200).json({ message: "Added Successfully!!!" })
         }
     }
-    catch(err){
+    catch (err) {
         console.log(err)
     }
 }
 
 const getData = async (req, res) => {
-    try{
+    try {
         const data = await authdemoModel.find({});
         res.send(data)
     }
-    catch(err){
+    catch (err) {
         console.log(err)
     }
 }
 
-module.exports = {getData, postDemoData}
+module.exports = { getData, postDemoData }

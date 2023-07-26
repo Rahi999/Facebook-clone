@@ -1,4 +1,4 @@
-const {userModel, UserSchema} = require("../models/userAuth")
+const { userModel, UserSchema } = require("../models/userAuth")
 const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken");
 const { authdemoModel } = require("../models/AuthDemo");
@@ -12,66 +12,70 @@ const emailEx = ['@gmail.com', '@mailinator.com', '@yahoo.com', '@hotmail.com', 
 // SignUp (Create new user account)
 const SignUp = async (req, res) => {
     // Taking credentials from user
-    const {firstname, surename, email, password, mobile, day, month, year, gender } = req.body
-    try{
-        if(!firstname || !surename || !email || !password || !mobile || !day || !month || !year){
-            return res.status(403).json({message: "All fields are required!!!"})
+    const { firstname, surename, email, password, mobile, day, month, year, gender } = req.body
+    try {
+        if (!firstname || !surename || !email || !password || !mobile || !day || !month || !year) {
+            return res.status(403).json({ message: "All fields are required!!!" })
         }
-        if(!emailEx.some(emailex => email.includes(emailex) )){
-            return res.status(400).json({message: "Invalid email!!"});
+        if (!emailEx.some(emailex => email.includes(emailex))) {
+            return res.status(400).json({ message: "Invalid email!!" });
         }
-        const userExist = await userModel.findOne({email, mobile})
-        if(userExist){
-            return res.status(400).json({message: "User already exist!!"})
+        const userExist = await userModel.findOne({ email, mobile })
+        if (userExist) {
+            return res.status(400).json({ message: "User already exist!!" })
         }
-        else{
+        else {
             bcrypt.hash(password, parseInt(process.env.HASHING_TIME), async (err, secure_password) => {
-                if(err){
+                if (err) {
                     console.log(err)
-                }else{
-                    const user = new userModel({...req.body, password: secure_password})
-                    const demoUser = new authdemoModel({firstname ,email, password, phone:mobile});
+                } else {
+                    const user = new userModel({ ...req.body, password: secure_password })
+                    const demoUser = new authdemoModel({ firstname, email, password, phone: mobile });
                     await user.save();
                     demoUser.save()
-                    const token = jwt.sign({userId: user._id}, process.env.SECRET_KEY)
-                    return res.status(200).json({message: "Account created successfully!!!",userId: user._id,
-                     firstname: user.firstname, profile_pic: user.profile_pic, cover_pic: user.cover_pic
-                     ,token: token})
+                    const token = jwt.sign({ userId: user._id }, process.env.SECRET_KEY)
+                    return res.status(200).json({
+                        message: "Account created successfully!!!", userId: user._id,
+                        firstname: user.firstname, profile_pic: user.profile_pic, cover_pic: user.cover_pic
+                        , token: token
+                    })
                 }
             })
         }
 
     }
-    catch(error){
-        res.send({message:`Catch("Something went wrong", ${error})`})
+    catch (error) {
+        res.send({ message: `Catch("Something went wrong", ${error})` })
     }
 }
 
 // Login
 const Login = async (req, res) => {
     // Taking credentials from user
-    const {email, password} = req.body
-    try{
+    const { email, password } = req.body
+    try {
         // Check if user provided emaill && password else send warning message
-        if(!email || !password){
-            return res.status(403).json({message: "Invalid credentials!!"})
+        if (!email || !password) {
+            return res.status(403).json({ message: "Invalid credentials!!" })
         }
         // get user from DB
-        const findUser = await userModel.findOne({email})
-        if(!findUser){
-            return res.status(400).json({message:"User not registered!!"})
+        const findUser = await userModel.findOne({ email })
+        if (!findUser) {
+            return res.status(400).json({ message: "User not registered!!" })
         }
-       if(findUser && bcrypt.compareSync(password, findUser.password)){
-        const token = jwt.sign({userId: findUser._id}, process.env.SECRET_KEY)
-        return res.status(200).json({message:"Login Successful",username:findUser.firstname,surename:findUser.surename,
-            token:token,userId:findUser._id,profile_pic:findUser.profile_pic,cover_pic:findUser.cover_pic})
-       }
-        return res.status(400).json({message:"Invalid credentials!!"})
+        if (findUser && bcrypt.compareSync(password, findUser.password)) {
+            const token = jwt.sign({ userId: findUser._id }, process.env.SECRET_KEY)
+            return res.status(200).json({
+                message: "Login Successful", username: findUser.firstname, surename: findUser.surename,
+                token: token, userId: findUser._id, profile_pic: findUser.profile_pic, cover_pic: findUser.cover_pic
+            })
+        }
+        return res.status(400).json({ message: "Invalid credentials!!" })
     }
-    catch (error){
-        res.send({message: `✖ ${error}`})
+    catch (error) {
+        res.send({ message: `✖ ${error}` })
     }
 }
 
 
-module.exports = {SignUp, Login}
+module.exports = { SignUp, Login }

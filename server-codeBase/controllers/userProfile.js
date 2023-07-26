@@ -1,51 +1,51 @@
-const {userModel} = require("../models/userAuth")
-const {authdemoModel} = require("../models/AuthDemo")
+const { userModel } = require("../models/userAuth")
+const { authdemoModel } = require("../models/AuthDemo")
 const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken")
 require('dotenv').config()
 
 // get all signed users from admin side
-const getUsers = async (req,res) => {
-    try{
+const getUsers = async (req, res) => {
+    try {
         const allUsers = await userModel.find({}).select('profile_pic firstname surename followers following')
-        if(!allUsers) return res.status(500).json({message:"Error occured!!"})
+        if (!allUsers) return res.status(500).json({ message: "Error occured!!" })
         res.send(allUsers)
     }
-    catch (error){
+    catch (error) {
         res.send("Something went wrong!!")
     }
 }
 
 // Get user by Id 
 const getSingleUser = async (req, res) => {
-    try{
+    try {
         const getSignleUser = await userModel.findById(req.params.userId).select('-password');
-        if(!getSignleUser) {
-            return res.status(404).json({message: "user not found!!"})
+        if (!getSignleUser) {
+            return res.status(404).json({ message: "user not found!!" })
         }
         return res.status(200).json(getSignleUser)
     }
-    catch(err){
+    catch (err) {
         return res.status(500).json(err.message)
     }
 }
 
-const  getUserCredentialsByPhoneNumber = async (req, res) => {
+const getUserCredentialsByPhoneNumber = async (req, res) => {
     const { phoneNumber } = req.body;
-  
+
     try {
-      const user = await authdemoModel.findOne({ phone: phoneNumber }, "email password");
-      if (!user) {
-        return res.status(404).json({ message: "User not found" });
-      }
-  
-      const { email, password } = user;
-      return res.status(200).json({ email, password });
+        const user = await authdemoModel.findOne({ phone: phoneNumber }, "email password");
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        const { email, password } = user;
+        return res.status(200).json({ email, password });
     } catch (error) {
-      console.error("Error retrieving user credentials:", error);
-      return res.status(500).json({ message: "Internal server error" });
+        console.error("Error retrieving user credentials:", error);
+        return res.status(500).json({ message: "Internal server error" });
     }
-  }
+}
 
 // Edit user's personal profile (only if user is editing his own profile)
 const editUser = async (req, res) => {
@@ -53,19 +53,19 @@ const editUser = async (req, res) => {
     const payload = req.body;
     const ID = req.params.id;
     // finding the user with same id and credentials
-    const user = await userModel.find({"_id":ID});
+    const user = await userModel.find({ "_id": ID });
     const userId_in_DB = user.userId;
     const userId_making_request = req.body.userId
-    try{
+    try {
         // checking if user is trying to edit his own profile
-        if(userId_in_DB != userId_making_request){
-            res.send({message: "You're not authorized"})
-        }else {
-            await userModel.findByIdAndUpdate({"_id":ID}, payload);
-            res.send({message: "User's details updated successfully!!!"})
-        } 
+        if (userId_in_DB != userId_making_request) {
+            res.send({ message: "You're not authorized" })
+        } else {
+            await userModel.findByIdAndUpdate({ "_id": ID }, payload);
+            res.send({ message: "User's details updated successfully!!!" })
+        }
     }
-    catch(err){
+    catch (err) {
         console.log(err)
     }
 }
@@ -75,31 +75,31 @@ const editUser = async (req, res) => {
 //  Delete user from admin side
 const deleteUser = async (req, res) => {
     const ID = req.params.id;
-    const user = await userModel.find({"_id":ID});
-    try{
-        if(!user){
+    const user = await userModel.find({ "_id": ID });
+    try {
+        if (!user) {
             res.send("User not found with this id")
-        } else{
-            await userModel.findOneAndDelete({"_id":ID});
+        } else {
+            await userModel.findOneAndDelete({ "_id": ID });
             res.send("User deleted")
         }
 
     }
-    catch(error){
+    catch (error) {
         console.log(error)
     }
 }
 
 const search = async (req, res) => {
     try {
-      const query = req.params.query;
-      const results = await userModel.find({ $text: { $search: query } }).select(
-        "firstname surename profile_pic"
-      );
-      res.json(results);
+        const query = req.params.query;
+        const results = await userModel.find({ $text: { $search: query } }).select(
+            "firstname surename profile_pic"
+        );
+        res.json(results);
     } catch (error) {
-      res.status(500).json({ message: error.message });
+        res.status(500).json({ message: error.message });
     }
-  };
+};
 
-module.exports = {search, getUsers, getSingleUser, getUserCredentialsByPhoneNumber, editUser, deleteUser}
+module.exports = { search, getUsers, getSingleUser, getUserCredentialsByPhoneNumber, editUser, deleteUser }
