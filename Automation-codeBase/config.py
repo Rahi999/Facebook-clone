@@ -18,7 +18,7 @@ class ClientEnum(BaseEnumClass):
 
 @unique
 class ClientNameEnum(BaseEnumClass):
-    onwards = "onwards"
+    onwards = "classes"
 
 
 @unique
