@@ -1,9 +1,8 @@
 import logging
 import os
 import urllib.parse
-
+from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
-
 from pages import BasePageClass
 
 
@@ -56,7 +55,7 @@ class LoginPageClass(BasePageClass):
         return self.click_on_element(self._REGISTER_BUTTON_LOCATOR, 0)
 
     def sign_up_email_mandate(self):
-        email = os.getenv('')
+        email = os.getenv('EMAIL')
         self.enter_field_input(self._SIGN_UP_EMAIL_ADDRESS_INPUT_LOCATOR, email)
         self.wait_it_out(2)
         return self.click_on_element(self._REGISTER_BUTTON_LOCATOR, 0)
@@ -103,6 +102,8 @@ class LoginPageClass(BasePageClass):
         return self.click_on_element(self._SHOW_PASSWORD_BUTTON_LOCATOR, 0)
 
     def remember_me_checkbox_works(self):
+        self.wait_it_out(5)
+        self.click_on_element(self._SHOW_PASSWORD_BUTTON_LOCATOR, 0)
         self.wait_it_out(2)
         return self.click_on_element(self._REMEMBER_ME_CHECKBOX_LOCATOR, 0)
 
@@ -144,6 +145,16 @@ class LoginPageClass(BasePageClass):
         return self.click_on_element(self._VERIFY_AND_LOGIN_BUTTON_LOCATOR)
 
     def dashboard_url_validation(self):
-        dashboard_url = os.getenv('DASHBOARD')
-        self.wait_it_out(5)
+        dashboard_url = os.getenv('DASHBOARD_URL')
+        self.wait_it_out(10)
         return dashboard_url in self.get_current_url()
+
+    def valid_login_password_validation(self):
+        password = os.getenv('PASSWORD')
+        self.enter_field_input(self._PASSWORD_INPUT_LOCATOR, Keys.CONTROL+'a')
+        self.enter_field_input(self._PASSWORD_INPUT_LOCATOR, Keys.BACKSPACE)
+        return self.enter_field_input(self._PASSWORD_INPUT_LOCATOR, password)
+
+    def click_on_login_button(self):
+        self.wait_it_out(2)
+        return self.click_on_element(self._LOGIN_BUTTON_LOCATOR, 0)
