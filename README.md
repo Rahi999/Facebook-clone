@@ -38,6 +38,7 @@
 <ul>
   <li>Social SignUp,</li>
   <li>Social Login ,</li>
+  <li>More... ,</li>
 </ul>
 <hr />
 
