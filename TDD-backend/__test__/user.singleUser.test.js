@@ -1,4 +1,4 @@
-const {validateSingleUserResponseBody} = require("../controllers/singleUser");
+const {validateSingleUserResponseBody} = require("../utils/singleUser");
 
 describe("Get single user API route test", () => {
     describe("Single user api body validation", () => {
