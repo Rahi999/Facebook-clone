@@ -7,19 +7,19 @@ describe("Get single user API route test", () => {
             expect(getSingleUserStatusCode).toBe(true);
         })
         test("Response body should have the valid firstname data", async () => {
-            const firstNameResponseBody = await validateSingleUserResponseBody("firstname", "Rahi");
+            const firstNameResponseBody = await validateSingleUserResponseBody("firstname", process.env.FIRSTNAME);
             expect(firstNameResponseBody).toBe(true)
         })
         test("First response body should have the valid email data", async () => {
-            const userEmailResponseBody = await validateSingleUserResponseBody("email", "ahilh871@gmail.com");
+            const userEmailResponseBody = await validateSingleUserResponseBody("email", process.env.EMAIL);
             expect(userEmailResponseBody).toBe(true);
         })
         test("First response body should have the valid phone", async () => {
-            const userPhoneResponseBody = await validateSingleUserResponseBody("phone", 8084216452);
+            const userPhoneResponseBody = await validateSingleUserResponseBody("phone", Number(process.env.PHONE));
             expect(userPhoneResponseBody).toBe(true)
         })
         test("First response body should have the valid id", async () => {
-            const userIdResponseBody = await validateSingleUserResponseBody("_id", "64a3f8ea9e295db4a9bb5aec");
+            const userIdResponseBody = await validateSingleUserResponseBody("_id", process.env.ID);
             expect(userIdResponseBody).toBe(true)
         })
         it("Should have the header content type as application/json", async () => {
