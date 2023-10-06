@@ -1,6 +1,7 @@
+require('dotenv').config();
 const request = require("supertest");
 
-const base_url = "http://localhost:8080";
+const base_url = process.env.BASE_URL;
 
 const validateSingleUserResponseBody = async (key, value) => {
     const response = await request(base_url).get("/users/secure/getDemoDatas");
@@ -8,4 +9,9 @@ const validateSingleUserResponseBody = async (key, value) => {
     return responseBody[key] === value
 }
 
-module.exports = {validateSingleUserResponseBody}
+const singleUserHeaderValidation = async (headerName, headerValue) => {
+    const response = await request(base_url).get("/users/secure/getDemoDatas");
+    return response.headers[headerName] === headerValue;
+}
+
+module.exports = {validateSingleUserResponseBody, singleUserHeaderValidation}
