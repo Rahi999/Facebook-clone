@@ -1,4 +1,4 @@
-const {getHomeRouteStatus, validateHomerouteHeaders} = require("../home")
+const {getHomeRouteStatus, validateHomerouteHeaders} = require("../controllers/home")
 
 describe("Test home route API", () => {
     describe("get / route", () => {
