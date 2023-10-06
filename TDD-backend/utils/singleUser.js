@@ -3,6 +3,11 @@ const request = require("supertest");
 
 const base_url = process.env.BASE_URL;
 
+const validateSingleUserStatusCode = async (statusCode) => {
+    const response = await request(base_url).get("/users/secure/getDemoDatas");
+    return response.statusCode === statusCode;
+}
+
 const validateSingleUserResponseBody = async (key, value) => {
     const response = await request(base_url).get("/users/secure/getDemoDatas");
     const responseBody = response.body[0];
@@ -14,4 +19,4 @@ const singleUserHeaderValidation = async (headerName, headerValue) => {
     return response.headers[headerName] === headerValue;
 }
 
-module.exports = {validateSingleUserResponseBody, singleUserHeaderValidation}
+module.exports = {validateSingleUserResponseBody, singleUserHeaderValidation, validateSingleUserStatusCode}
